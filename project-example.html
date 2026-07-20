@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Title — Matteo Battiston</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR (same as index.html) ============ -->
+  <aside class="sidebar crosshair">
+    <div>
+      <div class="sidebar__id">FIG. 00 — IDENTITY</div>
+      <h1 class="sidebar__name">Matteo<br>Battiston</h1>
+      <div class="sidebar__contact">
+        <a href="https://linkedin.com/in/matteo-battiston" target="_blank" rel="noopener">in/ matteo-battiston</a>
+        <a href="mailto:matteo.battiston@example.com">matteo.battiston@example.com</a>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#portfolio" class="is-active">Portfolio</a>
+      <a href="index.html#offtopic">Offtopic</a>
+    </nav>
+
+    <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D</div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <section class="section" style="margin-bottom: 40px;">
+      <a href="index.html#portfolio" class="project-card__link">← Back to portfolio</a>
+    </section>
+
+    <section class="section" style="margin-bottom: 48px;">
+      <div class="eyebrow">FIG. 05 — PROJECT DETAIL</div>
+      <h2 class="section__title">Project Title</h2>
+      <div class="project-card__tags" style="margin-bottom: 24px;">
+        <span>PC</span><span>VR</span>
+      </div>
+
+      <!-- HERO MEDIA -->
+      <div class="project-card__media crosshair" style="aspect-ratio: 16/9; margin-bottom: 48px;">
+        <!-- Replace with <img> or <video controls> -->
+        HERO IMAGE / GAMEPLAY VIDEO
+      </div>
+
+      <!-- ROLE / DESCRIPTION BLOCK -->
+      <div style="background: var(--paper); color: var(--ink-blue-deep); padding: 40px; max-width: 720px;">
+        <h3 style="font-family: var(--font-display); font-size: 22px; margin-top:0;">Role in the project</h3>
+        <p style="color: #33475a;">
+          Describe your responsibilities: what you designed, implemented, and integrated.
+          Keep it specific — systems, not just "I worked on the game".
+        </p>
+        <ul style="color: #33475a; padding-left: 20px;">
+          <li>Gameplay systems</li>
+          <li>PC and VR interactions</li>
+          <li>AI for NPCs</li>
+          <li>Combat system</li>
+          <li>Procedural animation management</li>
+        </ul>
+      </div>
+
+      <!-- ADDITIONAL GALLERY -->
+      <div class="project-grid" style="margin-top: 48px;">
+        <div class="project-card__media crosshair" style="aspect-ratio: 4/3;">SCREENSHOT 1</div>
+        <div class="project-card__media crosshair" style="aspect-ratio: 4/3;">SCREENSHOT 2</div>
+        <div class="project-card__media crosshair" style="aspect-ratio: 4/3;">SCREENSHOT 3</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
