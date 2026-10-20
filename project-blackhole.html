@@ -5,11 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <title>Black Hole Render - Matteo Battiston</title>
+<meta name="description" content="Standalone Blender render exploring gravitational lensing with shaders and geometry nodes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Black Hole Render - Matteo Battiston">
+<meta property="og:description" content="Standalone Blender render exploring gravitational lensing with shaders and geometry nodes.">
+<meta property="og:image" content="https://pcmatteo01.github.io/assets/blackhole/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="project-page">
 
 <div class="layout">
 
@@ -21,6 +27,7 @@
       <div class="sidebar__contact">
         <a href="https://www.linkedin.com/in/battiston-matteo/" target="_blank" rel="noopener">in/ battiston-matteo</a>
         <a href="https://sketchfab.com/battistonmatteo" target="_blank" rel="noopener">sketchfab/ battistonmatteo</a>
+        <a href="https://github.com/PCMatteo01" target="_blank" rel="noopener">github/ PCMatteo01</a>
         <a href="mailto:battistonmatteo.work@gmail.com">battistonmatteo.work@gmail.com</a>
       </div>
     </div>
@@ -28,8 +35,8 @@
     <nav class="sidebar__nav">
       <a href="index.html#home">Home</a>
       <a href="index.html#about">About</a>
-      <a href="index.html#portfolio" class="is-active">Portfolio</a>
-      <a href="index.html#offtopic">Offtopic</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#models" class="is-active">3D Models</a>
     </nav>
 
     <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D</div>
@@ -38,25 +45,38 @@
   <!-- ============ MAIN ============ -->
   <main class="main">
 
-    <section class="section" style="margin-bottom: 40px;">
-      <a href="index.html#portfolio" class="project-card__link">← Back to portfolio</a>
+    <section class="section project-topbar">
+      <a href="index.html#models" class="project-topbar__back">← Back to 3D models</a>
+      <a href="mailto:battistonmatteo.work@gmail.com" class="project-topbar__contact">Matteo Battiston · Contact</a>
     </section>
 
     <section class="section" style="margin-bottom: 48px;">
-      <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
-      <h2 class="section__title">Black Hole Render</h2>
-      <div class="project-card__tags" style="margin-bottom: 24px;">
-        <span>3D</span>
+      <div class="project-intro">
+        <div class="project-intro__text">
+        <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
+        <h2 class="section__title">Black Hole Render</h2>
+        <div class="project-card__tags" style="margin-bottom: 24px;">
+          <span>3D</span>
+        </div>
+        <dl class="project-facts">
+          <div><dt>Type</dt><dd>Personal study</dd></div>
+          <div><dt>Tool</dt><dd>Blender</dd></div>
+          <div><dt>Techniques</dt><dd>Shaders, geometry nodes</dd></div>
+        </dl>
+        </div>
+        <div class="project-intro__media">
+      <div class="project-card__media crosshair" style="aspect-ratio: 16/9;">
+          <video src="assets/blackhole/hero.mp4" autoplay muted loop playsinline></video>
+        </div>
+        </div>
       </div>
-      <p style="max-width: 900px;">
-        A standalone render exploring gravitational lensing, in the style of Interstellar's Gargantua.
-        Built entirely in Blender using shaders and geometry nodes, following
-        <a href="https://www.youtube.com/watch?v=XWv1Ajc3tfU" target="_blank" rel="noopener">this tutorial</a>.
-        It isn't tied to any project or game, just a personal study of the effect.
-      </p>
-
-      <div class="project-card__media crosshair" style="aspect-ratio: 16/9; margin-bottom: 8px;">
-        <video src="assets/blackhole/hero.mp4" autoplay muted loop playsinline></video>
+      <div class="project-intro__body">
+        <p style="max-width: 900px;">
+          A standalone render exploring gravitational lensing, in the style of Interstellar's Gargantua.
+          Built entirely in Blender using shaders and geometry nodes, following
+          <a href="https://www.youtube.com/watch?v=XWv1Ajc3tfU" target="_blank" rel="noopener">this tutorial</a>.
+          It isn't tied to any project or game, just a personal study of the effect.
+        </p>
       </div>
     </section>
 
@@ -78,6 +98,10 @@
       </div>
     </section>
 
+    <nav class="project-pager" aria-label="Other projects">
+      <a href="project-lastgunner.html" class="project-pager__link"><span>← Previous project</span>The Last Gunner: No Way Out</a>
+      <a href="project-freezingcold.html" class="project-pager__link is-next"><span>Next project →</span>Freezing Cold</a>
+    </nav>
   </main>
 </div>
 

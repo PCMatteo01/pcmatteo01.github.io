@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <title>Matteo Battiston - Unity Developer Portfolio</title>
+<meta name="description" content="Unity developer building interactive systems for PC and VR. Selected projects: Project Normandia, The Last Gunner, Freezing Cold.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Matteo Battiston - Unity Developer Portfolio">
+<meta property="og:description" content="Unity developer building interactive systems for PC and VR. Selected projects: Project Normandia, The Last Gunner, Freezing Cold.">
+<meta property="og:image" content="https://pcmatteo01.github.io/assets/normandia/hero-soldier-kneeling.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -21,6 +27,7 @@
       <div class="sidebar__contact">
         <a href="https://www.linkedin.com/in/battiston-matteo/" target="_blank" rel="noopener">in/ battiston-matteo</a>
         <a href="https://sketchfab.com/battistonmatteo" target="_blank" rel="noopener">sketchfab/ battistonmatteo</a>
+        <a href="https://github.com/PCMatteo01" target="_blank" rel="noopener">github/ PCMatteo01</a>
         <a href="mailto:battistonmatteo.work@gmail.com">battistonmatteo.work@gmail.com</a>
       </div>
     </div>
@@ -28,8 +35,8 @@
     <nav class="sidebar__nav">
       <a href="#home" class="is-active">Home<span>01</span></a>
       <a href="#about">About<span>02</span></a>
-      <a href="#portfolio">Portfolio<span>03</span></a>
-      <a href="#offtopic">Offtopic<span>04</span></a>
+      <a href="#projects">Projects<span>03</span></a>
+      <a href="#models">3D Models<span>04</span></a>
     </nav>
 
     <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D</div>
@@ -47,7 +54,7 @@
         Unity developer focused on gameplay programming and interaction design.
         This is a showcase of selected projects, playable footage and breakdowns.
       </p>
-      <a href="#portfolio" class="hero__cta">View Portfolio →</a>
+      <a href="#projects" class="hero__cta">View Projects →</a>
     </section>
 
     <!-- ---------- ABOUT ---------- -->
@@ -81,17 +88,16 @@
       </div>
     </section>
 
-    <!-- ---------- PORTFOLIO ---------- -->
-    <section id="portfolio" class="section">
-      <div class="eyebrow">LAYER 03 - PORTFOLIO</div>
+    <!-- ---------- PROJECTS ---------- -->
+    <section id="projects" class="section">
+      <div class="eyebrow">LAYER 03 - PROJECTS</div>
       <h2 class="section__title">Selected projects.</h2>
-      <p class="section__lead">Filter by platform or discipline.</p>
+      <p class="section__lead">Games and interactive applications. Filter by platform.</p>
 
       <div class="filters" role="group" aria-label="Filter projects">
         <button class="filter-chip is-active" data-filter="all">All</button>
         <button class="filter-chip" data-filter="pc">PC</button>
         <button class="filter-chip" data-filter="vr">VR</button>
-        <button class="filter-chip" data-filter="3d">3D Model</button>
       </div>
 
       <div class="project-grid" id="project-grid">
@@ -118,18 +124,6 @@
             <h3 class="project-card__title">The Last Gunner: No Way Out</h3>
             <p class="project-card__desc">Wave-based survival shooter for PC and VR, built with a five-person team around VR interaction, game design, and audio.</p>
             <a href="project-lastgunner.html" class="project-card__link">View project →</a>
-          </div>
-        </article>
-
-        <article class="project-card" data-tags="3d">
-          <a href="project-blackhole.html" class="project-card__media">
-            <img src="assets/blackhole/hero.jpg" alt="Black hole render with a lensed accretion disk, in the style of Interstellar's Gargantua">
-          </a>
-          <div class="project-card__body">
-            <div class="project-card__tags"><span>3D Model</span></div>
-            <h3 class="project-card__title">Black Hole Render</h3>
-            <p class="project-card__desc">Standalone Blender render exploring gravitational lensing with shaders and geometry nodes.</p>
-            <a href="project-blackhole.html" class="project-card__link">View project →</a>
           </div>
         </article>
 
@@ -162,7 +156,89 @@
       </div>
     </section>
 
-    <!-- ---------- OFFTOPIC ---------- -->
+    <!-- ---------- 3D MODELS ---------- -->
+    <section id="models" class="section">
+      <div class="eyebrow">LAYER 04 - 3D MODELS</div>
+      <h2 class="section__title">3D models.</h2>
+      <p class="section__lead">Real-time assets, mostly low-poly. Open a model to inspect it in 3D, or browse the full set on <a href="https://sketchfab.com/battistonmatteo" target="_blank" rel="noopener">Sketchfab</a>.</p>
+
+      <div class="project-grid" id="model-grid">
+        <article class="project-card model-card" data-sketchfab="95d9e90d6fa34e979f17756d9154b5d1" data-slug="psxps1-style-pine-tree" data-title="PSX Pine Tree">
+          <button type="button" class="project-card__media model-card__open" aria-label="View PSX Pine Tree in 3D">
+            <img src="https://media.sketchfab.com/models/95d9e90d6fa34e979f17756d9154b5d1/thumbnails/93d67b5d45944ebb8f11bb48878435d7/613f1046239a4528be34f5e5bbdde44c.jpeg" alt="PSX Pine Tree 3D model preview" loading="lazy">
+            <span class="model-card__badge">View in 3D</span>
+          </button>
+          <div class="project-card__body">
+            <div class="project-card__tags"><span>Low-poly</span><span>PSX</span></div>
+            <h3 class="project-card__title">PSX Pine Tree</h3>
+            <p class="project-card__desc">Low-poly pine tree in a PS1 style with hand-painted textures. Available to download on Sketchfab.</p>
+            <button type="button" class="project-card__link model-card__open">View in 3D →</button>
+          </div>
+        </article>
+        <article class="project-card model-card" data-sketchfab="f7814db5f7f54c948571c912be5ee073" data-slug="psx-tiger-1" data-title="PSX Tiger 1">
+          <button type="button" class="project-card__media model-card__open" aria-label="View PSX Tiger 1 in 3D">
+            <img src="https://media.sketchfab.com/models/f7814db5f7f54c948571c912be5ee073/thumbnails/28952f616bad4191a7e5295c1bf822d1/3368087cfdf6474085e2b4c3623f8d2c.jpeg" alt="PSX Tiger 1 3D model preview" loading="lazy">
+            <span class="model-card__badge">View in 3D</span>
+          </button>
+          <div class="project-card__body">
+            <div class="project-card__tags"><span>Low-poly</span><span>PSX</span></div>
+            <h3 class="project-card__title">PSX Tiger 1</h3>
+            <p class="project-card__desc">PS1-style Tiger I tank with hand-painted textures.</p>
+            <button type="button" class="project-card__link model-card__open">View in 3D →</button>
+          </div>
+        </article>
+        <article class="project-card model-card" data-sketchfab="de62f63833f34f199a2eb8b0692d025e" data-slug="marble-revolver" data-title="Marble Revolver">
+          <button type="button" class="project-card__media model-card__open" aria-label="View Marble Revolver in 3D">
+            <img src="https://media.sketchfab.com/models/de62f63833f34f199a2eb8b0692d025e/thumbnails/b7c66b82974a43a3b826fe336f73823a/cb81eef4aac5460d9fb58e28ba16821a.jpeg" alt="Marble Revolver 3D model preview" loading="lazy">
+            <span class="model-card__badge">View in 3D</span>
+          </button>
+          <div class="project-card__body">
+            <div class="project-card__tags"><span>Animated</span></div>
+            <h3 class="project-card__title">Marble Revolver</h3>
+            <p class="project-card__desc">Animated revolver with a marble finish.</p>
+            <button type="button" class="project-card__link model-card__open">View in 3D →</button>
+          </div>
+        </article>
+        <article class="project-card model-card" data-sketchfab="bdf1a1868dab44f68aa8a464490be3b4" data-slug="kiwi-bird" data-title="Kiwi (bird)">
+          <button type="button" class="project-card__media model-card__open" aria-label="View Kiwi (bird) in 3D">
+            <img src="https://media.sketchfab.com/models/bdf1a1868dab44f68aa8a464490be3b4/thumbnails/07d984931dd54c1da2998c7cddbba3b1/7d37fea7e75c47a090a8ae559ee58e35.jpeg" alt="Kiwi (bird) 3D model preview" loading="lazy">
+            <span class="model-card__badge">View in 3D</span>
+          </button>
+          <div class="project-card__body">
+            <div class="project-card__tags"><span>Animated</span></div>
+            <h3 class="project-card__title">Kiwi (bird)</h3>
+            <p class="project-card__desc">Animated kiwi bird.</p>
+            <button type="button" class="project-card__link model-card__open">View in 3D →</button>
+          </div>
+        </article>
+        <article class="project-card model-card" data-sketchfab="ab4ea7cf2f74448d99e1db59b30cf6b1" data-slug="soda-can" data-title="Soda Can">
+          <button type="button" class="project-card__media model-card__open" aria-label="View Soda Can in 3D">
+            <img src="https://media.sketchfab.com/models/ab4ea7cf2f74448d99e1db59b30cf6b1/thumbnails/a41b60538908497f9d26f6c5a62266b3/5a215b4f86744bbda88e83cfacc0c08f.jpeg" alt="Soda Can 3D model preview" loading="lazy">
+            <span class="model-card__badge">View in 3D</span>
+          </button>
+          <div class="project-card__body">
+            <div class="project-card__tags"><span>Prop</span></div>
+            <h3 class="project-card__title">Soda Can</h3>
+            <p class="project-card__desc">Soda can prop with hand-painted textures. Available to download on Sketchfab.</p>
+            <button type="button" class="project-card__link model-card__open">View in 3D →</button>
+          </div>
+        </article>
+
+        <article class="project-card" data-tags="3d">
+          <a href="project-blackhole.html" class="project-card__media">
+            <img src="assets/blackhole/hero.jpg" alt="Black hole render with a lensed accretion disk, in the style of Interstellar's Gargantua">
+          </a>
+          <div class="project-card__body">
+            <div class="project-card__tags"><span>Render</span></div>
+            <h3 class="project-card__title">Black Hole Render</h3>
+            <p class="project-card__desc">Standalone Blender render exploring gravitational lensing with shaders and geometry nodes.</p>
+            <a href="project-blackhole.html" class="project-card__link">View project →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Offtopic section hidden until real content is ready (re-add nav link too)
     <section id="offtopic" class="section">
       <div class="eyebrow">LAYER 04 - OFFTOPIC</div>
       <h2 class="section__title">Other things.</h2>
@@ -175,6 +251,7 @@
         <div class="offtopic__item">ITEM</div>
       </div>
     </section>
+    -->
 
   </main>
 </div>

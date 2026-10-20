@@ -5,12 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <title>The Last Gunner: No Way Out - Matteo Battiston</title>
+<meta name="description" content="Wave-based survival shooter for PC and VR, built with a five-person team.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Last Gunner: No Way Out - Matteo Battiston">
+<meta property="og:description" content="Wave-based survival shooter for PC and VR, built with a five-person team.">
+<meta property="og:image" content="https://pcmatteo01.github.io/assets/lastgunner/tank-farmyard-hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-lastgunner.css">
 </head>
-<body class="theme-lastgunner">
+<body class="theme-lastgunner project-page">
 
 <div class="layout">
 
@@ -22,6 +28,7 @@
       <div class="sidebar__contact">
         <a href="https://www.linkedin.com/in/battiston-matteo/" target="_blank" rel="noopener">in/ battiston-matteo</a>
         <a href="https://sketchfab.com/battistonmatteo" target="_blank" rel="noopener">sketchfab/ battistonmatteo</a>
+        <a href="https://github.com/PCMatteo01" target="_blank" rel="noopener">github/ PCMatteo01</a>
         <a href="mailto:battistonmatteo.work@gmail.com">battistonmatteo.work@gmail.com</a>
       </div>
     </div>
@@ -29,8 +36,8 @@
     <nav class="sidebar__nav">
       <a href="index.html#home">Home</a>
       <a href="index.html#about">About</a>
-      <a href="index.html#portfolio" class="is-active">Portfolio</a>
-      <a href="index.html#offtopic">Offtopic</a>
+      <a href="index.html#projects" class="is-active">Projects</a>
+      <a href="index.html#models">3D Models</a>
     </nav>
 
     <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D</div>
@@ -39,42 +46,55 @@
   <!-- ============ MAIN ============ -->
   <main class="main">
 
-    <section class="section" style="margin-bottom: 40px;">
-      <a href="index.html#portfolio" class="project-card__link">← Back to portfolio</a>
+    <section class="section project-topbar">
+      <a href="index.html#projects" class="project-topbar__back">← Back to projects</a>
+      <a href="mailto:battistonmatteo.work@gmail.com" class="project-topbar__contact">Matteo Battiston · Contact</a>
     </section>
 
     <section class="section" style="margin-bottom: 48px;">
-      <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
-      <div class="stamp">Warning: horde inbound</div>
-      <h2 class="section__title">The Last Gunner: No Way Out</h2>
-      <div class="project-card__tags" style="margin-bottom: 24px;">
-        <span>PC</span><span>VR</span>
-      </div>
-      <p style="max-width: 900px;">
-        The Last Gunner: No Way Out is a wave-based survival shooter built in Unity 6, developed with
-        a five-person team for PC and Meta Quest. Set during an alternate WWII overrun by a
-        gas-mutated infection, the player is welded to the turret of a tank disabled by an anti-tank
-        mine, defending it alongside Anatolij, a young mechanic sent out on supply runs between
-        waves. The player is stationary and can only rotate, a deliberate constraint that also keeps
-        camera movement VR-comfort safe, while resources scavenged by the mechanic feed a crafting
-        system that keeps both of them alive as the horde scales up indefinitely. The goal each run
-        is simple: survive as many waves as possible and climb the local leaderboard on score, kills
-        and round reached.
-      </p>
-
-      <p style="max-width: 900px; margin-bottom: 8px;"><strong>Core features:</strong></p>
-      <ul style="max-width: 900px; padding-left: 20px; color: var(--paper-dim); margin: 0 0 24px;">
-        <li>Wave-based survival loop that scales indefinitely, with no hard difficulty cap</li>
-        <li>An AI companion (Anatolij, the mechanic) who scavenges, can be grabbed by the horde and rescued, and mans a defensive gun</li>
-        <li>A crafting system that turns scavenged materials into buffs and turret upgrades</li>
-        <li>Four enemy archetypes, each built around a distinct combat read</li>
-        <li>Full PC and VR support from a shared turret-combat core</li>
-      </ul>
-
+      <div class="project-intro">
+        <div class="project-intro__text">
+        <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
+        <div class="stamp">Warning: horde inbound</div>
+        <h2 class="section__title">The Last Gunner: No Way Out</h2>
+        <div class="project-card__tags" style="margin-bottom: 24px;">
+          <span>PC</span><span>VR</span>
+        </div>
+        <dl class="project-facts">
+          <div><dt>Role</dt><dd>VR lead, audio lead, art director</dd></div>
+          <div><dt>Team</dt><dd>5 people</dd></div>
+          <div><dt>Platform</dt><dd>PC · Meta Quest</dd></div>
+          <div><dt>Engine</dt><dd>Unity 6 · FMOD</dd></div>
+        </dl>
+        </div>
+        <div class="project-intro__media">
       <div class="featured-media project-card__media crosshair">
-        <video src="assets/lastgunner/gameplay.mp4" autoplay muted loop playsinline></video>
+          <video src="assets/lastgunner/gameplay.mp4" autoplay muted loop playsinline></video>
+        </div>
+        </div>
       </div>
+      <div class="project-intro__body">
+        <p style="max-width: 900px;">
+          The Last Gunner: No Way Out is a wave-based survival shooter built in Unity 6, developed with
+          a five-person team for PC and Meta Quest. Set during an alternate WWII overrun by a
+          gas-mutated infection, the player is welded to the turret of a tank disabled by an anti-tank
+          mine, defending it alongside Anatolij, a young mechanic sent out on supply runs between
+          waves. The player is stationary and can only rotate, a deliberate constraint that also keeps
+          camera movement VR-comfort safe, while resources scavenged by the mechanic feed a crafting
+          system that keeps both of them alive as the horde scales up indefinitely. The goal each run
+          is simple: survive as many waves as possible and climb the local leaderboard on score, kills
+          and round reached.
+        </p>
 
+        <p style="max-width: 900px; margin-bottom: 8px;"><strong>Core features:</strong></p>
+        <ul style="max-width: 900px; padding-left: 20px; color: var(--paper-dim); margin: 0 0 24px;">
+          <li>Wave-based survival loop that scales indefinitely, with no hard difficulty cap</li>
+          <li>An AI companion (Anatolij, the mechanic) who scavenges, can be grabbed by the horde and rescued, and mans a defensive gun</li>
+          <li>A crafting system that turns scavenged materials into buffs and turret upgrades</li>
+          <li>Four enemy archetypes, each built around a distinct combat read</li>
+          <li>Full PC and VR support from a shared turret-combat core</li>
+        </ul>
+      </div>
       <div class="role-block">
         <h3>Role in the project</h3>
         <p>
@@ -252,6 +272,10 @@
       </div>
     </section>
 
+    <nav class="project-pager" aria-label="Other projects">
+      <a href="project-normandia.html" class="project-pager__link"><span>← Previous project</span>Project Normandia</a>
+      <a href="project-blackhole.html" class="project-pager__link is-next"><span>Next project →</span>Black Hole Render</a>
+    </nav>
   </main>
 
   <!-- ============ SIDE BANNER (project-specific, right column) ============ -->

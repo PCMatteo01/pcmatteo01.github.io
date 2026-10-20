@@ -5,12 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <title>Project Normandia - Matteo Battiston</title>
+<meta name="description" content="Immersive VR recreation of D-Day for Meta Quest 3: multi-platform architecture, weapon systems and historical interaction.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Project Normandia - Matteo Battiston">
+<meta property="og:description" content="Immersive VR recreation of D-Day for Meta Quest 3: multi-platform architecture, weapon systems and historical interaction.">
+<meta property="og:image" content="https://pcmatteo01.github.io/assets/normandia/hero-soldier-kneeling.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Black+Ops+One&family=Special+Elite&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-normandia.css">
 </head>
-<body class="theme-normandia">
+<body class="theme-normandia project-page">
 
 <div class="layout">
 
@@ -22,6 +28,7 @@
       <div class="sidebar__contact">
         <a href="https://www.linkedin.com/in/battiston-matteo/" target="_blank" rel="noopener">in/ battiston-matteo</a>
         <a href="https://sketchfab.com/battistonmatteo" target="_blank" rel="noopener">sketchfab/ battistonmatteo</a>
+        <a href="https://github.com/PCMatteo01" target="_blank" rel="noopener">github/ PCMatteo01</a>
         <a href="mailto:battistonmatteo.work@gmail.com">battistonmatteo.work@gmail.com</a>
       </div>
     </div>
@@ -29,8 +36,8 @@
     <nav class="sidebar__nav">
       <a href="index.html#home">Home</a>
       <a href="index.html#about">About</a>
-      <a href="index.html#portfolio" class="is-active">Portfolio</a>
-      <a href="index.html#offtopic">Offtopic</a>
+      <a href="index.html#projects" class="is-active">Projects</a>
+      <a href="index.html#models">3D Models</a>
     </nav>
 
     <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D</div>
@@ -39,29 +46,46 @@
   <!-- ============ MAIN ============ -->
   <main class="main">
 
-    <section class="section" style="margin-bottom: 40px;">
-      <a href="index.html#portfolio" class="project-card__link">← Back to portfolio</a>
+    <section class="section project-topbar">
+      <a href="index.html#projects" class="project-topbar__back">← Back to projects</a>
+      <a href="mailto:battistonmatteo.work@gmail.com" class="project-topbar__contact">Matteo Battiston · Contact</a>
     </section>
 
     <section class="section" style="margin-bottom: 48px;">
-      <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
-      <div class="stamp">Operation Overlord · 06.06.1944</div>
-      <h2 class="section__title">Project Normandia</h2>
-      <div class="project-card__tags" style="margin-bottom: 24px;">
-        <span>PC</span><span>VR</span>
+      <div class="project-intro">
+        <div class="project-intro__text">
+        <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
+        <div class="stamp">Operation Overlord · 06.06.1944</div>
+        <h2 class="section__title">Project Normandia</h2>
+        <div class="project-card__tags" style="margin-bottom: 24px;">
+          <span>PC</span><span>VR</span>
+        </div>
+        <dl class="project-facts">
+          <div><dt>Role</dt><dd>Gameplay programming, 3D assets, VR optimization</dd></div>
+          <div><dt>Context</dt><dd>Internship at Radica Design</dd></div>
+          <div><dt>Platform</dt><dd>Meta Quest 3 · PC</dd></div>
+          <div><dt>Engine</dt><dd>Unity</dd></div>
+        </dl>
+        </div>
+        <div class="project-intro__media">
+      <div class="project-card__media crosshair" style="aspect-ratio: 16/9;">
+          <img src="assets/normandia/hero-soldier-kneeling.png" alt="Soldier kneeling and firing a Thompson near the landing craft on the beach" style="object-position: 60% 40%;">
+        </div>
+        </div>
       </div>
-      <p style="max-width: 900px;">
-        Project Normandia is an immersive VR simulation built for Meta Quest 3, developed during
-        my internship at Radica Design, recreating the Allied landings in Normandy on June 6, 1944.
-        The goal is historical divulgation through experiential learning: the player explores a
-        filologically accurate coastal battlefield, interacts with historical equipment, and can
-        switch between a slower-paced <strong>Tour mode</strong> for exploration and education, and
-        an <strong>Action FPS mode</strong> with physically accurate weapon handling and combat.
-        The application runs cross-platform (VR standalone and PC with mouse/keyboard) from the
-        same scene, and targets a stable 90 FPS on mobile VR hardware. The project is still under
-        active development.
-      </p>
-
+      <div class="project-intro__body">
+        <p style="max-width: 900px;">
+          Project Normandia is an immersive VR simulation built for Meta Quest 3, developed during
+          my internship at Radica Design, recreating the Allied landings in Normandy on June 6, 1944.
+          The goal is historical divulgation through experiential learning: the player explores a
+          historically accurate coastal battlefield, interacts with historical equipment, and can
+          switch between a slower-paced <strong>Tour mode</strong> for exploration and education, and
+          an <strong>Action FPS mode</strong> with physically accurate weapon handling and combat.
+          The application runs cross-platform (VR standalone and PC with mouse/keyboard) from the
+          same scene, and targets a stable 90 FPS on mobile VR hardware. The project is still under
+          active development.
+        </p>
+      </div>
       <div class="role-block">
         <h3>Role in the project</h3>
         <p>
@@ -88,8 +112,8 @@
       <div class="detail-row">
         <div class="detail-row__media project-card__media crosshair gallery" style="aspect-ratio: 4/3;" data-gallery>
           <div class="gallery__track">
-            <img src="assets/normandia/gmm-diagram.png" alt="GameModeManager architecture diagram: platform and mode detection, four player prefab variants, environment and input activation" style="object-fit: contain; background: #f4f1e8; padding: 10px;">
             <video src="assets/normandia/menu.mp4" autoplay muted loop playsinline></video>
+            <img src="assets/normandia/gmm-diagram.png" alt="GameModeManager architecture diagram: platform and mode detection, four player prefab variants, environment and input activation" style="object-fit: contain; background: #f4f1e8; padding: 10px;">
           </div>
           <button type="button" class="gallery__arrow gallery__arrow--prev" aria-label="Previous image">&#8249;</button>
           <button type="button" class="gallery__arrow gallery__arrow--next" aria-label="Next image">&#8250;</button>
@@ -198,6 +222,10 @@
       </div>
     </section>
 
+    <nav class="project-pager" aria-label="Other projects">
+      <a href="project-freezingcold.html" class="project-pager__link"><span>← Previous project</span>Freezing Cold</a>
+      <a href="project-lastgunner.html" class="project-pager__link is-next"><span>Next project →</span>The Last Gunner: No Way Out</a>
+    </nav>
   </main>
 
   <!-- ============ SIDE BANNER (project-specific, right column) ============ -->

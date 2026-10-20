@@ -1,6 +1,6 @@
 // ---------- Portfolio filtering ----------
 const filterChips = document.querySelectorAll('.filter-chip');
-const projectCards = document.querySelectorAll('.project-card');
+const projectCards = document.querySelectorAll('#project-grid .project-card');
 
 filterChips.forEach(chip => {
   chip.addEventListener('click', () => {
@@ -122,8 +122,37 @@ document.querySelectorAll('[data-gallery]').forEach(gallery => {
     dots.forEach((d, di) => d.classList.toggle('is-active', di === index));
   }
 
-  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(index - 1); });
-  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(index + 1); });
+  // Auto-advance so visitors notice there is more than one slide. Runs only
+  // while the gallery is on screen and the pointer isn't over it, restarts
+  // after any manual interaction, and is skipped for reduced-motion users.
+  const AUTO_DELAY = 5000;
+  let autoTimer = null;
+  let galleryInView = false;
+  let hovering = false;
+
+  function stopAuto() {
+    clearTimeout(autoTimer);
+    autoTimer = null;
+  }
+  function startAuto() {
+    stopAuto();
+    if (reduceMotion || !galleryInView || hovering) return;
+    autoTimer = setTimeout(() => { goTo(index + 1); startAuto(); }, AUTO_DELAY);
+  }
+
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(index - 1); startAuto(); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(index + 1); startAuto(); });
+  dots.forEach(dot => dot.addEventListener('click', startAuto));
+
+  gallery.addEventListener('mouseenter', () => { hovering = true; stopAuto(); });
+  gallery.addEventListener('mouseleave', () => { hovering = false; startAuto(); });
+  gallery.addEventListener('focusin', () => { hovering = true; stopAuto(); });
+  gallery.addEventListener('focusout', () => { hovering = false; startAuto(); });
+
+  new IntersectionObserver((entries) => {
+    galleryInView = entries[0].isIntersecting;
+    if (galleryInView) startAuto(); else stopAuto();
+  }, { threshold: 0.5 }).observe(gallery);
 
   goTo(0);
 });
@@ -237,6 +266,137 @@ document.querySelectorAll('.scroll-gallery').forEach(gallery => {
   observer.observe(gallery);
 });
 
+// ---------- Videos: play only while visible (saves CPU/bandwidth) ----------
+const autoVideos = document.querySelectorAll('video[autoplay]');
+if (autoVideos.length) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        const p = v.play();
+        if (p) p.catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.1 });
+  autoVideos.forEach(v => {
+    v.preload = 'metadata';
+    videoObserver.observe(v);
+  });
+}
+
+// ---------- Project pages: "On this page" contents + back-to-top ----------
+const projectHeadings = document.querySelectorAll('.detail-row__text h3, .role-block h3, .section > h3');
+if (document.querySelector('.project-facts') && projectHeadings.length >= 3) {
+  const toc = document.createElement('nav');
+  toc.className = 'project-toc';
+  toc.setAttribute('aria-label', 'On this page');
+  toc.innerHTML = '<span class="project-toc__label">On this page</span>';
+  projectHeadings.forEach((h, i) => {
+    h.id = h.id || `sec-${i + 1}`;
+    const a = document.createElement('a');
+    a.href = `#${h.id}`;
+    a.textContent = h.textContent.replace(/\s+/g, ' ').trim();
+    toc.appendChild(a);
+  });
+  document.querySelector('.project-facts').after(toc);
+}
+
+if (document.querySelector('.project-facts')) {
+  const topBtn = document.createElement('button');
+  topBtn.type = 'button';
+  topBtn.className = 'back-to-top';
+  topBtn.setAttribute('aria-label', 'Back to top');
+  topBtn.innerHTML = '&uarr;';
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  document.body.appendChild(topBtn);
+  window.addEventListener('scroll', () => {
+    topBtn.classList.toggle('is-visible', window.scrollY > 800);
+  }, { passive: true });
+}
+
+// ---------- Project pages: auto-hiding sidebar (tap to open on touch) ----------
+const pageSidebar = document.querySelector('body.project-page .sidebar');
+if (pageSidebar) {
+  const canHover = window.matchMedia('(hover: hover)').matches;
+  const isCollapsible = () => window.matchMedia('(min-width: 861px) and (max-width: 1279px)').matches;
+  const closeSidebar = () => pageSidebar.classList.remove('is-open');
+  if (!canHover) {
+    pageSidebar.addEventListener('click', (e) => {
+      if (isCollapsible() && !pageSidebar.classList.contains('is-open')) {
+        e.preventDefault();
+        pageSidebar.classList.add('is-open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!pageSidebar.contains(e.target)) closeSidebar();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSidebar();
+      if (pageSidebar.contains(document.activeElement)) document.activeElement.blur();
+    }
+  });
+}
+
+// ---------- 3D model viewer (Sketchfab embed, loaded only on click) ----------
+const modelCards = document.querySelectorAll('.model-card');
+if (modelCards.length) {
+  const viewer = document.createElement('div');
+  viewer.className = 'model-viewer';
+  viewer.setAttribute('role', 'dialog');
+  viewer.setAttribute('aria-modal', 'true');
+  viewer.innerHTML = `
+    <div class="model-viewer__panel">
+      <div class="model-viewer__bar">
+        <span class="model-viewer__title"></span>
+        <a class="model-viewer__link" target="_blank" rel="noopener">Open on Sketchfab ↗</a>
+        <button type="button" class="model-viewer__close" aria-label="Close viewer">&times;</button>
+      </div>
+      <div class="model-viewer__stage"></div>
+    </div>`;
+  document.body.appendChild(viewer);
+  const viewerTitle = viewer.querySelector('.model-viewer__title');
+  const viewerLink = viewer.querySelector('.model-viewer__link');
+  const viewerStage = viewer.querySelector('.model-viewer__stage');
+  let lastTrigger = null;
+
+  function openViewer(card, trigger) {
+    const uid = card.dataset.sketchfab;
+    const title = card.dataset.title;
+    lastTrigger = trigger;
+    viewerTitle.textContent = title;
+    viewerLink.href = `https://sketchfab.com/3d-models/${card.dataset.slug}-${uid}`;
+    const iframe = document.createElement('iframe');
+    iframe.title = `${title} - 3D model`;
+    iframe.allow = 'autoplay; fullscreen; xr-spatial-tracking';
+    iframe.src = `https://sketchfab.com/models/${uid}/embed?autostart=1&ui_theme=dark`;
+    viewerStage.replaceChildren(iframe);
+    viewer.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    viewer.querySelector('.model-viewer__close').focus();
+  }
+  function closeViewer() {
+    viewer.classList.remove('is-open');
+    viewerStage.replaceChildren();
+    document.body.style.overflow = '';
+    if (lastTrigger) lastTrigger.focus();
+  }
+
+  modelCards.forEach(card => {
+    card.querySelectorAll('.model-card__open').forEach(btn => {
+      btn.addEventListener('click', () => openViewer(card, btn));
+    });
+  });
+  viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });
+  viewer.querySelector('.model-viewer__close').addEventListener('click', closeViewer);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && viewer.classList.contains('is-open')) closeViewer();
+  });
+}
+
 // ---------- Lightbox (click an image or video to zoom) ----------
 // Only media that isn't inside a link gets this - on the portfolio grid
 // the thumbnail IS the "view project" link, so clicking it must still navigate.
@@ -282,7 +442,7 @@ if (zoomableMedia.length) {
   });
 
   zoomableMedia.forEach(el => {
-    if (el.closest('a')) return;
+    if (el.closest('a, button')) return;
     el.classList.add('is-zoomable');
     el.addEventListener('click', () => openLightbox(el));
   });

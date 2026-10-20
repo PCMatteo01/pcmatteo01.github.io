@@ -624,3 +624,275 @@ a:focus-visible, button:focus-visible {
   outline: 2px solid var(--amber);
   outline-offset: 2px;
 }
+
+/* ---------- PROJECT PAGE: facts, contents, pager, back-to-top ---------- */
+.project-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  max-width: 900px;
+  margin: 0 0 28px;
+  border: 1px solid var(--grid-line-strong);
+  border-left: 3px solid var(--cyan-tag);
+  background: rgba(255, 255, 255, 0.02);
+}
+.project-facts > div { padding: 14px 18px; border-right: 1px solid var(--grid-line); }
+.project-facts > div:last-child { border-right: 0; }
+.project-facts dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cyan-tag);
+  margin-bottom: 4px;
+}
+.project-facts dd { margin: 0; font-size: 15px; color: var(--paper); }
+
+.project-toc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 900px;
+  margin: 0 0 28px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.project-toc__label { color: var(--paper-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+.project-toc a {
+  padding: 5px 10px;
+  border: 1px solid var(--grid-line-strong);
+  color: var(--paper);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.project-toc a:hover, .project-toc a:focus-visible { border-color: var(--cyan-tag); color: var(--cyan-tag); }
+h3[id] { scroll-margin-top: 40px; }
+
+.project-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--grid-line-strong);
+}
+.project-pager__link {
+  display: block;
+  padding: 18px 20px;
+  border: 1px solid var(--grid-line-strong);
+  color: var(--paper);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 18px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.project-pager__link span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cyan-tag);
+}
+.project-pager__link.is-next { text-align: right; }
+.project-pager__link:hover, .project-pager__link:focus-visible { border-color: var(--cyan-tag); transform: translateY(-2px); }
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--cyan-tag);
+  background: var(--ink-blue-deep);
+  color: var(--cyan-tag);
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 900;
+}
+.back-to-top.is-visible { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 900px) {
+  .project-facts > div { border-right: 0; border-bottom: 1px solid var(--grid-line); }
+  .project-facts > div:last-child { border-bottom: 0; }
+  .project-pager { grid-template-columns: 1fr; }
+  .project-pager__link.is-next { text-align: left; }
+}
+
+/* =========================================================
+   PROJECT PAGES - sidebar behaviour
+   >= 1280px: fixed sidebar on the left, mirrored by the banner on
+   the right (the default 3-column layout).
+   861-1279px: no room to spare, so the sidebar auto-hides and slides
+   in over the content when the pointer reaches the left edge (or on
+   keyboard focus / tap on touch). The "html body" prefix outranks
+   the per-theme layout rules.
+   ========================================================= */
+html body.project-page .main { margin-inline: auto; width: 100%; }
+html body.project-page .featured-media { max-width: 1100px; }
+
+@media (min-width: 861px) and (max-width: 1279px) {
+  html body.project-page .layout { grid-template-columns: 1fr; }
+
+  html body.project-page .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 340px;
+    height: auto;
+    z-index: 800;
+    transform: translateX(calc(-100% + 14px));
+    transition: transform 0.28s cubic-bezier(0.16, 0.8, 0.3, 1);
+  }
+  /* grip on the visible 14px strip + a wider invisible hover zone */
+  html body.project-page .sidebar::before {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 3px;
+    height: 56px;
+    margin-top: -28px;
+    background: var(--cyan-tag);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  html body.project-page .sidebar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -14px;
+    width: 14px;
+  }
+  html body.project-page .sidebar > * { opacity: 0; transition: opacity 0.2s ease; }
+  html body.project-page .sidebar:hover,
+  html body.project-page .sidebar:focus-within,
+  html body.project-page .sidebar.is-open { transform: translateX(0); }
+  html body.project-page .sidebar:hover > *,
+  html body.project-page .sidebar:focus-within > *,
+  html body.project-page .sidebar.is-open > * { opacity: 1; transition-delay: 0.08s; }
+  html body.project-page .sidebar:hover::before,
+  html body.project-page .sidebar:focus-within::before,
+  html body.project-page .sidebar.is-open::before { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body.project-page .sidebar, html body.project-page .sidebar > * { transition: none; }
+}
+
+/* slim top bar replaces the sidebar's always-visible identity */
+.project-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px !important;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.project-topbar a { color: var(--cyan-tag); }
+.project-topbar a:hover, .project-topbar a:focus-visible { text-decoration: underline; }
+.project-topbar__contact { color: var(--paper-dim) !important; }
+.project-topbar__contact:hover { color: var(--cyan-tag) !important; }
+
+
+/* ---------- PROJECT INTRO: text left, hero media right ----------
+   Layout follows the width of the content column (container query), not
+   the viewport: with sidebar + banner the column is narrow, so the media
+   stacks right under the title instead of being squeezed beside it. */
+html body.project-page .main { container-type: inline-size; }
+.project-intro { display: flex; flex-direction: column; margin-bottom: 28px; }
+.project-intro__text { display: contents; }
+.project-intro__media { order: 2; margin-bottom: 28px; }
+.project-intro__media > * { margin: 0 !important; max-width: none !important; width: 100%; }
+.project-intro .project-facts, .project-intro .project-toc { order: 3; }
+.project-intro__body { margin-bottom: 40px; }
+@container (min-width: 900px) {
+  .project-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .project-intro__text { display: block; }
+  .project-intro__media { position: sticky; top: 32px; margin-bottom: 0; order: 2; }
+}
+
+/* the fixed sidebar already shows the contact details on wide screens */
+@media (min-width: 1280px) { .project-topbar__contact { display: none; } }
+
+/* ---------- 3D MODEL CARDS + SKETCHFAB VIEWER ---------- */
+.model-card__open { cursor: pointer; font: inherit; }
+button.project-card__media {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--grid-line-strong);
+  overflow: hidden;
+}
+button.project-card__link { background: none; border: 0; padding: 12px 0 0; text-align: left; cursor: pointer; }
+.model-card__badge {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 4px 9px;
+  background: rgba(8, 9, 10, 0.78);
+  border: 1px solid var(--cyan-tag);
+  color: var(--cyan-tag);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.model-card__open:focus-visible { outline: 2px solid var(--cyan-tag); outline-offset: -2px; }
+
+.model-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(4, 4, 3, 0.88);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.model-viewer.is-open { opacity: 1; pointer-events: auto; }
+.model-viewer__panel {
+  width: min(1100px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--ink-blue-deep);
+  border: 1px solid var(--grid-line-strong);
+}
+.model-viewer__bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--grid-line-strong);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.model-viewer__title { flex: 1; color: var(--paper); text-transform: uppercase; letter-spacing: 0.06em; }
+.model-viewer__link { color: var(--cyan-tag); }
+.model-viewer__link:hover { text-decoration: underline; }
+.model-viewer__close {
+  background: none;
+  border: 0;
+  color: var(--paper);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+.model-viewer__stage { aspect-ratio: 16 / 10; max-height: 78vh; width: 100%; }
+.model-viewer__stage iframe { width: 100%; height: 100%; border: 0; display: block; }
