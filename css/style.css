@@ -1113,3 +1113,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .motion-toggle::before { content: "II"; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
   .motion-toggle[aria-pressed="true"]::before { content: "B6"; letter-spacing: 0; }
 }
+
+/* "On this page" index: always a clean mono face, larger, with clear contrast (themes use decorative fonts) */
+.project-toc { font-family: 'IBM Plex Mono', monospace; font-size: 13px; gap: 8px 8px; }
+.project-toc__label { font-size: 12px; font-weight: 500; color: var(--paper); opacity: 0.85; }
+.project-toc a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 7px 12px;
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--cyan-tag);
+}
+.project-toc a:hover, .project-toc a:focus-visible { background: var(--cyan-tag); color: var(--ink-blue-deep); }
