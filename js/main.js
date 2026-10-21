@@ -406,6 +406,17 @@ document.querySelectorAll('[data-ba]').forEach(ba => {
   update();
 });
 
+// ---------- "Sound" tag on videos that have audio (the sound plays in the zoomed view) ----------
+document.querySelectorAll('video[data-audio]').forEach(v => {
+  const box = v.closest('.project-card__media');
+  if (!box || box.querySelector('.audio-tag')) return;
+  const tag = document.createElement('span');
+  tag.className = 'audio-tag';
+  tag.setAttribute('aria-hidden', 'true');
+  tag.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg><span>Click for sound</span>';
+  box.appendChild(tag);
+});
+
 // ---------- Lightbox (click an image or video to zoom) ----------
 // Only media that isn't inside a link gets this - on the portfolio grid
 // the thumbnail IS the "view project" link, so clicking it must still navigate.
@@ -422,10 +433,14 @@ if (zoomableMedia.length) {
 
   function openLightbox(el) {
     if (el.tagName === 'VIDEO') {
-      overlayVideo.src = el.currentSrc || el.src;
+      // a video can point to a higher-quality file for the zoomed view
+      overlayVideo.src = el.dataset.full || el.currentSrc || el.src;
       overlayVideo.style.display = '';
       overlayImg.style.display = 'none';
-      overlayVideo.play();
+      // videos marked data-audio start with sound (the click counts as a user gesture)
+      overlayVideo.muted = !el.hasAttribute('data-audio');
+      const started = overlayVideo.play();
+      if (started) started.catch(() => { overlayVideo.muted = true; overlayVideo.play(); });
     } else {
       overlayImg.src = el.currentSrc || el.src;
       overlayImg.alt = el.alt || '';

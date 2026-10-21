@@ -68,7 +68,7 @@
         </div>
         <div class="project-intro__media">
       <div class="featured-media project-card__media crosshair">
-          <video src="assets/lastgunner/gameplay.mp4" autoplay muted loop playsinline></video>
+          <video src="assets/lastgunner/teaser.mp4" data-full="assets/lastgunner/teaser-hd.mp4" autoplay muted loop playsinline></video>
         </div>
         </div>
       </div>
@@ -111,7 +111,8 @@
       <div class="detail-row">
         <div class="detail-row__media project-card__media crosshair gallery" style="aspect-ratio: 4/3;" data-gallery>
           <div class="gallery__track">
-            <video src="assets/lastgunner/gameplay.mp4" autoplay muted loop playsinline></video>
+            <video src="assets/lastgunner/turret-combat.mp4" data-audio data-full="assets/lastgunner/turret-combat-hd.mp4" autoplay muted loop playsinline></video>
+            <video src="assets/lastgunner/gameplay.mp4" data-audio data-full="assets/lastgunner/gameplay-hd.mp4" autoplay muted loop playsinline></video>
           </div>
           <button type="button" class="gallery__arrow gallery__arrow--prev" aria-label="Previous image">&#8249;</button>
           <button type="button" class="gallery__arrow gallery__arrow--next" aria-label="Next image">&#8250;</button>
@@ -155,6 +156,7 @@
         <div class="detail-row__media project-card__media crosshair gallery" style="aspect-ratio: 4/3;" data-gallery>
           <div class="gallery__track">
             <video src="assets/lastgunner/craft-menu.mp4" autoplay muted loop playsinline></video>
+            <video src="assets/lastgunner/shop.mp4" autoplay muted loop playsinline></video>
           </div>
           <button type="button" class="gallery__arrow gallery__arrow--prev" aria-label="Previous image">&#8249;</button>
           <button type="button" class="gallery__arrow gallery__arrow--next" aria-label="Next image">&#8250;</button>
@@ -171,8 +173,30 @@
         </div>
       </div>
 
-      <!-- ROW 4 - text left, image right -->
+      <!-- ROW - menus, settings & localization -->
       <div class="detail-row is-reverse">
+        <div class="detail-row__media project-card__media crosshair gallery" style="aspect-ratio: 4/3;" data-gallery>
+          <div class="gallery__track">
+            <video src="assets/lastgunner/settings.mp4" autoplay muted loop playsinline></video>
+            <video src="assets/lastgunner/leaderboard.mp4" autoplay muted loop playsinline></video>
+          </div>
+          <button type="button" class="gallery__arrow gallery__arrow--prev" aria-label="Previous image">&#8249;</button>
+          <button type="button" class="gallery__arrow gallery__arrow--next" aria-label="Next image">&#8250;</button>
+          <div class="gallery__dots"></div>
+        </div>
+        <div class="detail-row__text">
+          <h3>Menus, settings &amp; localization</h3>
+          <p class="lead">A complete menu flow around the game: main menu, shop, per-level leaderboards and settings.</p>
+          <ul>
+            <li>Settings cover display, controls and audio, with separate sliders for master, sound effects, music, environment, zombies and gunshots.</li>
+            <li>The interface can be switched live between Italian and English.</li>
+            <li>Each level has its own leaderboard, ranked by score.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ROW 4 - text left, image right -->
+      <div class="detail-row">
         <div class="detail-row__media project-card__media crosshair gallery" style="aspect-ratio: 4/3;" data-gallery>
           <div class="gallery__track">
             <video src="assets/lastgunner/horde-view.mp4" autoplay muted loop playsinline></video>
@@ -196,7 +220,7 @@
       </div>
 
       <!-- ROW 5 - image left, text right -->
-      <div class="detail-row">
+      <div class="detail-row is-reverse">
         <!-- Media hidden until real VR reload/recoil footage is ready; text
              takes the full row width in the meantime. -->
         <div class="detail-row__media project-card__media crosshair gallery" style="aspect-ratio: 4/3; display: none;" data-gallery>
