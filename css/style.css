@@ -1068,3 +1068,48 @@ button.project-card__link { background: none; border: 0; padding: 12px 0 0; text
   text-transform: uppercase;
   pointer-events: none;
 }
+
+/* pause control for autoplaying videos (WCAG: a way to stop moving content) */
+.motion-toggle {
+  position: fixed;
+  right: 76px;
+  bottom: 24px;
+  z-index: 900;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--grid-line-strong);
+  background: var(--ink-blue-deep);
+  color: var(--paper-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.motion-toggle:hover, .motion-toggle[aria-pressed="true"] { color: var(--cyan-tag); border-color: var(--cyan-tag); }
+
+/* visible keyboard focus everywhere */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--cyan-tag);
+  outline-offset: 2px;
+}
+@media (max-width: 860px) { .motion-toggle { right: 16px; bottom: 76px; } }
+
+/* ---------- MOBILE: compact header instead of a full-height sidebar ---------- */
+@media (max-width: 860px) {
+  .sidebar {
+    padding: 18px 20px 14px;
+    gap: 12px;
+    display: block;
+  }
+  .sidebar__id { margin-bottom: 2px; }
+  .sidebar__name { font-size: 22px; margin: 0 0 8px; }
+  .sidebar__contact { flex-direction: row; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; margin-bottom: 10px; }
+  .sidebar__nav { margin: 0 0 6px; gap: 2px 16px; }
+  .sidebar__nav a { font-size: 15px; padding: 6px 0; }
+  .sidebar__nav a span { display: none; }
+  .sidebar__footer { display: none; }
+  .motion-toggle { right: 16px; bottom: 76px; height: 36px; width: 36px; padding: 0; font-size: 0; }
+  .motion-toggle::before { content: "II"; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+  .motion-toggle[aria-pressed="true"]::before { content: "B6"; letter-spacing: 0; }
+}

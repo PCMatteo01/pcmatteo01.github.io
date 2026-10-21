@@ -1,37 +1,35 @@
-# Portfolio - starter scaffold
+# Matteo Battiston - Portfolio
 
-## Struttura
+Personal portfolio of a Unity developer (PC, VR, 3D). Static site, no build step, hosted on GitHub Pages:
+https://pcmatteo01.github.io
+
+## Structure
+
 ```
-index.html            → Home, About, Portfolio (con filtri), Offtopic
-project-example.html  → Template pagina di dettaglio progetto (duplicala per ogni progetto)
-css/style.css         → Tutto lo stile (design system "blueprint")
-js/main.js            → Filtro portfolio + evidenziazione voce menu attiva
-assets/               → Metti qui le tue immagini/video
+index.html              Home, About, Projects (platform filter), 3D Models
+project-*.html          One page per project (facts card, sections, galleries)
+privacy.html            Privacy notice (no cookies, no analytics)
+css/style.css           Design system ("blueprint" look) and shared components
+css/theme-*.css         Per-project themes (scoped to body.theme-<name>)
+css/fonts.css           Self-hosted fonts (latin subset, SIL OFL)
+js/main.js              Filters, galleries, before/after sliders, lazy video, Sketchfab viewer, lightbox
+assets/                 Images, videos, posters, fonts, 3D model thumbnails
 ```
 
-## Come pubblicarlo su GitHub Pages
+## Run locally
 
-1. Crea un repository chiamato **esattamente** `tuousername.github.io`
-2. Carica dentro tutti i file di questa cartella (mantenendo le sottocartelle css/ e js/)
-3. Vai su Settings → Pages e verifica che il branch `main` sia selezionato come source
-4. Dopo qualche minuto il sito sarà live su `https://tuousername.github.io`
+```bash
+python -m http.server 8080
+```
 
-## Cosa personalizzare
+then open http://localhost:8080.
 
-- **Nome e contatti**: sidebar in `index.html` e `project-example.html` (sono duplicati, tienili sincronizzati)
-- **Testo Home/About**: sezioni `#home` e `#about` in `index.html`
-- **Progetti**: duplica il blocco `<article class="project-card">` per ogni progetto, aggiorna `data-tags` (usa `pc`, `vr`, `3d` - puoi combinarli tipo `data-tags="pc vr"`), immagine, titolo, descrizione, link
-- **Immagini/video**: metti i file in `assets/`, poi nel posto dove vedi `IMAGE / VIDEO PLACEHOLDER` sostituisci con:
-  ```html
-  <img src="assets/nome-immagine.jpg" alt="Descrizione">
-  ```
-  o per un video:
-  ```html
-  <video src="assets/nome-video.mp4" controls></video>
-  ```
-- **Pagina progetto**: duplica `project-example.html` per ogni progetto (es. `project-nomegioco.html`) e aggiorna i link nelle card di `index.html`
+## Notes
 
-## Note
-- Nessuna build scaricabile o WebGL giocabile: solo immagini/video + testo, come richiesto.
-- Font caricati da Google Fonts (Space Grotesk, IBM Plex Sans, IBM Plex Mono) - nessuna installazione necessaria.
-- Il sito è responsive e rispetta `prefers-reduced-motion`.
+- **Videos** have a poster (`assets/posters/`) and `preload="none"`; they load and play only when they scroll into view,
+  and stay on the poster with "reduce motion" on. Add `data-full="..."` to open a higher-quality file in the zoom view
+  and `data-audio` to mark a video that has sound.
+- **3D models** are Sketchfab embeds loaded only on click; thumbnails are stored locally in `assets/models/`
+  (refresh them from the Sketchfab API when a model changes).
+- **Images** are WebP, except the two Open Graph images, which stay PNG.
+- **No third-party requests** happen when a page opens; see `privacy.html`.

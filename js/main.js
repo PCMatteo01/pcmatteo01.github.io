@@ -266,24 +266,52 @@ document.querySelectorAll('.scroll-gallery').forEach(gallery => {
   observer.observe(gallery);
 });
 
-// ---------- Videos: play only while visible (saves CPU/bandwidth) ----------
-const autoVideos = document.querySelectorAll('video[autoplay]');
-if (autoVideos.length) {
+// ---------- Videos: load and play only while near the viewport (saves CPU/bandwidth) ----------
+// Videos carry a poster and preload="none"; nothing downloads until one scrolls close.
+// With "reduce motion" on, they stay on the poster (the zoom view still plays them).
+const lazyVideos = document.querySelectorAll('video[data-autoplay], video[autoplay]');
+let videosPaused = false;
+if (lazyVideos.length) {
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const v = entry.target;
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
+        if (reduceMotion || videosPaused) return;
         const p = v.play();
         if (p) p.catch(() => {});
       } else {
         v.pause();
       }
     });
-  }, { threshold: 0.1 });
-  autoVideos.forEach(v => {
-    v.preload = 'metadata';
+  }, { threshold: [0, 0.1] });
+  lazyVideos.forEach(v => {
+    if (!v.hasAttribute('preload')) v.preload = 'metadata';
     videoObserver.observe(v);
   });
+
+  // pause/play control for motion (only on pages with several videos)
+  if (lazyVideos.length > 1 && !reduceMotion) {
+    const motionBtn = document.createElement('button');
+    motionBtn.type = 'button';
+    motionBtn.className = 'motion-toggle';
+    motionBtn.setAttribute('aria-pressed', 'false');
+    motionBtn.textContent = 'Pause videos';
+    motionBtn.addEventListener('click', () => {
+      videosPaused = !videosPaused;
+      motionBtn.setAttribute('aria-pressed', String(videosPaused));
+      motionBtn.textContent = videosPaused ? 'Play videos' : 'Pause videos';
+      lazyVideos.forEach(v => {
+        if (videosPaused) {
+          v.pause();
+        } else {
+          const r = v.getBoundingClientRect();
+          const visible = r.bottom > 0 && r.top < window.innerHeight;
+          if (visible) { const p = v.play(); if (p) p.catch(() => {}); }
+        }
+      });
+    });
+    document.body.appendChild(motionBtn);
+  }
 }
 
 // ---------- Project pages: "On this page" contents + back-to-top ----------
