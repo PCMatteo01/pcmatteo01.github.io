@@ -73,17 +73,9 @@
         </div>
       </div>
       <div class="project-intro__body">
-        <p style="max-width: 900px;">
-          The Last Gunner: No Way Out is a wave-based survival shooter built in Unity 6, developed with
-          a five-person team for PC and Meta Quest. Set during an alternate WWII overrun by a
-          gas-mutated infection, the player is welded to the turret of a tank disabled by an anti-tank
-          mine, defending it alongside Anatolij, a young mechanic sent out on supply runs between
-          waves. The player is stationary and can only rotate, a deliberate constraint that also keeps
-          camera movement VR-comfort safe, while resources scavenged by the mechanic feed a crafting
-          system that keeps both of them alive as the horde scales up indefinitely. The goal each run
-          is simple: survive as many waves as possible and climb the local leaderboard on score, kills
-          and round reached.
-        </p>
+        <p class="lead" style="max-width: 900px;">A wave-based survival shooter for PC and Meta Quest, built in Unity 6 by a five-person team.</p>
+        <p style="max-width: 900px;">Set in an alternate WWII overrun by a gas-mutated infection, the player is welded to the turret of a tank disabled by an anti-tank mine and defends it alongside Anatolij, a young mechanic sent out on supply runs between waves.</p>
+        <p style="max-width: 900px;">Each run is simple: survive as many waves as possible and climb the local leaderboard on score, kills and round reached.</p>
 
         <p style="max-width: 900px; margin-bottom: 8px;"><strong>Core features:</strong></p>
         <ul style="max-width: 900px; padding-left: 20px; color: var(--paper-dim); margin: 0 0 24px;">
@@ -92,6 +84,7 @@
           <li>A crafting system that turns scavenged materials into buffs and turret upgrades</li>
           <li>Four enemy archetypes, each built around a distinct combat read</li>
           <li>Full PC and VR support from a shared turret-combat core</li>
+          <li>A stationary, rotation-only player: a deliberate constraint that also keeps camera movement comfortable in VR</li>
         </ul>
       </div>
       <div class="role-block">
@@ -126,15 +119,12 @@
         </div>
         <div class="detail-row__text">
           <h3>Core loop &amp; turret combat</h3>
-          <p>
-            The core loop runs through a single <strong>ITurretController</strong> interface shared by PC
-            and VR, so both platforms drive the same combat logic without diverging balance. I
-            implemented the VR side of it. I also modeled and textured the turret's machine gun, based on
-            the MG34 with a double-drum magazine, a choice I made specifically to justify the 75-round
-            capacity historically without needing a belt-fed reload in VR, and built the scoring rules,
-            reading hit location off each enemy's hitbox to reward headshots and distance over point-blank
-            body shots.
-          </p>
+          <p class="lead">One shared turret controller drives combat on both PC and VR.</p>
+          <p>The core loop runs through a single <code>ITurretController</code> interface, so both platforms use the same combat logic without diverging balance. I implemented the VR side.</p>
+          <ul>
+            <li>Modeled and textured the turret's machine gun: an MG34 with a double-drum magazine, chosen to justify the historical 75-round capacity without a belt-fed reload in VR.</li>
+            <li>Built the scoring rules, reading hit location off each enemy's hitbox to reward headshots and distance over point-blank body shots.</li>
+          </ul>
         </div>
       </div>
 
@@ -151,14 +141,12 @@
         </div>
         <div class="detail-row__text">
           <h3>NPC companion &amp; AI</h3>
-          <p>
-            Anatolij, the mechanic, scavenges on his own, returns automatically or on command, and hands
-            off whatever he picked up to the player's inventory. While outside he can be grabbed by the
-            horde, triggering a timed rescue event the player has to resolve by shooting the attacker
-            without hitting him. I built his defensive role back inside the tank (the automated machine
-            gun he mans at the front of the vehicle) and wrote the five scripted dialogue beats the two
-            characters trade over a run to carry the narrative without cutscenes.
-          </p>
+          <p class="lead">Anatolij, the mechanic, scavenges on his own and can be rescued when the horde grabs him.</p>
+          <ul>
+            <li>He returns automatically or on command and hands what he picked up to the player's inventory.</li>
+            <li>While outside he can be grabbed by the horde, triggering a timed rescue event: the player has to shoot the attacker without hitting him.</li>
+            <li>I built his defensive role back inside the tank (the automated machine gun he mans at the front of the vehicle) and wrote the five scripted dialogue beats the two characters trade over a run, carrying the narrative without cutscenes.</li>
+          </ul>
         </div>
       </div>
 
@@ -174,14 +162,12 @@
         </div>
         <div class="detail-row__text">
           <h3>Crafting &amp; survival economy</h3>
-          <p>
-            Scavenged materials feed a crafting system built around scriptable-object recipes, combining
-            two dropped items into a buff for the mechanic (bandages, plated armor, stimulants) or the
-            turret (ammo, damage rounds, faster reloads), gated to only work while the mechanic is inside
-            the tank. A run's score also converts into currency for a progression shop between matches.
-            My contribution here was on the audio side: the FMOD feedback for crafting actions, mixed
-            into the same bus setup as the rest of the game.
-          </p>
+          <p class="lead">Scavenged materials are combined into buffs through scriptable-object recipes.</p>
+          <ul>
+            <li>Two dropped items make a buff for the mechanic (bandages, plated armor, stimulants) or the turret (ammo, damage rounds, faster reloads), and only while the mechanic is inside the tank.</li>
+            <li>A run's score also converts into currency for a progression shop between matches.</li>
+            <li>My contribution: the FMOD feedback for crafting actions, mixed into the same bus setup as the rest of the game.</li>
+          </ul>
         </div>
       </div>
 
@@ -198,14 +184,14 @@
         </div>
         <div class="detail-row__text">
           <h3>Enemies &amp; infinite waves</h3>
-          <p>
-            Four enemy archetypes, each built around a distinct combat read: the slow Farmer whose
-            pitchfork punishes the mechanic, the Crawler that climbs onto the tank to steal loot before
-            fleeing, the Bloated zombie whose pustules detonate into an area attack, and the Spore zombie
-            that heals nearby enemies. I modeled and textured all four, including the Farmer's pitchfork
-            and hat props, and handled most of their in-engine setup myself, while the team built the
-            NavMesh-driven AI and horde-scaling logic on top.
-          </p>
+          <p class="lead">Four enemy archetypes, each built around a distinct combat read.</p>
+          <ul>
+            <li><strong>Farmer:</strong> slow, and its pitchfork punishes the mechanic.</li>
+            <li><strong>Crawler:</strong> climbs onto the tank to steal loot before fleeing.</li>
+            <li><strong>Bloated:</strong> its pustules detonate into an area attack.</li>
+            <li><strong>Spore:</strong> heals nearby enemies.</li>
+          </ul>
+          <p>I modeled and textured all four, including the Farmer's pitchfork and hat props, and handled most of their in-engine setup myself, while the team built the NavMesh-driven AI and horde-scaling logic on top.</p>
         </div>
       </div>
 
@@ -223,14 +209,11 @@
         </div>
         <div class="detail-row__text">
           <h3>VR interaction &amp; audio</h3>
-          <p>
-            The VR implementation and audio system were mine end to end. I built the dual-grab drum
-            magazine with a physically driven reload handle and matching recoil feedback, extending the
-            XR Interaction Toolkit myself to support offset grabs and drop-height adjustment, neither
-            of which it handles out of the box. On the audio side I architected the whole FMOD setup:
-            independent buses/VCAs for master, ambience and zombie SFX, mixed to keep dozens of
-            simultaneous spatialized enemy and environment sounds legible through the same bus graph.
-          </p>
+          <p class="lead">The VR implementation and the audio system were mine end to end.</p>
+          <ul>
+            <li>Built the dual-grab drum magazine with a physically driven reload handle and matching recoil feedback, extending the XR Interaction Toolkit myself to support offset grabs and drop-height adjustment, neither of which it handles out of the box.</li>
+            <li>Architected the whole FMOD setup: independent buses/VCAs for master, ambience and zombie SFX, mixed to keep dozens of simultaneous spatialized enemy and environment sounds legible through the same bus graph.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -302,7 +285,7 @@
             <span class="model-card__badge">View in 3D</span>
           </button>
           <div class="project-card__body">
-            <div class="project-card__tags"><span>Low-poly</span><span>PSX</span></div>
+            <div class="project-card__tags"><span>Low-poly</span><span>PSX</span><span>Hand-painted</span></div>
             <h3 class="project-card__title">PSX Tiger 1</h3>
             <p class="project-card__desc">PS1-style Tiger I tank with hand-painted textures.</p>
             <button type="button" class="project-card__link model-card__open">View in 3D →</button>

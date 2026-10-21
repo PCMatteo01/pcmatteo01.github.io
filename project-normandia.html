@@ -73,17 +73,9 @@
         </div>
       </div>
       <div class="project-intro__body">
-        <p style="max-width: 900px;">
-          Project Normandia is an immersive VR simulation built for Meta Quest 3, developed during
-          my internship at Radica Design, recreating the Allied landings in Normandy on June 6, 1944.
-          The goal is historical divulgation through experiential learning: the player explores a
-          historically accurate coastal battlefield, interacts with historical equipment, and can
-          switch between a slower-paced <strong>Tour mode</strong> for exploration and education, and
-          an <strong>Action FPS mode</strong> with physically accurate weapon handling and combat.
-          The application runs cross-platform (VR standalone and PC with mouse/keyboard) from the
-          same scene, and targets a stable 90 FPS on mobile VR hardware. The project is still under
-          active development.
-        </p>
+        <p class="lead" style="max-width: 900px;">An immersive VR simulation of the Allied landings in Normandy on June 6, 1944, built for Meta Quest 3 during my internship at Radica Design.</p>
+        <p style="max-width: 900px;">The goal is historical divulgation through experiential learning: the player explores a historically accurate coastal battlefield and interacts with historical equipment. There are two modes: a slower-paced <strong>Tour mode</strong> for exploration and education, and an <strong>Action FPS mode</strong> with physically accurate weapon handling and combat.</p>
+        <p style="max-width: 900px;">The application runs cross-platform (VR standalone and PC with mouse/keyboard) from the same scene, and targets a stable 90 FPS on mobile VR hardware. The project is still under active development.</p>
       </div>
       <div class="role-block">
         <h3>Role in the project</h3>
@@ -120,12 +112,8 @@
         </div>
         <div class="detail-row__text">
           <h3>Multi-platform architecture</h3>
-          <p>
-            I designed the <strong>GameModeManager</strong>, a singleton that detects the running
-            platform (VR/PC) and selects between four player variants (VR FPS, VR Tour, PC FPS,
-            PC Tour), letting the same scene run unmodified across platforms and modes, with no
-            manual setup needed during testing or deploys.
-          </p>
+          <p class="lead">One scene, four player variants, no manual setup.</p>
+          <p>I designed the <code>GameModeManager</code>, a singleton that detects the running platform (VR/PC) and selects between four player variants (VR FPS, VR Tour, PC FPS, PC Tour). The same scene runs unmodified across platforms and modes, with no manual setup during testing or deploys.</p>
         </div>
       </div>
 
@@ -143,14 +131,12 @@
         </div>
         <div class="detail-row__text">
           <h3>Weapon systems &amp; VR interaction</h3>
-          <p>
-            A component-based architecture (<strong>WeaponCore</strong>, VRWeaponController,
-            PCWeaponController) drives physically accurate reload mechanics for the M1 Garand
-            (en bloc clip, auto-eject) and Thompson M1A1 (manual bolt), shared across VR and PC
-            without duplicating logic. In VR, ammo is managed through a wearable tactical belt
-            (SimpleVRBelt, AmmoReturnSocket) that gives magnetic reload feedback for grabbing and
-            stowing magazines mid-action, keeping the player's hands on the weapon instead of a menu.
-          </p>
+          <p class="lead">Physically accurate reloads, shared across VR and PC.</p>
+          <p>A component-based architecture (<code>WeaponCore</code>, <code>VRWeaponController</code>, <code>PCWeaponController</code>) drives the reload mechanics for the M1 Garand (en bloc clip, auto-eject) and the Thompson M1A1 (manual bolt), without duplicating logic between platforms.</p>
+          <ul>
+            <li>In VR, ammo is managed through a wearable tactical belt (<code>SimpleVRBelt</code>, <code>AmmoReturnSocket</code>).</li>
+            <li>It gives magnetic reload feedback for grabbing and stowing magazines mid-action, keeping the player's hands on the weapon instead of a menu.</li>
+          </ul>
         </div>
       </div>
 
@@ -168,13 +154,9 @@
         </div>
         <div class="detail-row__text">
           <h3>Historical interaction &amp; edutech</h3>
-          <p>
-            Beyond combat, the project is built around <strong>experiential learning</strong>: looking at
-            or interacting with objects in the scene (vehicles, equipment, fortifications) triggers a
-            diegetic information panel with historical context drawn from verified sources, with no
-            menus breaking immersion. It's aimed at history enthusiasts, students, and museums or cultural
-            institutions looking for an experiential complement to traditional teaching material.
-          </p>
+          <p class="lead">Objects in the scene teach history without breaking immersion.</p>
+          <p>Beyond combat, the project is built around <strong>experiential learning</strong>: looking at or interacting with objects in the scene (vehicles, equipment, fortifications) triggers a diegetic information panel with historical context drawn from verified sources, with no menus breaking immersion.</p>
+          <p>It's aimed at history enthusiasts, students, and museums or cultural institutions looking for an experiential complement to traditional teaching material.</p>
         </div>
       </div>
 
@@ -191,10 +173,11 @@
         </div>
         <div class="detail-row__text">
           <h3>Gameplay &amp; performance</h3>
+          <p class="lead">Comfortable VR movement, a complete gameplay loop and a stable 90 FPS on Meta Quest 3.</p>
           <ul>
             <li>Dual VR locomotion (vignette-assisted continuous movement + parabolic teleport) to reduce motion sickness</li>
             <li>Core gameplay loop: player health, scoring, match timer, end-of-match flow, diegetic wrist-mounted VR UI</li>
-            <li>Pooled <strong>AudioManager</strong> handling dozens of simultaneous spatial sound sources with minimal CPU overhead</li>
+            <li>Pooled <code>AudioManager</code> handling dozens of simultaneous spatial sound sources with minimal CPU overhead</li>
             <li>Custom physics for dynamically altering gravity vectors and force constants</li>
             <li>Retopology/LOD pipeline, baked lighting, draw call reduction and an event-driven refactor to hit a stable 90 FPS on Meta Quest 3</li>
           </ul>

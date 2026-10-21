@@ -449,6 +449,7 @@ a { color: inherit; text-decoration: none; }
 
 .project-card__tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 10px;
   font-family: var(--font-mono);
@@ -1034,3 +1035,15 @@ button.project-card__link { background: none; border: 0; padding: 12px 0 0; text
 .legal p, .legal li { color: var(--paper-dim); font-size: 17px; }
 .legal ul { padding-left: 20px; }
 .legal a { color: var(--cyan-tag); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- READABILITY: lead lines and inline code in project text ---------- */
+.detail-row__text .lead, .project-intro__body .lead { color: var(--paper); font-size: 19px; font-weight: 500; }
+.detail-row__text p.lead { margin-top: 0; }
+.detail-row__text code, .project-intro__body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--cyan-tag);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+}
+.detail-row__text p { max-width: 62ch; }
