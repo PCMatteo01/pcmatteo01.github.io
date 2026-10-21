@@ -352,6 +352,7 @@ if (modelCards.length) {
     <div class="model-viewer__panel">
       <div class="model-viewer__bar">
         <span class="model-viewer__title"></span>
+        <span class="model-viewer__note">Viewer by Sketchfab</span>
         <a class="model-viewer__link" target="_blank" rel="noopener">Open on Sketchfab ↗</a>
         <button type="button" class="model-viewer__close" aria-label="Close viewer">&times;</button>
       </div>
@@ -397,10 +398,18 @@ if (modelCards.length) {
   });
 }
 
+// ---------- Before/after sliders ----------
+document.querySelectorAll('[data-ba]').forEach(ba => {
+  const range = ba.querySelector('.ba__range');
+  const update = () => ba.style.setProperty('--pos', `${range.value}%`);
+  range.addEventListener('input', update);
+  update();
+});
+
 // ---------- Lightbox (click an image or video to zoom) ----------
 // Only media that isn't inside a link gets this - on the portfolio grid
 // the thumbnail IS the "view project" link, so clicking it must still navigate.
-const zoomableMedia = document.querySelectorAll('main img, main video, .side-banner img, .side-banner video');
+const zoomableMedia = document.querySelectorAll('main img, main video');
 
 if (zoomableMedia.length) {
   const overlay = document.createElement('div');
@@ -442,7 +451,7 @@ if (zoomableMedia.length) {
   });
 
   zoomableMedia.forEach(el => {
-    if (el.closest('a, button')) return;
+    if (el.closest('a, button, .ba')) return;
     el.classList.add('is-zoomable');
     el.addEventListener('click', () => openLightbox(el));
   });

@@ -11,8 +11,7 @@
 <meta property="og:description" content="Wave-based survival shooter for PC and VR, built with a five-person team.">
 <meta property="og:image" content="https://pcmatteo01.github.io/assets/lastgunner/tank-farmyard-hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/theme-lastgunner.css">
 </head>
@@ -40,7 +39,7 @@
       <a href="index.html#models">3D Models</a>
     </nav>
 
-    <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D</div>
+    <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D<br><a href="privacy.html">Privacy</a></div>
   </aside>
 
   <!-- ============ MAIN ============ -->
@@ -237,6 +236,63 @@
     </section>
 
     <section class="section" style="margin-bottom: 48px;">
+      <h3 style="font-family: var(--font-mono); font-size: 20px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--cyan-tag); margin: 0 0 12px;">Art direction: before &amp; after</h3>
+      <p style="max-width: 900px; color: var(--paper-dim); margin: 0 0 28px;">Four assets that show how I took the game's look from first versions to its final state. Drag the slider on each one to compare.</p>
+      <div class="compare">
+        <h4 class="compare__title">Tank: rebuilt from scratch</h4>
+        <div class="ba" data-ba style="--ar: 8 / 5;">
+          <img class="ba__img" src="assets/lastgunner/art-tank-after.webp" alt="The rebuilt tank with textures, cables, pipes and hatches">
+          <div class="ba__before"><img class="ba__img" src="assets/lastgunner/art-tank-before.webp" alt="Flat-shaded yellow tank model, the original version"></div>
+          <span class="ba__label ba__label--before">Original (teammate)</span>
+          <span class="ba__label ba__label--after">Rebuilt</span>
+          <div class="ba__handle" aria-hidden="true"><span></span></div>
+          <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare: Original (teammate) on the left, Rebuilt on the right">
+        </div>
+        <p class="compare__text">The original tank was modeled by a teammate. When I took over art direction and modeling, I rebuilt it from zero.</p>
+        <ul class="compare__facts"><li>Vertex count cut from about 15.5k to about 6.3k (roughly 59% fewer)</li><li>Added detail: cables, pipes, hatches and more</li><li>Textured to match the rest of the scene</li></ul>
+      </div>
+      <div class="compare">
+        <h4 class="compare__title">Farmyard: map and art</h4>
+        <div class="ba" data-ba style="--ar: 2 / 1;">
+          <img class="ba__img" src="assets/lastgunner/art-farm-after.webp" alt="The finished farmyard map with textured buildings, trees, fog and a blood-red dusk sky">
+          <div class="ba__before"><img class="ba__img" src="assets/lastgunner/art-farm-before.webp" alt="Greybox of the farmyard with flat-colored buildings and a tank"></div>
+          <span class="ba__label ba__label--before">Greybox</span>
+          <span class="ba__label ba__label--after">Final</span>
+          <div class="ba__handle" aria-hidden="true"><span></span></div>
+          <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare: Greybox on the left, Final on the right">
+        </div>
+        <p class="compare__text">The farmyard was my own design, including the layout of the map. I took it from a greybox to the final dressed scene.</p>
+        <ul class="compare__facts"><li>Layout and level design by me</li><li>All materials share a single texture atlas to keep rendering cost low</li><li>Lighting and sky chosen to set the game's mood</li></ul>
+      </div>
+      <div class="compare compare--portrait">
+        <h4 class="compare__title">Anatolij: character</h4>
+        <div class="ba" data-ba style="--ar: 56 / 69;">
+          <img class="ba__img" src="assets/lastgunner/art-anatolij-after.webp" alt="The final mechanic character with gas mask, overalls and boots">
+          <div class="ba__before"><img class="ba__img" src="assets/lastgunner/art-anatolij-before.webp" alt="Plain grey low-poly base model of the mechanic"></div>
+          <span class="ba__label ba__label--before">Base model (teammate)</span>
+          <span class="ba__label ba__label--after">Final</span>
+          <div class="ba__handle" aria-hidden="true"><span></span></div>
+          <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare: Base model (teammate) on the left, Final on the right">
+        </div>
+        <p class="compare__text">The base model of Anatolij, the mechanic, was made by a teammate. I rebuilt it with all the details and textured it.</p>
+        <ul class="compare__facts"><li>Added all the details on top of the base mesh</li><li>Full texturing</li></ul>
+      </div>
+      <div class="compare compare--portrait">
+        <h4 class="compare__title">Zombie: from base to horde</h4>
+        <div class="ba" data-ba style="--ar: 56 / 69;">
+          <img class="ba__img" src="assets/lastgunner/art-zombie-after.webp" alt="The final green zombie with torn, bloodied skin, red eyes and a wide grin, arms reaching forward">
+          <div class="ba__before"><img class="ba__img" src="assets/lastgunner/art-zombie-before.webp" alt="Plain grey low-poly base model, the starting point for the zombie"></div>
+          <span class="ba__label ba__label--before">Base model</span>
+          <span class="ba__label ba__label--after">Final</span>
+          <div class="ba__handle" aria-hidden="true"><span></span></div>
+          <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare: Base model on the left, Final on the right">
+        </div>
+        <p class="compare__text">The zombie started from the same white base model and became the green zombie that fills the whole project, from gameplay to the promotional art.</p>
+        <ul class="compare__facts"><li>Modeled and textured by me</li><li>One reusable asset for the entire horde</li></ul>
+      </div>
+    </section>
+
+    <section class="section" style="margin-bottom: 48px;">
       <h3 style="font-family: var(--font-mono); font-size: 20px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--cyan-tag); margin: 0 0 20px;">Gallery</h3>
       <div class="scroll-gallery">
         <div class="scroll-gallery__item project-card__media crosshair" style="aspect-ratio: 4/3;">
@@ -279,8 +335,8 @@
   </main>
 
   <!-- ============ SIDE BANNER (project-specific, right column) ============ -->
-  <aside class="side-banner crosshair">
-    <img src="assets/lastgunner/horde-banner-red.png" alt="Rows of low-poly zombies reaching toward the camera on a blood-red background" class="side-banner__img">
+  <aside class="side-banner crosshair" aria-hidden="true">
+    <img src="assets/lastgunner/horde-banner-red.png" alt="Rows of low-poly zombies reaching toward the camera on a blood-red background" class="side-banner__img" draggable="false">
   </aside>
 </div>
 
