@@ -1,3 +1,6 @@
+// Localization helper (js/i18n.js loads first; falls back to the English text)
+const t = (window.I18N && window.I18N.t) || ((s, v) => v ? Object.keys(v).reduce((o, k) => o.split('{' + k + '}').join(v[k]), s) : s);
+
 // ---------- Portfolio filtering ----------
 const filterChips = document.querySelectorAll('.filter-chip');
 const projectCards = document.querySelectorAll('#project-grid .project-card');
@@ -110,7 +113,7 @@ document.querySelectorAll('[data-gallery]').forEach(gallery => {
     const dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'gallery__dot';
-    dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+    dot.setAttribute('aria-label', t('Go to image {n}', { n: i + 1 }));
     dot.addEventListener('click', () => goTo(i));
     dotsWrap.appendChild(dot);
     return dot;
@@ -295,11 +298,11 @@ if (lazyVideos.length) {
     motionBtn.type = 'button';
     motionBtn.className = 'motion-toggle';
     motionBtn.setAttribute('aria-pressed', 'false');
-    motionBtn.textContent = 'Pause videos';
+    motionBtn.textContent = t('Pause videos');
     motionBtn.addEventListener('click', () => {
       videosPaused = !videosPaused;
       motionBtn.setAttribute('aria-pressed', String(videosPaused));
-      motionBtn.textContent = videosPaused ? 'Play videos' : 'Pause videos';
+      motionBtn.textContent = videosPaused ? t('Play videos') : t('Pause videos');
       lazyVideos.forEach(v => {
         if (videosPaused) {
           v.pause();
@@ -319,8 +322,8 @@ const projectHeadings = document.querySelectorAll('.detail-row__text h3, .role-b
 if (document.querySelector('.project-facts') && projectHeadings.length >= 3) {
   const toc = document.createElement('nav');
   toc.className = 'project-toc';
-  toc.setAttribute('aria-label', 'On this page');
-  toc.innerHTML = '<span class="project-toc__label">On this page</span>';
+  toc.setAttribute('aria-label', t('On this page'));
+  toc.innerHTML = '<span class="project-toc__label">' + t('On this page') + '</span>';
   projectHeadings.forEach((h, i) => {
     h.id = h.id || `sec-${i + 1}`;
     const a = document.createElement('a');
@@ -335,7 +338,7 @@ if (document.querySelector('.project-facts')) {
   const topBtn = document.createElement('button');
   topBtn.type = 'button';
   topBtn.className = 'back-to-top';
-  topBtn.setAttribute('aria-label', 'Back to top');
+  topBtn.setAttribute('aria-label', t('Back to top'));
   topBtn.innerHTML = '&uarr;';
   topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   document.body.appendChild(topBtn);
@@ -380,9 +383,9 @@ if (modelCards.length) {
     <div class="model-viewer__panel">
       <div class="model-viewer__bar">
         <span class="model-viewer__title"></span>
-        <span class="model-viewer__note">Viewer by Sketchfab</span>
-        <a class="model-viewer__link" target="_blank" rel="noopener">Open on Sketchfab ↗</a>
-        <button type="button" class="model-viewer__close" aria-label="Close viewer">&times;</button>
+        <span class="model-viewer__note">${t('Viewer by Sketchfab')}</span>
+        <a class="model-viewer__link" target="_blank" rel="noopener">${t('Open on Sketchfab ↗')}</a>
+        <button type="button" class="model-viewer__close" aria-label="${t('Close viewer')}">&times;</button>
       </div>
       <div class="model-viewer__stage"></div>
     </div>`;
@@ -399,7 +402,7 @@ if (modelCards.length) {
     viewerTitle.textContent = title;
     viewerLink.href = `https://sketchfab.com/3d-models/${card.dataset.slug}-${uid}`;
     const iframe = document.createElement('iframe');
-    iframe.title = `${title} - 3D model`;
+    iframe.title = t('{title} - 3D model', { title });
     iframe.allow = 'autoplay; fullscreen; xr-spatial-tracking';
     iframe.src = `https://sketchfab.com/models/${uid}/embed?autostart=1&ui_theme=dark`;
     viewerStage.replaceChildren(iframe);
@@ -441,7 +444,7 @@ document.querySelectorAll('video[data-audio]').forEach(v => {
   const tag = document.createElement('span');
   tag.className = 'audio-tag';
   tag.setAttribute('aria-hidden', 'true');
-  tag.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg><span>Click for sound</span>';
+  tag.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg><span>' + t('Click for sound') + '</span>';
   box.appendChild(tag);
 });
 
@@ -453,7 +456,7 @@ const zoomableMedia = document.querySelectorAll('main img, main video');
 if (zoomableMedia.length) {
   const overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
-  overlay.innerHTML = '<button class="lightbox-overlay__close" aria-label="Close">&times;</button><img alt=""><video muted loop playsinline controls></video>';
+  overlay.innerHTML = '<button class="lightbox-overlay__close" aria-label="' + t('Close') + '">&times;</button><img alt=""><video muted loop playsinline controls></video>';
   document.body.appendChild(overlay);
   const overlayImg = overlay.querySelector('img');
   const overlayVideo = overlay.querySelector('video');
