@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import Projects, { type ProjectItem } from './Projects.tsx';
+import Models, { type ModelTile } from './Models.tsx';
+import { models, projects } from '../data/content';
+import { localePath, useT, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useT(lang);
+
+// Project detail pages are still to be ported: their links point to the planned routes.
+const toItem = (p: (typeof projects)[number]): ProjectItem => ({
+  id: p.slug,
+  title: p.title,
+  platforms: p.platforms,
+  image: p.image,
+  imageAlt: p.imageAlt[lang],
+  position: p.position,
+  video: p.video,
+  poster: p.poster,
+  desc: p.desc[lang],
+  facts: p.facts?.[lang],
+  href: localePath(lang, `/projects/${p.slug}/`),
+});
+const gameItems: ProjectItem[] = projects.filter((p) => !p.platforms.includes('3d')).map(toItem);
+const renders: ModelTile[] = projects
+  .filter((p) => p.platforms.includes('3d'))
+  .map((p) => ({ id: p.slug, title: p.title, tag: 'Render', image: p.image, href: localePath(lang, `/projects/${p.slug}/`) }));
+const modelTiles: ModelTile[] = models.map((m) => ({
+  id: m.id,
+  title: m.title,
+  tag: m.tags[0] ?? '3D',
+  image: m.image,
+  sketchfab: m.sketchfab,
+}));
+
+const filters = [
+  { id: 'all', label: t.filterAll },
+  { id: 'pc', label: 'PC' },
+  { id: 'xr', label: 'XR' },
+];
+---
+
+<Base lang={lang}>
+  <section id="top" class="section hero">
+    <video class="hero__video" src="/assets/hero/vr-headset-wireframe.webm" autoplay muted loop playsinline aria-hidden="true"></video>
+    <div class="hero__text">
+      <p class="hero__kicker">{t.heroKicker}</p>
+      <h1 class="hero__name"><span>Matteo</span><span>Battiston</span></h1>
+      <p class="hero__tagline">{t.heroLine1} {t.heroLine2}</p>
+      <p class="hero__sub">{t.heroDesc}</p>
+      <ul class="menu" data-menu>
+        <li><a href="#projects">{t.nav.projects}</a></li>
+        <li><a href="#models">{t.nav.models}</a></li>
+        <li><a href="#about">{t.nav.about}</a></li>
+        <li><a href="#contact">{t.nav.contact}</a></li>
+      </ul>
+      <p class="hero__hint">{t.menuHint}</p>
+    </div>
+  </section>
+
+  <section id="projects" class="section work">
+    <h2 class="h2">{t.projectsTitle}</h2>
+    <Projects client:load items={gameItems} filters={filters} labels={{ filter: t.filterLabel, view: t.viewProject }} />
+  </section>
+
+  <section id="models" class="section work work--models">
+    <h2 class="h2">{t.modelsTitle}</h2>
+    <Models client:load items={[...renders, ...modelTiles]} labels={{ view: t.viewProject, viewModel: t.viewModel, close: t.closeViewer }} />
+    <p class="note">{t.gridNote}</p>
+  </section>
+
+  <section id="about" class="section about">
+    <article class="profile win">
+      <h2 class="profile__bar">{t.card.title}</h2>
+      <dl class="profile__rows">
+        {t.card.rows.map(([k, v]) => (
+          <div><dt>{k}</dt><dd>{v}</dd></div>
+        ))}
+      </dl>
+    </article>
+  </section>
+
+  <script>
+    // Title-screen menu: arrow keys move between entries, like a console menu.
+    const items = [...document.querySelectorAll<HTMLAnchorElement>('[data-menu] a')];
+    items.forEach((a, i) => {
+      a.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') items[(i + 1) % items.length].focus();
+        else if (e.key === 'ArrowUp') items[(i - 1 + items.length) % items.length].focus();
+        else return;
+        e.preventDefault();
+      });
+      a.addEventListener('mouseenter', () => a.focus({ preventScroll: true }));
+    });
+    // Focus the first entry once the title has typed itself out, so arrow keys work right away.
+    window.setTimeout(() => {
+      if (document.activeElement === document.body) items[0]?.focus({ preventScroll: true });
+    }, 1500);
+  </script>
+</Base>

@@ -1,0 +1,354 @@
+{
+  "slug": "normandia",
+  "title": "Project Normandia",
+  "stamp": {
+    "en": "Operation Overlord · 06.06.1944",
+    "it": "Operazione Overlord · 06.06.1944"
+  },
+  "facts": [
+    {
+      "k": {
+        "en": "Role",
+        "it": "Ruolo"
+      },
+      "v": {
+        "en": "Gameplay programming, 3D assets, VR optimization",
+        "it": "Programmazione gameplay, asset 3D, ottimizzazione VR"
+      }
+    },
+    {
+      "k": {
+        "en": "Context",
+        "it": "Contesto"
+      },
+      "v": {
+        "en": "Internship at Radica Design",
+        "it": "Tirocinio presso Radica Design"
+      }
+    },
+    {
+      "k": {
+        "en": "Platform",
+        "it": "Piattaforma"
+      },
+      "v": {
+        "en": "Meta Quest 3 · PC",
+        "it": "Meta Quest 3 · PC"
+      }
+    },
+    {
+      "k": {
+        "en": "Engine",
+        "it": "Motore"
+      },
+      "v": {
+        "en": "Unity",
+        "it": "Unity"
+      }
+    }
+  ],
+  "hero": {
+    "type": "image",
+    "src": "assets/normandia/hero-soldier-kneeling.png",
+    "alt": {
+      "en": "Soldier kneeling and firing a Thompson near the landing craft on the beach",
+      "it": "Soldato inginocchiato che spara con un Thompson vicino al mezzo da sbarco sulla spiaggia"
+    },
+    "position": "60% 40%"
+  },
+  "intro": [
+    {
+      "lead": true,
+      "en": "An immersive VR simulation of the Allied landings in Normandy on June 6, 1944, built for Meta Quest 3 during my internship at Radica Design.",
+      "it": "Simulazione VR immersiva dello sbarco alleato in Normandia del 6 giugno 1944, realizzata per Meta Quest 3 durante il mio tirocinio presso Radica Design."
+    },
+    {
+      "lead": false,
+      "en": "The goal is historical divulgation through experiential learning: the player explores a historically accurate coastal battlefield and interacts with historical equipment. There are two modes: a slower-paced <strong>Tour mode</strong> for exploration and education, and an <strong>Action FPS mode</strong> with physically accurate weapon handling and combat.",
+      "it": "L'obiettivo è la divulgazione storica attraverso l'apprendimento esperienziale: il giocatore esplora un campo di battaglia costiero storicamente accurato e interagisce con l'equipaggiamento dell'epoca. Ci sono due modalità: una <strong>modalità Tour</strong> più lenta, per esplorare e imparare, e una <strong>modalità Action FPS</strong> con gestione delle armi fisicamente accurata e combattimento."
+    },
+    {
+      "lead": false,
+      "en": "The application runs cross-platform (VR standalone and PC with mouse/keyboard) from the same scene, and targets a stable 90 FPS on mobile VR hardware. The project is still under active development.",
+      "it": "L'applicazione funziona su più piattaforme (VR standalone e PC con mouse e tastiera) a partire dalla stessa scena e punta a 90 FPS stabili su hardware VR mobile. Il progetto è ancora in sviluppo attivo."
+    }
+  ],
+  "role": {
+    "title": {
+      "en": "Role in the project",
+      "it": "Ruolo nel progetto"
+    },
+    "text": [
+      {
+        "en": "After an initial period pairing with another intern, I took over most of the project's technical development, splitting my time between gameplay programming, 3D asset work, and getting the whole thing to run smoothly on standalone VR hardware. Day to day, that meant:",
+        "it": "Dopo un periodo iniziale in affiancamento a un altro tirocinante, mi sono occupato della maggior parte dello sviluppo tecnico del progetto, dividendomi tra programmazione del gameplay, lavoro sugli asset 3D e ottimizzazione perché tutto girasse fluido su hardware VR standalone. Nel concreto:"
+      }
+    ],
+    "items": [
+      {
+        "en": "Multi-platform architecture (VR + PC, shared scene)",
+        "it": "Architettura multipiattaforma (VR + PC, scena condivisa)"
+      },
+      {
+        "en": "Diegetic historical interaction panels (edutech)",
+        "it": "Pannelli diegetici di interazione storica (edutech)"
+      },
+      {
+        "en": "VR locomotion and tactical ammo inventory",
+        "it": "Locomozione VR e inventario tattico delle munizioni"
+      },
+      {
+        "en": "Weapon systems with physically-based reload",
+        "it": "Sistemi d'arma con ricarica basata sulla fisica"
+      },
+      {
+        "en": "3D asset modeling and optimization (Blender)",
+        "it": "Modellazione e ottimizzazione di asset 3D (Blender)"
+      },
+      {
+        "en": "Performance profiling for Meta Quest 3",
+        "it": "Profiling delle prestazioni per Meta Quest 3"
+      },
+      {
+        "en": "Audio system",
+        "it": "Sistema audio"
+      },
+      {
+        "en": "Core gameplay systems (health, scoring, timer)",
+        "it": "Sistemi di gioco principali (salute, punteggio, timer)"
+      }
+    ]
+  },
+  "groups": [
+    {
+      "title": null,
+      "details": [
+        {
+          "title": {
+            "en": "Multi-platform architecture",
+            "it": "Architettura multipiattaforma"
+          },
+          "lead": {
+            "en": "One scene, four player variants, no manual setup.",
+            "it": "Una scena, quattro varianti di giocatore, nessuna configurazione manuale."
+          },
+          "paragraphs": [
+            {
+              "en": "I designed the <code>GameModeManager</code>, a singleton that detects the running platform (VR/PC) and selects between four player variants (VR FPS, VR Tour, PC FPS, PC Tour). The same scene runs unmodified across platforms and modes, with no manual setup during testing or deploys.",
+              "it": "Ho progettato il <code>GameModeManager</code>, un singleton che rileva la piattaforma in uso (VR/PC) e sceglie tra quattro varianti di giocatore (VR FPS, VR Tour, PC FPS, PC Tour). La stessa scena funziona senza modifiche su tutte le piattaforme e modalità, senza configurazioni manuali durante test o rilasci."
+            }
+          ],
+          "bullets": [],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/normandia/menu.mp4",
+              "poster": "assets/posters/normandia-menu.webp"
+            },
+            {
+              "type": "image",
+              "src": "assets/normandia/gmm-diagram.webp",
+              "alt": {
+                "en": "GameModeManager architecture diagram: platform and mode detection, four player prefab variants, environment and input activation",
+                "it": "Schema dell'architettura di GameModeManager: rilevamento di piattaforma e modalità, quattro varianti di prefab del giocatore, attivazione di ambiente e input"
+              },
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Weapon systems &amp; VR interaction",
+            "it": "Sistemi d'arma &amp; interazione VR"
+          },
+          "lead": {
+            "en": "Physically accurate reloads, shared across VR and PC.",
+            "it": "Ricariche fisicamente accurate, condivise tra VR e PC."
+          },
+          "paragraphs": [
+            {
+              "en": "A component-based architecture (<code>WeaponCore</code>, <code>VRWeaponController</code>, <code>PCWeaponController</code>) drives the reload mechanics for the M1 Garand (en bloc clip, auto-eject) and the Thompson M1A1 (manual bolt), without duplicating logic between platforms.",
+              "it": "Un'architettura a componenti (<code>WeaponCore</code>, <code>VRWeaponController</code>, <code>PCWeaponController</code>) gestisce le meccaniche di ricarica dell'M1 Garand (caricatore a lamella en bloc con espulsione automatica) e del Thompson M1A1 (otturatore manuale), senza duplicare la logica tra le piattaforme."
+            }
+          ],
+          "bullets": [
+            {
+              "en": "In VR, ammo is managed through a wearable tactical belt (<code>SimpleVRBelt</code>, <code>AmmoReturnSocket</code>).",
+              "it": "In VR le munizioni si gestiscono con una cintura tattica indossabile (<code>SimpleVRBelt</code>, <code>AmmoReturnSocket</code>)."
+            },
+            {
+              "en": "It gives magnetic reload feedback for grabbing and stowing magazines mid-action, keeping the player's hands on the weapon instead of a menu.",
+              "it": "Offre un feedback magnetico per afferrare e riporre i caricatori durante l'azione, tenendo le mani del giocatore sull'arma invece che su un menu."
+            }
+          ],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/normandia/belt-reload.mp4",
+              "poster": "assets/posters/normandia-belt-reload.webp"
+            },
+            {
+              "type": "image",
+              "src": "assets/normandia/weapons-closeup.webp",
+              "alt": {
+                "en": "Close-up of the M1 Garand, Thompson M1A1, Lee-Enfield and StG 44 weapon models",
+                "it": "Primo piano dei modelli delle armi M1 Garand, Thompson M1A1, Lee-Enfield e StG 44"
+              },
+              "position": "60% 45%"
+            },
+            {
+              "type": "image",
+              "src": "assets/normandia/ammo-pouches-belt.webp",
+              "alt": {
+                "en": "Tactical belt with four ammo pouches for the VR magazine reload system",
+                "it": "Cintura tattica con quattro tasche per munizioni per il sistema di ricarica dei caricatori in VR"
+              },
+              "position": "50% 45%"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Historical interaction &amp; edutech",
+            "it": "Interazione storica &amp; edutech"
+          },
+          "lead": {
+            "en": "Objects in the scene teach history without breaking immersion.",
+            "it": "Gli oggetti della scena insegnano la storia senza rompere l'immersione."
+          },
+          "paragraphs": [
+            {
+              "en": "Beyond combat, the project is built around <strong>experiential learning</strong>: looking at or interacting with objects in the scene (vehicles, equipment, fortifications) triggers a diegetic information panel with historical context drawn from verified sources, with no menus breaking immersion.",
+              "it": "Oltre al combattimento, il progetto si basa sull'<strong>apprendimento esperienziale</strong>: guardare o interagire con gli oggetti della scena (veicoli, equipaggiamento, fortificazioni) attiva un pannello informativo diegetico con il contesto storico tratto da fonti verificate, senza menu che interrompano l'immersione."
+            },
+            {
+              "en": "It's aimed at history enthusiasts, students, and museums or cultural institutions looking for an experiential complement to traditional teaching material.",
+              "it": "È pensato per appassionati di storia, studenti, musei e istituzioni culturali che cercano un complemento esperienziale al materiale didattico tradizionale."
+            }
+          ],
+          "bullets": [],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/normandia/point-interaction.mp4",
+              "poster": "assets/posters/normandia-point-interaction.webp"
+            },
+            {
+              "type": "video",
+              "src": "assets/normandia/npc-interaction.mp4",
+              "poster": "assets/posters/normandia-npc-interaction.webp"
+            },
+            {
+              "type": "image",
+              "src": "assets/normandia/tank-obstacles-interactable.webp",
+              "alt": {
+                "en": "Sherman tank on the beach highlighted as an interactable object, ready to show historical context",
+                "it": "Carro Sherman sulla spiaggia evidenziato come oggetto interattivo, pronto a mostrare il contesto storico"
+              },
+              "position": "55% 55%"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Gameplay &amp; performance",
+            "it": "Gameplay &amp; prestazioni"
+          },
+          "lead": {
+            "en": "Comfortable VR movement, a complete gameplay loop and a stable 90 FPS on Meta Quest 3.",
+            "it": "Movimento VR confortevole, un ciclo di gioco completo e 90 FPS stabili su Meta Quest 3."
+          },
+          "paragraphs": [],
+          "bullets": [
+            {
+              "en": "Dual VR locomotion (vignette-assisted continuous movement + parabolic teleport) to reduce motion sickness",
+              "it": "Doppia locomozione VR (movimento continuo con vignettatura + teletrasporto parabolico) per ridurre la nausea da movimento"
+            },
+            {
+              "en": "Core gameplay loop: player health, scoring, match timer, end-of-match flow, diegetic wrist-mounted VR UI",
+              "it": "Ciclo di gioco principale: salute del giocatore, punteggio, timer della partita, flusso di fine partita, UI VR diegetica sul polso"
+            },
+            {
+              "en": "Pooled <code>AudioManager</code> handling dozens of simultaneous spatial sound sources with minimal CPU overhead",
+              "it": "<code>AudioManager</code> con pooling che gestisce decine di sorgenti sonore spaziali simultanee con un carico minimo sulla CPU"
+            },
+            {
+              "en": "Custom physics for dynamically altering gravity vectors and force constants",
+              "it": "Fisica personalizzata per modificare dinamicamente i vettori di gravità e le costanti di forza"
+            },
+            {
+              "en": "Retopology/LOD pipeline, baked lighting, draw call reduction and an event-driven refactor to hit a stable 90 FPS on Meta Quest 3",
+              "it": "Pipeline di retopology/LOD, illuminazione baked, riduzione delle draw call e refactoring a eventi per raggiungere 90 FPS stabili su Meta Quest 3"
+            }
+          ],
+          "media": [
+            {
+              "type": "image",
+              "src": "assets/normandia/tank-landingcraft-sunset.webp",
+              "alt": {
+                "en": "Sherman tank and landing craft on the beach at sunset, part of the optimized battle scene",
+                "it": "Carro Sherman e mezzo da sbarco sulla spiaggia al tramonto, parte della scena di battaglia ottimizzata"
+              },
+              "position": "65% 55%"
+            },
+            {
+              "type": "image",
+              "src": "assets/normandia/soldier-advancing-rifle.webp",
+              "alt": {
+                "en": "Soldier advancing with rifle raised across the beach under fire",
+                "it": "Soldato che avanza con il fucile alzato sulla spiaggia sotto il fuoco"
+              },
+              "position": "30% 55%"
+            }
+          ]
+        }
+      ],
+      "compares": [],
+      "gallery": [],
+      "models": []
+    },
+    {
+      "title": {
+        "en": "Gallery",
+        "it": "Galleria"
+      },
+      "details": [],
+      "compares": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "assets/normandia/soldier-boat-sunset-wreck.webp",
+          "alt": {
+            "en": "Soldiers advancing under fire past a landing craft and crashed plane at sunset",
+            "it": "Soldati che avanzano sotto il fuoco oltre un mezzo da sbarco e un aereo precipitato al tramonto"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/normandia/dogtags-menu.webp",
+          "alt": {
+            "en": "Diegetic mode-select menu: Tour and FPS dog tags hanging in front of the landing craft",
+            "it": "Menu diegetico di selezione della modalità: le piastrine Tour e FPS appese davanti al mezzo da sbarco"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/normandia/plane-wreck-smoke.webp",
+          "alt": {
+            "en": "Crashed plane burning on the beach with the invasion fleet offshore",
+            "it": "Aereo precipitato in fiamme sulla spiaggia con la flotta d'invasione al largo"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/normandia/hero-soldiers.webp",
+          "alt": {
+            "en": "Two soldiers advancing through fog past beach obstacles under fire",
+            "it": "Due soldati che avanzano nella nebbia oltre gli ostacoli della spiaggia sotto il fuoco"
+          }
+        }
+      ],
+      "models": []
+    }
+  ]
+}

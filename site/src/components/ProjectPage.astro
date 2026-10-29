@@ -1,0 +1,209 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/project.css';
+import '../styles/themes.css';
+import Media from './Media.astro';
+import { models, projects } from '../data/content';
+import { localePath, useT, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const t = useT(lang);
+
+const files = import.meta.glob('../data/projects/*.json', { eager: true, import: 'default' }) as Record<string, any>;
+const data = files[`../data/projects/${slug}.json`];
+const L = (x: { en: string; it: string } | null | undefined) => (x ? x[lang] : '');
+
+const meta = projects.find((p) => p.slug === slug)!;
+const index = projects.findIndex((p) => p.slug === slug);
+const prev = projects[(index - 1 + projects.length) % projects.length];
+const next = projects[(index + 1) % projects.length];
+const isRender = meta.platforms.includes('3d');
+const home = localePath(lang, '/');
+const hrefOf = (s: string) => localePath(lang, `/projects/${s}/`);
+
+const tagLabel: Record<string, string> = { pc: 'PC', xr: 'XR', '3d': '3D' };
+const lead = data.intro.find((p: any) => p.lead) ?? data.intro[0];
+const rest = data.intro.filter((p: any) => p !== lead);
+const groupModels = (g: any) => g.models.map((s: string) => models.find((m) => m.id === s)).filter(Boolean);
+---
+
+<Base lang={lang} path={`/projects/${slug}/`} project={slug}>
+  <div class={slug === 'lastgunner' ? 'bannered' : undefined}>
+  {slug === 'lastgunner' && <aside class="banner banner--left" aria-hidden="true"><img src="/assets/lastgunner/horde-banner-red.webp" alt="" draggable="false" /></aside>}
+  <article class="proj">
+    <section class="section proj__head">
+      <a class="back" href={`${home}#${isRender ? 'models' : 'projects'}`}>{isRender ? t.backModels : t.backProjects}</a>
+      <ul class="proj__tags">{meta.platforms.map((p) => <li>{tagLabel[p]}</li>)}</ul>
+      <h1 class="proj__title">{meta.title}</h1>
+      {data.stamp && <p class="proj__stamp" set:html={L(data.stamp)} />}
+
+      <div class="proj__hero win">
+        <div class="proj__heroMedia"><Media item={data.hero} lang={lang} /></div>
+      </div>
+
+      <div class="proj__intro">
+        <div class="proj__text">
+          <p class="proj__lead" set:html={L(lead)} />
+          {
+            rest.length > 0 && (
+              <div class="copy">
+                {rest.map((p: any) => <p set:html={L(p)} />)}
+              </div>
+            )
+          }
+        </div>
+        <dl class="proj__facts win">
+          {data.facts.map((f: any) => <div><dt set:html={L(f.k)} /><dd set:html={L(f.v)} /></div>)}
+        </dl>
+      </div>
+
+      {
+        data.role && (
+          <div class="proj__role win">
+            <h2 class="win__bar" set:html={L(data.role.title)} />
+            <ul>{data.role.items.map((i: any) => <li set:html={L(i)} />)}</ul>
+          </div>
+        )
+      }
+    </section>
+
+    {
+      data.groups.map((g: any) => (
+        <section class="section proj__group">
+          {g.title && <h2 class="h2" set:html={L(g.title)} />}
+
+          {g.details.map((d: any, i: number) => (
+            <article class={`detail win${i % 2 ? ' detail--rev' : ''}`}>
+              <div class="gal" data-gal>
+                <div class="gal__track">
+                  {d.media.map((m: any) => <div class="gal__item"><Media item={m} lang={lang} /></div>)}
+                </div>
+                {
+                  d.media.length > 1 && (
+                    <>
+                      <button type="button" class="gal__btn gal__btn--prev" aria-label={t.galleryPrev}>&#9664;</button>
+                      <button type="button" class="gal__btn gal__btn--next" aria-label={t.galleryNext}>&#9654;</button>
+                      <div class="gal__dots" aria-hidden="true" />
+                    </>
+                  )
+                }
+              </div>
+              <div class="detail__text">
+                <h3 class="detail__title" set:html={L(d.title)} />
+                {d.lead && <p class="detail__lead" set:html={L(d.lead)} />}
+                {d.bullets.length > 0 && <ul class="bullets">{d.bullets.map((b: any) => <li set:html={L(b)} />)}</ul>}
+                {
+                  d.paragraphs.length > 0 && (
+                    <div class="copy">
+                      {d.paragraphs.map((p: any) => <p set:html={L(p)} />)}
+                    </div>
+                  )
+                }
+              </div>
+            </article>
+          ))}
+
+          {g.compares.map((c: any, i: number) => (
+            <article class={`detail win compare${c.ratio === '56 / 69' ? ' compare--portrait' : ''}${i % 2 ? ' compare--rev' : ''}`}>
+              <div class="ba" style={`--ar:${c.ratio ?? '16 / 9'}`} data-ba>
+                <img class="ba__img" src={`/${c.after.src}`} alt={L(c.after.alt)} loading="lazy" />
+                <div class="ba__before"><img class="ba__img" src={`/${c.before.src}`} alt={L(c.before.alt)} loading="lazy" /></div>
+                <span class="ba__label ba__label--before" set:html={L(c.beforeLabel)} />
+                <span class="ba__label ba__label--after" set:html={L(c.afterLabel)} />
+                <div class="ba__handle" aria-hidden="true" />
+                <input class="ba__range" type="range" min="0" max="100" value="50" aria-label={`${t.compareHint}: ${L(c.beforeLabel)} / ${L(c.afterLabel)}`} />
+              </div>
+              <div class="detail__text">
+                <h3 class="detail__title" set:html={L(c.title)} />
+                <p class="detail__lead" set:html={L(c.text)} />
+                {c.facts.length > 0 && <ul class="bullets">{c.facts.map((f: any) => <li set:html={L(f)} />)}</ul>}
+              </div>
+            </article>
+          ))}
+
+          {
+            g.models.length > 0 && (
+              <div class="minimodels">
+                {groupModels(g).map((m: any) => (
+                  <a class="cell" href={`${home}#models`}>
+                    <span class="cell__media"><img src={m.image} alt="" loading="lazy" /></span>
+                    <span class="cell__cap"><span class="cell__title">{m.title}</span><span class="cell__tags">3D</span></span>
+                  </a>
+                ))}
+                <p class="note">{t.modelsFromProject}</p>
+              </div>
+            )
+          }
+
+          {
+            g.gallery.length > 0 && (
+              <div class="strip">
+                {g.gallery.map((m: any) => (
+                  <div class={`strip__item win${m.type === 'image' ? ' strip__item--zoom' : ''}`}><Media item={m} lang={lang} /></div>
+                ))}
+              </div>
+            )
+          }
+        </section>
+      ))
+    }
+
+    <nav class="pager section" aria-label="Projects">
+      <a class="pager__link win" href={hrefOf(prev.slug)}><span>&#9664; {t.prevProject}</span>{prev.title}</a>
+      <a class="pager__link pager__link--next win" href={hrefOf(next.slug)}><span>{t.nextProject} &#9654;</span>{next.title}</a>
+    </nav>
+
+    <dialog class="lightbox"><button type="button" class="viewer__close" data-close>{t.closeViewer}</button><img alt="" /></dialog>
+  </article>
+  {slug === 'lastgunner' && <aside class="banner banner--right" aria-hidden="true"><img src="/assets/lastgunner/horde-banner-red.webp" alt="" draggable="false" /></aside>}
+  </div>
+
+  <script>
+    import { lazyVideos } from '../lib/lazyVideo';
+    lazyVideos();
+
+    // Carousels: arrows and dots over a scroll-snap track
+    document.querySelectorAll<HTMLElement>('[data-gal]').forEach((gal) => {
+      const track = gal.querySelector<HTMLElement>('.gal__track')!;
+      const items = [...track.children] as HTMLElement[];
+      const dots = gal.querySelector<HTMLElement>('.gal__dots');
+      items.forEach(() => dots?.append(document.createElement('i')));
+      const mark = () => {
+        const i = Math.round(track.scrollLeft / track.clientWidth);
+        dots?.querySelectorAll('i').forEach((d, n) => d.classList.toggle('on', n === i));
+      };
+      mark();
+      track.addEventListener('scroll', mark, { passive: true });
+      gal.querySelector('.gal__btn--prev')?.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' }));
+      gal.querySelector('.gal__btn--next')?.addEventListener('click', () => track.scrollBy({ left: track.clientWidth, behavior: 'smooth' }));
+    });
+
+    // Before / after sliders
+    document.querySelectorAll<HTMLElement>('[data-ba]').forEach((ba) => {
+      const range = ba.querySelector<HTMLInputElement>('.ba__range')!;
+      const set = () => ba.style.setProperty('--pos', `${range.value}%`);
+      range.addEventListener('input', set);
+      set();
+    });
+
+    // Click an image in the strip to see it bigger
+    const box = document.querySelector<HTMLDialogElement>('.lightbox');
+    const big = box?.querySelector('img');
+    document.querySelectorAll<HTMLImageElement>('.strip__item--zoom img').forEach((img) => {
+      img.addEventListener('click', () => {
+        if (!box || !big) return;
+        big.src = img.src;
+        big.alt = img.alt;
+        box.showModal();
+      });
+    });
+    box?.addEventListener('click', (e) => {
+      if (e.target === box || (e.target as HTMLElement).closest('[data-close]')) box.close();
+    });
+  </script>
+</Base>

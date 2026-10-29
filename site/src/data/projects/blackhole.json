@@ -1,0 +1,95 @@
+{
+  "slug": "blackhole",
+  "title": "Black Hole Render",
+  "facts": [
+    {
+      "k": {
+        "en": "Type",
+        "it": "Tipo"
+      },
+      "v": {
+        "en": "Personal study",
+        "it": "Studio personale"
+      }
+    },
+    {
+      "k": {
+        "en": "Tool",
+        "it": "Strumento"
+      },
+      "v": {
+        "en": "Blender",
+        "it": "Blender"
+      }
+    },
+    {
+      "k": {
+        "en": "Techniques",
+        "it": "Tecniche"
+      },
+      "v": {
+        "en": "Shaders, geometry nodes",
+        "it": "Shader, geometry nodes"
+      }
+    }
+  ],
+  "hero": {
+    "type": "video",
+    "src": "assets/blackhole/hero.mp4",
+    "poster": "assets/posters/blackhole-hero.webp"
+  },
+  "intro": [
+    {
+      "lead": false,
+      "en": "A standalone render exploring gravitational lensing, in the style of Interstellar's Gargantua. Built entirely in Blender using shaders and geometry nodes, following <a href=\"https://www.youtube.com/watch?v=XWv1Ajc3tfU\" target=\"_blank\" rel=\"noopener\">this tutorial</a>. It isn't tied to any project or game, just a personal study of the effect.",
+      "it": "Un render indipendente che esplora la lente gravitazionale, nello stile di Gargantua di Interstellar. Realizzato interamente in Blender con shader e geometry nodes, seguendo <a href=\"https://www.youtube.com/watch?v=XWv1Ajc3tfU\" target=\"_blank\" rel=\"noopener\">questo tutorial</a>. Non è legato a nessun progetto o gioco, è solo uno studio personale dell'effetto."
+    }
+  ],
+  "groups": [
+    {
+      "title": {
+        "en": "Gallery",
+        "it": "Galleria"
+      },
+      "details": [],
+      "compares": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "assets/blackhole/angle-3.jpg",
+          "alt": {
+            "en": "Extreme close-up of the event horizon against a blue-tinted backdrop",
+            "it": "Primo piano estremo dell'orizzonte degli eventi su uno sfondo tendente al blu"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/blackhole/angle-4.jpg",
+          "alt": {
+            "en": "Wide angle of the black hole set against a pink nebula backdrop",
+            "it": "Grandangolo del buco nero su uno sfondo di nebulosa rosa"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/blackhole/geometry-nodes.webp",
+          "alt": {
+            "en": "Geometry nodes setup driving the lensing sphere mesh in Blender",
+            "it": "Configurazione dei geometry nodes che governa la mesh sferica della lente in Blender"
+          },
+          "fit": "contain"
+        },
+        {
+          "type": "image",
+          "src": "assets/blackhole/shader-nodes.webp",
+          "alt": {
+            "en": "Shader node graph driving the accretion disk material in Blender",
+            "it": "Grafo dei nodi dello shader che governa il materiale del disco di accrescimento in Blender"
+          },
+          "fit": "contain"
+        }
+      ],
+      "models": []
+    }
+  ]
+}

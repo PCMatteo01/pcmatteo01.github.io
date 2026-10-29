@@ -1,0 +1,154 @@
+{
+  "slug": "freezingcold",
+  "title": "Freezing Cold",
+  "facts": [
+    {
+      "k": {
+        "en": "Role",
+        "it": "Ruolo"
+      },
+      "v": {
+        "en": "Solo: code, art and design",
+        "it": "Da solo: codice, grafica e design"
+      }
+    },
+    {
+      "k": {
+        "en": "Time",
+        "it": "Tempo"
+      },
+      "v": {
+        "en": "Under 7 hours",
+        "it": "Meno di 7 ore"
+      }
+    },
+    {
+      "k": {
+        "en": "Context",
+        "it": "Contesto"
+      },
+      "v": {
+        "en": "School exam",
+        "it": "Esame scolastico"
+      }
+    },
+    {
+      "k": {
+        "en": "Platform",
+        "it": "Piattaforma"
+      },
+      "v": {
+        "en": "PC",
+        "it": "PC"
+      }
+    }
+  ],
+  "hero": {
+    "type": "video",
+    "src": "assets/freezingcold/hero.mp4",
+    "poster": "assets/posters/freezingcold-hero.webp"
+  },
+  "intro": [
+    {
+      "lead": true,
+      "en": "A solo exploration/puzzle game built entirely from scratch in less than 7 hours, for a timed school exam. Code, art and 3D models are all made by hand.",
+      "it": "Un gioco di esplorazione e puzzle in solitaria, costruito interamente da zero in meno di 7 ore per un esame scolastico a tempo. Codice, grafica e modelli 3D sono tutti fatti a mano."
+    },
+    {
+      "lead": false,
+      "en": "The player wakes up lost in a snowy forest at night and has to gather sticks and keys, unlock gates and follow environmental hints to survive until morning, with footprints fading in the snow as they walk.",
+      "it": "Il giocatore si sveglia perso in una foresta innevata di notte e deve raccogliere bastoni e chiavi, aprire cancelli e seguire gli indizi dell'ambiente per sopravvivere fino al mattino, mentre le impronte nella neve svaniscono a ogni passo."
+    },
+    {
+      "lead": false,
+      "en": "The game has 3 different endings depending on how the player handles the night, plus a fully working main menu, pause menu and end screens.",
+      "it": "Il gioco ha 3 finali diversi a seconda di come il giocatore affronta la notte, oltre a menu principale, menu di pausa e schermate finali completamente funzionanti."
+    },
+    {
+      "lead": false,
+      "en": "Given the time constraint it is a small-scope prototype, but one I'd like to keep expanding with more systems and content.",
+      "it": "Dati i tempi stretti è un prototipo di portata limitata, ma vorrei continuare ad ampliarlo con altri sistemi e contenuti."
+    }
+  ],
+  "role": {
+    "title": {
+      "en": "Role in the project",
+      "it": "Ruolo nel progetto"
+    },
+    "text": [
+      {
+        "en": "Solo project, built from an empty template under a strict ~7 hour time limit for a school exam. Every asset (models, materials, UI, sound) was made from scratch, alongside the full gameplay loop.",
+        "it": "Progetto in solitaria, costruito da un template vuoto con un limite di tempo rigido di circa 7 ore per un esame scolastico. Ogni asset (modelli, materiali, UI, suoni) è stato realizzato da zero, insieme al ciclo di gioco completo."
+      }
+    ],
+    "items": [
+      {
+        "en": "Player controller and footstep/footprint system",
+        "it": "Controller del giocatore e sistema di passi/impronte"
+      },
+      {
+        "en": "Key, stick and gate interaction mechanics",
+        "it": "Meccaniche di interazione con chiavi, bastoni e cancelli"
+      },
+      {
+        "en": "Environmental hint triggers and 3 branching endings",
+        "it": "Trigger di indizi ambientali e 3 finali ramificati"
+      },
+      {
+        "en": "Functional main menu, pause menu and end screens",
+        "it": "Menu principale, menu di pausa e schermate finali funzionanti"
+      },
+      {
+        "en": "Terrain, snow environment and all assets built from scratch",
+        "it": "Terreno, ambiente innevato e tutti gli asset realizzati da zero"
+      }
+    ]
+  },
+  "groups": [
+    {
+      "title": {
+        "en": "Gallery",
+        "it": "Galleria"
+      },
+      "details": [],
+      "compares": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "assets/freezingcold/cabin-fire.webp",
+          "alt": {
+            "en": "Bonfire burning next to a cabin in a snowy pine forest at night",
+            "it": "Falò acceso accanto a una baita in una pineta innevata di notte"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/freezingcold/wander-warning.webp",
+          "alt": {
+            "en": "Snowy forest path with the on-screen line 'I have to be careful not to wander too far away'",
+            "it": "Sentiero in una foresta innevata con la scritta a schermo 'Devo stare attento a non allontanarmi troppo'"
+          }
+        },
+        {
+          "type": "image",
+          "src": "assets/freezingcold/key-hint.webp",
+          "alt": {
+            "en": "Locked gate hint pointing the player toward a cabin across the map",
+            "it": "Indizio del cancello chiuso che indirizza il giocatore verso una baita dall'altra parte della mappa"
+          }
+        },
+        {
+          "type": "video",
+          "src": "assets/freezingcold/locked-gate.mp4",
+          "poster": "assets/posters/freezingcold-locked-gate.webp"
+        },
+        {
+          "type": "video",
+          "src": "assets/freezingcold/green-vision.mp4",
+          "poster": "assets/posters/freezingcold-green-vision.webp"
+        }
+      ],
+      "models": []
+    }
+  ]
+}

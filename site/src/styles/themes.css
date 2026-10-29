@@ -1,0 +1,87 @@
+/* Per-project looks, carried over from the old site: each page re-skins the same PS1 windows. */
+@font-face { font-family: 'Black Ops One'; font-weight: 400; font-display: swap; src: url('/assets/fonts/black-ops-one-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Special Elite'; font-weight: 400; font-display: swap; src: url('/assets/fonts/special-elite-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Nosifer'; font-weight: 400; font-display: swap; src: url('/assets/fonts/nosifer-latin.woff2') format('woff2'); }
+
+body[data-project] .theme { display: none; }
+body[data-project] .proj__title { font-family: var(--font-title, var(--font-pixel)); font-size: calc(clamp(20px, 4vw, 46px) * var(--title-k, 1)); color: var(--title-color, var(--accent)); text-shadow: var(--title-shadow, none); }
+body[data-project] .proj__group > .h2,
+body[data-project] .detail__title { font-family: var(--font-title, var(--font-pixel)); }
+body[data-project] .proj__group > .h2 { font-size: calc(clamp(16px, 2.4vw, 26px) * var(--title-k, 1)); }
+body[data-project] .detail__title { font-size: calc(clamp(12px, 1.5vw, 17px) * var(--title-k, 1)); }
+
+/* Rubber stamp (Normandia's "Operation Overlord" line) */
+.proj__stamp {
+  justify-self: start; margin: 4px 0 6px; padding: 10px 16px; transform: rotate(-2.5deg);
+  border: 3px double var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-family: var(--font-title, var(--font-pixel)); font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ---------- Normandia: field dossier ---------- */
+body[data-project='normandia'] {
+  --bg: #171509; --bg-deep: #100e07; --panel: #221f10; --fg: #ece5cf; --fg-dim: #a89b7c;
+  --edge: #4a4423; --hi: #5a5330; --lo: #0a0903;
+  --accent: #b9402f; --accent-hover: #cf5240; --accent-ink: #f5eedb; --tag: #9aab72;
+  --font-title: 'Black Ops One', var(--font-pixel); --title-k: 1.6; --title-color: #ece5cf; --title-shadow: 3px 3px 0 rgba(185, 64, 47, 0.7);
+  background-image: repeating-linear-gradient(135deg, rgba(196, 168, 102, 0.06) 0 1px, transparent 1px 26px);
+  background-size: auto; background-position: 0 0;
+  font-family: 'Special Elite', var(--font-body);
+}
+body[data-project='normandia'] .proj__lead, body[data-project='normandia'] .detail__lead { font-family: 'Special Elite', var(--font-body); font-weight: 400; }
+body[data-project='normandia'] .proj__role { background: #ece5cf; color: #2a2416; }
+body[data-project='normandia'] .proj__role li { color: #2a2416; }
+body[data-project='normandia'] .proj__role .win__bar { background: #2a2416; color: #ece5cf; }
+body[data-project='normandia'] .proj__role li::before { background: #b9402f; }
+
+/* ---------- The Last Gunner: horror arcade CRT ---------- */
+body[data-project='lastgunner'] {
+  --bg: #060a06; --bg-deep: #030503; --panel: #0c150c; --fg: #d8f5da; --fg-dim: #7fa385;
+  --edge: #1f4023; --hi: #2f5f34; --lo: #010201;
+  --accent: #d8393a; --accent-hover: #ee5556; --accent-ink: #ffffff; --tag: #7ee081;
+  --font-title: var(--font-pixel); --title-k: 0.95; --title-color: #d8f5da; --title-shadow: 3px 3px 0 rgba(216, 57, 58, 0.6);
+  background-image: repeating-linear-gradient(0deg, rgba(126, 224, 129, 0.035) 0 1px, transparent 1px 4px);
+  background-size: auto; background-position: 0 0;
+}
+
+/* Zombie banners on both sides: they squeeze the centre column on wide screens */
+.banner { display: none; }
+@media (min-width: 1100px) {
+  .bannered { display: grid; grid-template-columns: var(--banner-w) minmax(0, 1fr) var(--banner-w); --banner-w: clamp(140px, 16vw, 300px); align-items: start; }
+  .banner { display: block; position: sticky; top: var(--bar); height: calc(100vh - var(--bar)); overflow: hidden; background: #050704; }
+  .banner--left { border-right: 3px solid var(--edge); }
+  .banner--right { border-left: 3px solid var(--edge); }
+  .banner img { width: 100%; height: 100%; object-fit: cover; }
+  .banner--left img { transform: scaleX(-1); }
+  .bannered .section { padding-inline: clamp(18px, 3vw, 44px); }
+  .bannered .proj__intro, .bannered .detail:not(.compare), .bannered .detail--rev { grid-template-columns: 1fr; }
+  .bannered .detail--rev > :first-child { order: 0; }
+  .bannered .proj__role ul { grid-template-columns: 1fr; }
+  .bannered .minimodels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bannered .pager { grid-template-columns: 1fr; }
+  .bannered .pager__link--next { text-align: left; }
+}
+
+/* ---------- Freezing Cold: glacier cave ---------- */
+body[data-project='freezingcold'] {
+  --bg: #081c28; --bg-deep: #04121a; --panel: #0e2a3a; --fg: #eaf7fb; --fg-dim: #86b3c6;
+  --edge: #1d4d63; --hi: #3d86a3; --lo: #02090e;
+  --accent: #4fd6f0; --accent-hover: #8ae6f8; --accent-ink: #04121a; --tag: #bdf3ff;
+  --font-title: 'Nosifer', var(--font-pixel); --title-k: 0.85; --title-color: #bdf3ff; --title-shadow: 0 0 18px rgba(79, 214, 240, 0.55);
+  background-image: repeating-linear-gradient(135deg, rgba(180, 235, 250, 0.05) 0 1px, transparent 1px 26px);
+  background-size: auto; background-position: 0 0;
+}
+
+/* ---------- Black Hole Render: deep space ---------- */
+body[data-project='blackhole'] {
+  --bg: #050509; --bg-deep: #020204; --panel: #101019; --fg: #f1e9dc; --fg-dim: #9a93a6;
+  --edge: #2c2842; --hi: #4d4772; --lo: #010102;
+  --accent: #ff9f43; --accent-hover: #ffbb77; --accent-ink: #1a0f05; --tag: #ffcf94;
+  --title-color: #f1e9dc; --title-shadow: 3px 3px 0 rgba(255, 159, 67, 0.55);
+  background-image: radial-gradient(rgba(241, 233, 220, 0.5) 0.8px, transparent 1px), radial-gradient(rgba(241, 233, 220, 0.25) 0.8px, transparent 1px);
+  background-size: 140px 140px, 87px 87px; background-position: 0 0, 40px 60px;
+}
+
+/* Freezing Cold clips carry baked-in black bars: cover in a 16:9 box shows exactly the picture area */
+body[data-project='freezingcold'] .proj__heroMedia video,
+body[data-project='freezingcold'] .gal__item video,
+body[data-project='freezingcold'] .strip__item video { object-fit: cover; }

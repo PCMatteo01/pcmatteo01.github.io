@@ -1,0 +1,628 @@
+{
+  "slug": "lastgunner",
+  "title": "The Last Gunner: No Way Out",
+  "stamp": {
+    "en": "Warning: horde inbound",
+    "it": "Attenzione: orda in arrivo"
+  },
+  "facts": [
+    {
+      "k": {
+        "en": "Role",
+        "it": "Ruolo"
+      },
+      "v": {
+        "en": "VR lead, audio lead, art director",
+        "it": "Responsabile VR, responsabile audio, art director"
+      }
+    },
+    {
+      "k": {
+        "en": "Team",
+        "it": "Team"
+      },
+      "v": {
+        "en": "5 people",
+        "it": "5 persone"
+      }
+    },
+    {
+      "k": {
+        "en": "Platform",
+        "it": "Piattaforma"
+      },
+      "v": {
+        "en": "PC · Meta Quest",
+        "it": "PC · Meta Quest"
+      }
+    },
+    {
+      "k": {
+        "en": "Engine",
+        "it": "Motore"
+      },
+      "v": {
+        "en": "Unity 6 · FMOD",
+        "it": "Unity 6 · FMOD"
+      }
+    }
+  ],
+  "hero": {
+    "type": "video",
+    "src": "assets/lastgunner/teaser.mp4",
+    "poster": "assets/posters/lastgunner-teaser.webp"
+  },
+  "intro": [
+    {
+      "lead": true,
+      "en": "A wave-based survival shooter for PC and Meta Quest, built in Unity 6 by a five-person team.",
+      "it": "Uno sparatutto survival a ondate per PC e Meta Quest, sviluppato in Unity 6 da un team di cinque persone."
+    },
+    {
+      "lead": false,
+      "en": "Set in an alternate WWII overrun by a gas-mutated infection, the player is welded to the turret of a tank disabled by an anti-tank mine and defends it alongside Anatolij, a young mechanic sent out on supply runs between waves.",
+      "it": "Ambientato in una Seconda guerra mondiale alternativa travolta da un'infezione causata da gas, il giocatore è bloccato alla torretta di un carro armato immobilizzato da una mina anticarro e lo difende insieme ad Anatolij, un giovane meccanico mandato a recuperare rifornimenti tra un'ondata e l'altra."
+    },
+    {
+      "lead": false,
+      "en": "Each run is simple: survive as many waves as possible and climb the local leaderboard on score, kills and round reached.",
+      "it": "Ogni partita è semplice: sopravvivere al maggior numero di ondate possibile e scalare la classifica locale per punteggio, uccisioni e round raggiunto."
+    },
+    {
+      "lead": false,
+      "en": "<strong>Core features:</strong>",
+      "it": "<strong>Caratteristiche principali:</strong>"
+    }
+  ],
+  "role": {
+    "title": {
+      "en": "Role in the project",
+      "it": "Ruolo nel progetto"
+    },
+    "text": [
+      {
+        "en": "Across the five-person team I acted as the project's VR lead, audio lead and art director, modeling and texturing the main assets and handling most of their in-engine integration myself alongside the rest of the team. Day to day, that meant:",
+        "it": "Nel team di cinque persone ho svolto il ruolo di responsabile VR, responsabile audio e art director, modellando e texturizzando gli asset principali e occupandomi personalmente della maggior parte della loro integrazione nel motore, insieme al resto del team. Nel concreto:"
+      }
+    ],
+    "items": [
+      {
+        "en": "Art direction",
+        "it": "Direzione artistica"
+      },
+      {
+        "en": "VR implementation",
+        "it": "Implementazione VR"
+      },
+      {
+        "en": "3D modeling &amp; texturing of principal assets",
+        "it": "Modellazione 3D &amp; texturing degli asset principali"
+      },
+      {
+        "en": "Sound design and Audio system architecture (FMOD)",
+        "it": "Sound design e architettura del sistema audio (FMOD)"
+      },
+      {
+        "en": "Narrative writing",
+        "it": "Scrittura narrativa"
+      }
+    ]
+  },
+  "groups": [
+    {
+      "title": null,
+      "details": [
+        {
+          "title": {
+            "en": "Core loop &amp; turret combat",
+            "it": "Loop principale &amp; combattimento con la torretta"
+          },
+          "lead": {
+            "en": "One shared turret controller drives combat on both PC and VR.",
+            "it": "Un unico controller della torretta gestisce il combattimento sia su PC sia in VR."
+          },
+          "paragraphs": [
+            {
+              "en": "The core loop runs through a single <code>ITurretController</code> interface, so both platforms use the same combat logic without diverging balance. I implemented the VR side.",
+              "it": "Il ciclo principale passa da una sola interfaccia <code>ITurretController</code>, così le due piattaforme usano la stessa logica di combattimento senza bilanciamenti diversi. Ho implementato il lato VR."
+            }
+          ],
+          "bullets": [
+            {
+              "en": "Modeled and textured the turret's machine gun: an MG34 with a double-drum magazine, chosen to justify the historical 75-round capacity without a belt-fed reload in VR.",
+              "it": "Ho modellato e texturizzato la mitragliatrice della torretta: una MG34 con caricatore a doppio tamburo, scelta per giustificare la capacità storica di 75 colpi senza dover gestire in VR una ricarica a nastro."
+            },
+            {
+              "en": "Built the scoring rules, reading hit location off each enemy's hitbox to reward headshots and distance over point-blank body shots.",
+              "it": "Ho realizzato le regole del punteggio, leggendo il punto d'impatto dall'hitbox di ogni nemico per premiare i colpi alla testa e la distanza rispetto ai colpi al corpo a bruciapelo."
+            }
+          ],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/lastgunner/turret-combat.mp4",
+              "poster": "assets/posters/lastgunner-turret-combat.webp"
+            },
+            {
+              "type": "video",
+              "src": "assets/lastgunner/gameplay.mp4",
+              "poster": "assets/posters/lastgunner-gameplay.webp"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "NPC companion &amp; AI",
+            "it": "Compagno NPC &amp; IA"
+          },
+          "lead": {
+            "en": "Anatolij, the mechanic, scavenges on his own and can be rescued when the horde grabs him.",
+            "it": "Anatolij, il meccanico, recupera risorse da solo e può essere salvato quando l'orda lo afferra."
+          },
+          "paragraphs": [],
+          "bullets": [
+            {
+              "en": "He returns automatically or on command and hands what he picked up to the player's inventory.",
+              "it": "Rientra in automatico o su comando e consegna all'inventario del giocatore ciò che ha raccolto."
+            },
+            {
+              "en": "While outside he can be grabbed by the horde, triggering a timed rescue event: the player has to shoot the attacker without hitting him.",
+              "it": "Mentre è fuori può essere afferrato dall'orda, innescando un evento di salvataggio a tempo: il giocatore deve colpire l'aggressore senza colpire lui."
+            },
+            {
+              "en": "I built his defensive role back inside the tank (the automated machine gun he mans at the front of the vehicle) and wrote the five scripted dialogue beats the two characters trade over a run, carrying the narrative without cutscenes.",
+              "it": "Ho realizzato il suo ruolo difensivo dentro il carro (la mitragliatrice automatica che presidia sul davanti del veicolo) e ho scritto i cinque scambi di dialogo che i due personaggi si scambiano durante una partita, per portare avanti la narrazione senza filmati."
+            }
+          ],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/lastgunner/mechanic-loot.mp4",
+              "poster": "assets/posters/lastgunner-mechanic-loot.webp"
+            },
+            {
+              "type": "video",
+              "src": "assets/lastgunner/mechanic-model-showcase.mp4",
+              "poster": "assets/posters/lastgunner-mechanic-model-showcase.webp"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Crafting &amp; survival economy",
+            "it": "Crafting &amp; economia di sopravvivenza"
+          },
+          "lead": {
+            "en": "Scavenged materials are combined into buffs through scriptable-object recipes.",
+            "it": "I materiali recuperati si combinano in potenziamenti tramite ricette basate su scriptable object."
+          },
+          "paragraphs": [],
+          "bullets": [
+            {
+              "en": "Two dropped items make a buff for the mechanic (bandages, plated armor, stimulants) or the turret (ammo, damage rounds, faster reloads), and only while the mechanic is inside the tank.",
+              "it": "Due oggetti raccolti producono un potenziamento per il meccanico (bende, armatura a piastre, stimolanti) o per la torretta (munizioni, proiettili più potenti, ricariche più rapide), e solo quando il meccanico è dentro il carro."
+            },
+            {
+              "en": "A run's score also converts into currency for a progression shop between matches.",
+              "it": "Il punteggio di una partita si converte anche in valuta per un negozio di progressione tra una partita e l'altra."
+            },
+            {
+              "en": "My contribution: the FMOD feedback for crafting actions, mixed into the same bus setup as the rest of the game.",
+              "it": "Il mio contributo: il feedback FMOD per le azioni di crafting, mixato nello stesso sistema di bus del resto del gioco."
+            }
+          ],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/lastgunner/craft-menu.mp4",
+              "poster": "assets/posters/lastgunner-craft-menu.webp"
+            },
+            {
+              "type": "video",
+              "src": "assets/lastgunner/shop.mp4",
+              "poster": "assets/posters/lastgunner-shop.webp"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Menus, settings &amp; localization",
+            "it": "Menu, impostazioni &amp; localizzazione"
+          },
+          "lead": {
+            "en": "A complete menu flow around the game: main menu, shop, per-level leaderboards and settings.",
+            "it": "Un flusso di menu completo attorno al gioco: menu principale, negozio, classifiche per livello e impostazioni."
+          },
+          "paragraphs": [],
+          "bullets": [
+            {
+              "en": "Settings cover display, controls and audio, with separate sliders for master, sound effects, music, environment, zombies and gunshots.",
+              "it": "Le impostazioni coprono display, comandi e audio, con slider separati per volume generale, effetti sonori, musica, ambiente, zombie e spari."
+            },
+            {
+              "en": "The interface can be switched live between Italian and English.",
+              "it": "L'interfaccia si può cambiare dal vivo tra italiano e inglese."
+            },
+            {
+              "en": "Each level has its own leaderboard, ranked by score.",
+              "it": "Ogni livello ha la propria classifica, ordinata per punteggio."
+            }
+          ],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/lastgunner/settings.mp4",
+              "poster": "assets/posters/lastgunner-settings.webp"
+            },
+            {
+              "type": "video",
+              "src": "assets/lastgunner/leaderboard.mp4",
+              "poster": "assets/posters/lastgunner-leaderboard.webp"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Enemies &amp; infinite waves",
+            "it": "Nemici &amp; ondate infinite"
+          },
+          "lead": {
+            "en": "Four enemy archetypes, each built around a distinct combat read.",
+            "it": "Quattro tipi di nemico, ciascuno costruito attorno a un diverso modo di combatterlo."
+          },
+          "paragraphs": [
+            {
+              "en": "I modeled and textured all four, including the Farmer's pitchfork and hat props, and handled most of their in-engine setup myself, while the team built the NavMesh-driven AI and horde-scaling logic on top.",
+              "it": "Li ho modellati e texturizzati tutti e quattro, compresi gli oggetti di scena del Contadino (forcone e cappello), e mi sono occupato di buona parte della loro configurazione nel motore, mentre il team ha costruito sopra l'IA basata su NavMesh e la logica di crescita dell'orda."
+            }
+          ],
+          "bullets": [
+            {
+              "en": "<strong>Farmer:</strong> slow, and its pitchfork punishes the mechanic.",
+              "it": "<strong>Contadino:</strong> lento, e il suo forcone punisce il meccanico."
+            },
+            {
+              "en": "<strong>Crawler:</strong> climbs onto the tank to steal loot before fleeing.",
+              "it": "<strong>Strisciante:</strong> sale sul carro per rubare bottino prima di fuggire."
+            },
+            {
+              "en": "<strong>Bloated:</strong> its pustules detonate into an area attack.",
+              "it": "<strong>Gonfio:</strong> le sue pustole esplodono in un attacco ad area."
+            },
+            {
+              "en": "<strong>Spore:</strong> heals nearby enemies.",
+              "it": "<strong>Spora:</strong> cura i nemici vicini."
+            }
+          ],
+          "media": [
+            {
+              "type": "video",
+              "src": "assets/lastgunner/horde-view.mp4",
+              "poster": "assets/posters/lastgunner-horde-view.webp"
+            },
+            {
+              "type": "video",
+              "src": "assets/lastgunner/zombie-showcase.mp4",
+              "poster": "assets/posters/lastgunner-zombie-showcase.webp"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "VR interaction &amp; audio",
+            "it": "Interazione VR &amp; audio"
+          },
+          "lead": {
+            "en": "The VR implementation and the audio system were mine end to end.",
+            "it": "L'implementazione VR e il sistema audio sono stati interamente opera mia."
+          },
+          "paragraphs": [],
+          "bullets": [
+            {
+              "en": "Built the dual-grab drum magazine with a physically driven reload handle and matching recoil feedback, extending the XR Interaction Toolkit myself to support offset grabs and drop-height adjustment, neither of which it handles out of the box.",
+              "it": "Ho realizzato il caricatore a tamburo con doppia presa, con una maniglia di ricarica guidata dalla fisica e un feedback di rinculo coerente, estendendo io stesso l'XR Interaction Toolkit per supportare prese con offset e regolazione dell'altezza di rilascio, due cose che non gestisce di serie."
+            },
+            {
+              "en": "Architected the whole FMOD setup: independent buses/VCAs for master, ambience and zombie SFX, mixed to keep dozens of simultaneous spatialized enemy and environment sounds legible through the same bus graph.",
+              "it": "Ho progettato l'intero sistema FMOD: bus/VCA indipendenti per volume generale, ambiente ed effetti degli zombie, mixati in modo che decine di suoni spazializzati di nemici e ambiente restino leggibili all'interno dello stesso grafo di bus."
+            }
+          ],
+          "media": []
+        }
+      ],
+      "compares": [],
+      "gallery": [],
+      "models": []
+    },
+    {
+      "title": {
+        "en": "Art direction: before &amp; after",
+        "it": "Direzione artistica: prima &amp; dopo"
+      },
+      "details": [],
+      "compares": [
+        {
+          "title": {
+            "en": "Tank: rebuilt from scratch",
+            "it": "Carro armato: rifatto da zero"
+          },
+          "text": {
+            "en": "The original tank was modeled by a teammate. When I took over art direction and modeling, I rebuilt it from zero.",
+            "it": "Il carro armato originale era stato modellato da un collega. Quando ho preso in mano la direzione artistica e la modellazione, l'ho rifatto da zero."
+          },
+          "facts": [
+            {
+              "en": "Vertex count cut from about 15.5k to about 6.3k (roughly 59% fewer)",
+              "it": "Numero di vertici ridotto da circa 15,5k a circa 6,3k (circa il 59% in meno)"
+            },
+            {
+              "en": "Added detail: cables, pipes, hatches and more",
+              "it": "Dettagli aggiunti: cavi, tubi, botole e altro"
+            },
+            {
+              "en": "Textured to match the rest of the scene",
+              "it": "Texturizzato in linea con il resto della scena"
+            }
+          ],
+          "before": {
+            "type": "image",
+            "src": "assets/lastgunner/art-tank-before.webp",
+            "alt": {
+              "en": "Flat-shaded yellow tank model, the original version",
+              "it": "Modello giallo del carro armato con ombreggiatura piatta, la versione originale"
+            }
+          },
+          "after": {
+            "type": "image",
+            "src": "assets/lastgunner/art-tank-after.webp",
+            "alt": {
+              "en": "The rebuilt tank with textures, cables, pipes and hatches",
+              "it": "Il carro armato rifatto con texture, cavi, tubi e botole"
+            }
+          },
+          "beforeLabel": {
+            "en": "Original (teammate)",
+            "it": "Originale (collega)"
+          },
+          "afterLabel": {
+            "en": "Rebuilt",
+            "it": "Rifatto"
+          },
+          "ratio": "8 / 5"
+        },
+        {
+          "title": {
+            "en": "Farmyard: map and art",
+            "it": "Fattoria: mappa e grafica"
+          },
+          "text": {
+            "en": "The farmyard was my own design, including the layout of the map. I took it from a greybox to the final dressed scene.",
+            "it": "La fattoria è un mio progetto, compreso il layout della mappa. L'ho portata da un greybox alla scena finale completa."
+          },
+          "facts": [
+            {
+              "en": "Layout and level design by me",
+              "it": "Layout e level design miei"
+            },
+            {
+              "en": "All materials share a single texture atlas to keep rendering cost low",
+              "it": "Tutti i materiali condividono un unico atlante di texture per contenere il costo di rendering"
+            },
+            {
+              "en": "Lighting and sky chosen to set the game's mood",
+              "it": "Illuminazione e cielo scelti per dare il tono del gioco"
+            }
+          ],
+          "before": {
+            "type": "image",
+            "src": "assets/lastgunner/art-farm-before.webp",
+            "alt": {
+              "en": "Greybox of the farmyard with flat-colored buildings and a tank",
+              "it": "Greybox della fattoria con edifici a colori piatti e un carro armato"
+            }
+          },
+          "after": {
+            "type": "image",
+            "src": "assets/lastgunner/art-farm-after.webp",
+            "alt": {
+              "en": "The finished farmyard map with textured buildings, trees, fog and a blood-red dusk sky",
+              "it": "La mappa finita della fattoria con edifici texturizzati, alberi, nebbia e un cielo rosso sangue al tramonto"
+            }
+          },
+          "beforeLabel": {
+            "en": "Greybox",
+            "it": "Greybox"
+          },
+          "afterLabel": {
+            "en": "Final",
+            "it": "Finale"
+          },
+          "ratio": "2 / 1"
+        },
+        {
+          "title": {
+            "en": "Anatolij: character",
+            "it": "Anatolij: personaggio"
+          },
+          "text": {
+            "en": "The base model of Anatolij, the mechanic, was made by a teammate. I rebuilt it with all the details and textured it.",
+            "it": "Il modello base di Anatolij, il meccanico, era stato realizzato da un collega. L'ho rifatto aggiungendo tutti i dettagli e l'ho texturizzato."
+          },
+          "facts": [
+            {
+              "en": "Added all the details on top of the base mesh",
+              "it": "Ho aggiunto tutti i dettagli sopra la mesh di base"
+            },
+            {
+              "en": "Full texturing",
+              "it": "Texturing completo"
+            }
+          ],
+          "before": {
+            "type": "image",
+            "src": "assets/lastgunner/art-anatolij-before.webp",
+            "alt": {
+              "en": "Plain grey low-poly base model of the mechanic",
+              "it": "Modello base grigio low-poly del meccanico"
+            }
+          },
+          "after": {
+            "type": "image",
+            "src": "assets/lastgunner/art-anatolij-after.webp",
+            "alt": {
+              "en": "The final mechanic character with gas mask, overalls and boots",
+              "it": "Il personaggio finale del meccanico con maschera antigas, tuta e stivali"
+            }
+          },
+          "beforeLabel": {
+            "en": "Base model (teammate)",
+            "it": "Modello base (collega)"
+          },
+          "afterLabel": {
+            "en": "Final",
+            "it": "Finale"
+          },
+          "ratio": "56 / 69"
+        },
+        {
+          "title": {
+            "en": "Zombie: from base to horde",
+            "it": "Zombie: dal modello base all'orda"
+          },
+          "text": {
+            "en": "The zombie started from the same white base model and became the green zombie that fills the whole project, from gameplay to the promotional art.",
+            "it": "Lo zombie è partito dallo stesso modello base bianco ed è diventato lo zombie verde che riempie tutto il progetto, dal gameplay alla grafica promozionale."
+          },
+          "facts": [
+            {
+              "en": "Modeled and textured by me",
+              "it": "Modellato e texturizzato da me"
+            },
+            {
+              "en": "One reusable asset for the entire horde",
+              "it": "Un unico asset riutilizzabile per l'intera orda"
+            }
+          ],
+          "before": {
+            "type": "image",
+            "src": "assets/lastgunner/art-zombie-before.webp",
+            "alt": {
+              "en": "Plain grey low-poly base model, the starting point for the zombie",
+              "it": "Modello base grigio low-poly, il punto di partenza dello zombie"
+            }
+          },
+          "after": {
+            "type": "image",
+            "src": "assets/lastgunner/art-zombie-after.webp",
+            "alt": {
+              "en": "The final green zombie with torn, bloodied skin, red eyes and a wide grin, arms reaching forward",
+              "it": "Lo zombie verde finale con la pelle lacerata e insanguinata, occhi rossi e un largo ghigno, con le braccia protese in avanti"
+            }
+          },
+          "beforeLabel": {
+            "en": "Base model",
+            "it": "Modello base"
+          },
+          "afterLabel": {
+            "en": "Final",
+            "it": "Finale"
+          },
+          "ratio": "56 / 69"
+        }
+      ],
+      "gallery": [],
+      "models": []
+    },
+    {
+      "title": {
+        "en": "3D models from this project",
+        "it": "Modelli 3D di questo progetto"
+      },
+      "details": [],
+      "compares": [],
+      "gallery": [],
+      "models": [
+        "psx-tiger-1",
+        "zombie"
+      ]
+    },
+    {
+      "title": {
+        "en": "Gallery",
+        "it": "Galleria"
+      },
+      "details": [],
+      "compares": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "assets/lastgunner/canyon-combat.jpg",
+          "alt": {
+            "en": "Turret POV firing on a horde approaching through the canyon level",
+            "it": "Visuale dalla torretta mentre spara contro un'orda che avanza nel livello del canyon"
+          }
+        },
+        {
+          "type": "video",
+          "src": "assets/lastgunner/cimitero-atmosphere.mp4",
+          "poster": "assets/posters/lastgunner-cimitero-atmosphere.webp"
+        },
+        {
+          "type": "image",
+          "src": "assets/lastgunner/mechanic-render.jpg",
+          "alt": {
+            "en": "Clean front-facing render of the mechanic character model",
+            "it": "Render pulito frontale del modello del personaggio del meccanico"
+          },
+          "fit": "contain"
+        },
+        {
+          "type": "video",
+          "src": "assets/lastgunner/horde-gate.mp4",
+          "poster": "assets/posters/lastgunner-horde-gate.webp"
+        },
+        {
+          "type": "image",
+          "src": "assets/lastgunner/cathedral-graveyard.jpg",
+          "alt": {
+            "en": "Lightning striking a cathedral tower over a rain-soaked graveyard",
+            "it": "Un fulmine colpisce il campanile di una cattedrale sopra un cimitero inzuppato di pioggia"
+          }
+        },
+        {
+          "type": "video",
+          "src": "assets/lastgunner/campagna-tank.mp4",
+          "poster": "assets/posters/lastgunner-campagna-tank.webp"
+        },
+        {
+          "type": "image",
+          "src": "assets/lastgunner/tank-render.webp",
+          "alt": {
+            "en": "Clean three-quarter render of the tank model",
+            "it": "Render pulito a tre quarti del modello del carro armato"
+          },
+          "fit": "contain"
+        },
+        {
+          "type": "video",
+          "src": "assets/lastgunner/canyon-vista.mp4",
+          "poster": "assets/posters/lastgunner-canyon-vista.webp"
+        },
+        {
+          "type": "image",
+          "src": "assets/lastgunner/farmyard-dusk.jpg",
+          "alt": {
+            "en": "The tank parked in front of a farmhouse at dusk",
+            "it": "Il carro armato parcheggiato davanti a una fattoria al tramonto"
+          }
+        },
+        {
+          "type": "video",
+          "src": "assets/lastgunner/mechanic-walk.mp4",
+          "poster": "assets/posters/lastgunner-mechanic-walk.webp"
+        }
+      ],
+      "models": []
+    }
+  ]
+}
