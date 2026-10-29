@@ -47,7 +47,28 @@ const filters = [
 
 <Base lang={lang}>
   <section id="top" class="section hero">
-    <video class="hero__video" src="/assets/hero/vr-headset-wireframe.webm" autoplay muted loop playsinline aria-hidden="true"></video>
+    <div class="hero__panel win" aria-hidden="true">
+      <p class="hero__panel-bar">{t.heroSkillsTitle}</p>
+      <dl class="hero__skill-list">
+        <div>
+          <dt>{t.heroSkillEngine}</dt>
+          <dd><span>Unity</span><span class="sbar" style="--p:92"></span></dd>
+          <dd><span>Blender</span><span class="sbar" style="--p:80"></span></dd>
+          <dd><span>Unreal</span><span class="sbar" style="--p:45"></span></dd>
+        </div>
+        <div>
+          <dt>{t.heroSkillCode}</dt>
+          <dd><span>C#</span><span class="sbar" style="--p:90"></span></dd>
+          <dd><span>Python</span><span class="sbar" style="--p:68"></span></dd>
+          <dd><span>C++</span><span class="sbar" style="--p:55"></span></dd>
+        </div>
+        <div>
+          <dt>{t.heroSkillXr}</dt>
+          <dd><span>Meta Quest</span><span class="sbar" style="--p:85"></span></dd>
+          <dd><span>FMOD</span><span class="sbar" style="--p:72"></span></dd>
+        </div>
+      </dl>
+    </div>
     <div class="hero__text">
       <p class="hero__kicker">{t.heroKicker}</p>
       <h1 class="hero__name"><span>Matteo</span><span>Battiston</span></h1>

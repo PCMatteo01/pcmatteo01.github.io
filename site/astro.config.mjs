@@ -4,8 +4,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: replace with the final Cloudflare domain.
-  site: 'https://pcmatteo01.github.io',
+  site: 'https://battiston.dev',
   integrations: [react()],
   i18n: {
     defaultLocale: 'en',

@@ -16,20 +16,18 @@
 /* Dark "console screen" is the default; data-theme="light" switches to a grey-plastic set. */
 :root {
   color-scheme: dark;
-  --bg: #12141f;
-  --bg-deep: #0b0c14;
-  --panel: #1b1e2e;
+  --bg: #120c22;
+  --bg-deep: #0c1148;
+  --panel: #111640;
   --fg: #e9e6d8;
   --fg-dim: #9296b2;
-  --edge: #2b2f45;
-  --hi: #444a73;
-  --lo: #080910;
+  --edge: #1a2870;
+  --hi: #253898;
+  --lo: #050810;
   --accent: #ffd84a;
   --accent-hover: #ffe58a;
   --accent-ink: #12141f;
   --tag: #6fe0e0;
-  --video-filter: none;
-  --video-opacity: 0.55;
 
   --font-pixel: 'Press Start 2P', ui-monospace, monospace;
   --font-body: 'IBM Plex Sans', system-ui, sans-serif;
@@ -41,20 +39,27 @@
 
 :root[data-theme='light'] {
   color-scheme: light;
-  --bg: #cdd1db;
-  --bg-deep: #b7bdcc;
-  --panel: #e8ebf2;
-  --fg: #14161f;
-  --fg-dim: #474c64;
-  --edge: #14161f;
-  --hi: #ffffff;
-  --lo: #8b91a8;
-  --accent: #2438d8;
-  --accent-hover: #3b4fe8;
+  --bg: #fafaf4;
+  --bg-deep: #f5c400;
+  --panel: #ffffff;
+  --fg: #0a0e2a;
+  --fg-dim: #2a3270;
+  --edge: #c49800;
+  --hi: #ffe566;
+  --lo: #a07e00;
+  --accent: #1c2878;
+  --accent-hover: #2e3fa8;
   --accent-ink: #ffffff;
-  --tag: #14161f;
-  --video-filter: brightness(0.45) saturate(2);
-  --video-opacity: 0.6;
+  --tag: #1c2878;
+}
+
+/* In light mode: win box header bars and key accent surfaces stay yellow */
+:root[data-theme='light'] .profile__bar,
+:root[data-theme='light'] .win__bar,
+:root[data-theme='light'] .hero__panel-bar,
+:root[data-theme='light'] .viewer__bar {
+  background: #f5c400;
+  color: #0a0e2a;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -90,13 +95,55 @@ img, video { display: block; max-width: 100%; }
   background: var(--panel);
   box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--lo), 0 0 0 3px var(--edge);
 }
+/* Underground colour scheme: used by the terrain panels and the cave sections, in both themes */
+.win:not(.btn), .hero ~ .section {
+  --panel: #1c1f0a;
+  --bg-deep: #12140a;
+  --fg: #efe9d6;
+  --fg-dim: #c9c2a6;
+  --edge: #4d4532;
+  --hi: #3a3a22;
+  --lo: #0b0c04;
+  --accent: #ffd84a;
+  --accent-hover: #ffe58a;
+  --accent-ink: #1c1f0a;
+  --tag: #b8d13a;
+  color: var(--fg);
+}
+/* Panels are terrain blocks: the pack's 80x70 grass block as a 9-slice (30/16/16/16), drawn at 2x */
+.win:not(.btn) {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 60px 32px 32px;
+  border-image: url('/assets/tiles/hf-block.png') 30 16 16 / 60px 32px 32px repeat;
+  background: var(--panel) padding-box;
+  box-shadow: none;
+  image-rendering: pixelated;
+}
 
 /* ---------- Top bar ---------- */
 .bar {
   position: sticky; top: 0; z-index: 40; height: var(--bar);
-  display: flex; align-items: center; gap: 24px; padding: 0 var(--gutter);
-  background: var(--bg-deep); border-bottom: 3px solid var(--edge);
+  display: flex; align-items: center; gap: 24px;
+  padding: 0 max(var(--gutter), calc(50% - 700px));
+  background-color: var(--bg-deep); border-bottom: 3px solid var(--edge);
   font-family: var(--font-pixel); font-size: 10px; text-transform: uppercase;
+  overflow: hidden;
+}
+.bar::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url('/assets/tiles/hf-bar-clouds.png');
+  background-repeat: repeat-x;
+  background-position: 0 center;
+  background-size: 960px 130px;
+  image-rendering: pixelated;
+  opacity: 0.16;
+  animation: platformClouds 80s linear infinite;
+}
+@keyframes platformClouds {
+  from { background-position: 0 center; }
+  to   { background-position: -960px center; }
 }
 .bar__name { white-space: nowrap; color: var(--accent); }
 .bar__nav { display: flex; gap: clamp(14px, 2.6vw, 34px); margin-left: auto; }
@@ -104,18 +151,44 @@ img, video { display: block; max-width: 100%; }
 .bar__nav a:hover { color: var(--fg); }
 .bar__nav a[aria-current='true'] { color: var(--fg); border-bottom-color: var(--accent); }
 .bar__tools { display: flex; align-items: center; gap: 10px; }
-.lang, .theme {
-  display: grid; place-items: center; min-height: 32px; padding: 0 12px; cursor: pointer;
+.theme {
+  display: grid; place-items: center; min-height: 32px; width: 32px; padding: 0; cursor: pointer;
   background: var(--panel); color: var(--fg); border: 0; font: inherit; text-transform: none;
   box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--lo), 0 0 0 2px var(--edge);
 }
-.theme { width: 32px; padding: 0; }
-.lang { font-family: var(--font-body); font-size: 0.9rem; }
-.lang:hover, .theme:hover { color: var(--accent); }
+.theme:hover { color: var(--accent); }
+.lang-switch {
+  display: flex;
+  box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--lo), 0 0 0 2px var(--edge);
+}
+.lang-switch__opt {
+  display: grid; place-items: center; min-height: 32px; padding: 0 10px;
+  font-family: var(--font-pixel); font-size: 9px; text-transform: uppercase;
+  color: var(--fg-dim); background: var(--panel);
+}
+.lang-switch__opt[aria-current='true'] {
+  background: var(--accent); color: var(--accent-ink); pointer-events: none;
+}
+.lang-switch__opt:hover:not([aria-current='true']) { color: var(--fg); }
 .theme svg { width: 16px; height: 16px; }
 .theme .i-moon { display: none; }
 :root[data-theme='light'] .theme .i-sun { display: none; }
 :root[data-theme='light'] .theme .i-moon { display: block; }
+/* Day version of the forest scene */
+:root[data-theme='light'] .hero {
+  background-color: #93e3e4;
+  background-image:
+    linear-gradient(to right, rgba(200, 242, 242, 0.85) 0, rgba(200, 242, 242, 0.6) 35%, transparent 60%),
+    url('/assets/tiles/hf-ground.png'),
+    url('/assets/tiles/hf-trees-front.png'),
+    url('/assets/tiles/hf-trees-back.png'),
+    url('/assets/tiles/hf-sky.png');
+  background-repeat: no-repeat, repeat-x, repeat-x, repeat-x, repeat-x;
+  background-position: 0 0, center bottom, left 0 bottom 40px, left 300px bottom 70px, center top;
+  background-size: 100% 100%, 192px 60px, 622px 512px, 622px 512px, 1920px 544px;
+}
+/* Clouds slightly more visible on yellow nav in light mode */
+:root[data-theme='light'] .bar::before { opacity: 0.18; }
 
 .section { padding: clamp(64px, 9vw, 120px) var(--gutter); }
 
@@ -128,12 +201,62 @@ img, video { display: block; max-width: 100%; }
 /* ---------- Title screen ---------- */
 .hero {
   position: relative; overflow: hidden; min-height: calc(100vh - var(--bar));
-  display: flex; flex-direction: column; justify-content: center; border-bottom: 3px solid var(--edge);
+  display: flex; flex-direction: column; justify-content: center;
+  /* High Forest scene drawn at 2x: sky, two pine layers, then the grass ground the caves start under. Night by default. */
+  image-rendering: pixelated;
+  background-color: #173260;
+  background-image:
+    url('/assets/tiles/hf-ground.png'),
+    url('/assets/tiles/hf-trees-front-night.png'),
+    url('/assets/tiles/hf-trees-back-night.png'),
+    url('/assets/tiles/stars.svg'),
+    url('/assets/tiles/hf-sky-night.png');
+  background-repeat: repeat-x, repeat-x, repeat-x, repeat, repeat-x;
+  background-position: center bottom, left 0 bottom 40px, left 300px bottom 70px, top, center top;
+  background-size: 192px 60px, 622px 512px, 622px 512px, 440px 400px, 1920px 544px;
 }
-.hero__video {
-  position: absolute; right: -4%; top: 50%; translate: 0 -50%;
-  width: min(54vw, 760px); aspect-ratio: 1; object-fit: contain;
-  opacity: var(--video-opacity); filter: var(--video-filter); pointer-events: none;
+.hero ~ .section {
+  image-rendering: pixelated;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+    url('/assets/tiles/hf-cave.png') 0 0 / 256px 128px repeat,
+    var(--panel);
+}
+.hero + .section {
+  background:
+    url('/assets/tiles/hf-ceiling.png') center top / 192px 48px repeat-x,
+    linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+    url('/assets/tiles/hf-cave.png') 0 0 / 256px 128px repeat,
+    var(--panel);
+}
+
+.hero__panel {
+  position: absolute; right: clamp(40px, 10vw, 120px); top: 50%; translate: 0 -50%;
+  width: min(400px, 40vw); z-index: 1;
+}
+.hero__panel-bar {
+  margin: 0; padding: 8px 12px;
+  background: var(--accent); color: var(--accent-ink);
+  font-family: var(--font-pixel); font-size: 10px; text-transform: uppercase;
+}
+.hero__skill-list { margin: 0; padding: 4px 14px 10px; }
+.hero__skill-list > div { padding: 8px 0; border-bottom: 2px dotted var(--edge); }
+.hero__skill-list > div:last-child { border-bottom: 0; }
+.hero__skill-list dt {
+  font-family: var(--font-pixel); font-size: 9px;
+  color: var(--fg-dim); text-transform: uppercase; margin-bottom: 6px;
+}
+.hero__skill-list dd {
+  display: grid; grid-template-columns: 6.5rem 1fr;
+  align-items: center; gap: 8px; margin: 5px 0; font-size: 0.88rem;
+}
+.sbar {
+  display: block; height: 7px;
+  background: var(--edge); position: relative; overflow: hidden;
+}
+.sbar::after {
+  content: ''; position: absolute; inset: 0;
+  width: calc(var(--p) * 1%); background: var(--accent);
 }
 .hero__text { position: relative; }
 .hero__kicker { margin: 0 0 22px; font-family: var(--font-pixel); font-size: clamp(9px, 1.1vw, 12px); color: var(--tag); text-transform: uppercase; }
@@ -224,7 +347,7 @@ img, video { display: block; max-width: 100%; }
 .viewer iframe { flex: 1; width: 100%; border: 0; margin-top: 6px; background: var(--bg-deep); }
 
 /* ---------- Profile: status window ---------- */
-.about { border-top: 3px solid var(--edge); display: grid; justify-items: center; }
+.about { display: grid; justify-items: center; }
 .profile { width: min(760px, 100%); padding: 6px; }
 .profile__bar { margin: 0; padding: 10px 14px; background: var(--accent); color: var(--accent-ink); font-family: var(--font-pixel); font-weight: 400; font-size: clamp(11px, 1.4vw, 14px); text-transform: uppercase; }
 .profile__rows { margin: 0; padding: 6px 14px 10px; }
@@ -249,7 +372,7 @@ img, video { display: block; max-width: 100%; }
   .bar { flex-wrap: wrap; align-content: center; gap: 4px 12px; font-size: 9px; }
   .bar__name { flex: 1; }
   .bar__nav { order: 3; width: 100%; margin-left: 0; gap: 18px; overflow-x: auto; }
-  .hero__video { right: -26%; width: 100vw; opacity: 0.3; }
+  .hero__panel { display: none; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; }
   .stage { grid-template-columns: 1fr; }
   .stage__desc, .stage__facts { max-width: none; }
@@ -264,4 +387,3 @@ img, video { display: block; max-width: 100%; }
   .menu a:focus-visible::before { animation: none; }
 }
 
-.work--models { border-top: 3px solid var(--edge); }
