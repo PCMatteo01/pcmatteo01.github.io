@@ -141,18 +141,13 @@
           "bullets": [],
           "media": [
             {
+              "type": "diagram",
+              "id": "gmm"
+            },
+            {
               "type": "video",
               "src": "assets/normandia/menu.mp4",
               "poster": "assets/posters/normandia-menu.webp"
-            },
-            {
-              "type": "image",
-              "src": "assets/normandia/gmm-diagram.webp",
-              "alt": {
-                "en": "GameModeManager architecture diagram: platform and mode detection, four player prefab variants, environment and input activation",
-                "it": "Schema dell'architettura di GameModeManager: rilevamento di piattaforma e modalità, quattro varianti di prefab del giocatore, attivazione di ambiente e input"
-              },
-              "fit": "contain"
             }
           ]
         },
@@ -185,7 +180,8 @@
             {
               "type": "video",
               "src": "assets/normandia/belt-reload.mp4",
-              "poster": "assets/posters/normandia-belt-reload.webp"
+              "poster": "assets/posters/normandia-belt-reload.webp",
+              "position": "50% 95%"
             },
             {
               "type": "image",

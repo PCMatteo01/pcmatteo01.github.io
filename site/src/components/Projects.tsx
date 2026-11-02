@@ -1,5 +1,4 @@
-import { useState, type CSSProperties } from 'react';
-import { lazyVideo } from '../lib/lazyVideo';
+import { useEffect, useRef, useState } from 'react';
 
 export interface ProjectItem {
   id: string;
@@ -17,70 +16,95 @@ export interface ProjectItem {
 
 interface Props {
   items: ProjectItem[];
-  filters: { id: string; label: string }[];
-  labels: { filter: string; view: string };
+  labels: { view: string };
 }
 
 const tagLabel: Record<string, string> = { pc: 'PC', xr: 'XR' };
+const coarse = () => typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
-export default function Projects({ items, filters, labels }: Props) {
-  const [active, setActive] = useState('all');
-  const visible = items.filter((p) => active === 'all' || p.platforms.includes(active));
+// A list of games on the left; the one you point at plays on the right.
+export default function Projects({ items, labels }: Props) {
+  const [active, setActive] = useState(0);
+  const videos = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    videos.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        if (!v.getAttribute('src') && v.dataset.src) v.src = v.dataset.src;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [active]);
+
+  const p = items[active];
 
   return (
-    <>
-      <div className="filters" role="group" aria-label={labels.filter}>
-        {filters.map((f) => (
-          <button key={f.id} type="button" className="chip" aria-pressed={active === f.id} onClick={() => setActive(f.id)}>
-            {f.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="stages">
-        {visible.map((p) => (
-          <article className="stage win" key={p.id}>
-            <a className="stage__media" href={p.href} tabIndex={-1} aria-hidden="true">
-              {p.video ? (
-                <video
-                  ref={lazyVideo}
-                  data-src={p.video}
-                  poster={p.poster}
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  style={p.position ? ({ objectPosition: p.position } as CSSProperties) : undefined}
-                />
-              ) : (
-                <img src={p.image} alt="" loading="lazy" width="1600" height="1000" />
-              )}
+    <div className="idx">
+      <ol className="idx__list">
+        {items.map((it, i) => (
+          <li key={it.id}>
+            <a
+              className="idx__row"
+              href={it.href}
+              aria-current={i === active}
+              onMouseEnter={() => setActive(i)}
+              onFocus={() => setActive(i)}
+              onClick={(e) => {
+                if (coarse() && i !== active) {
+                  e.preventDefault();
+                  setActive(i);
+                }
+              }}
+            >
+              <span className="idx__n">{String(i + 1).padStart(2, '0')}</span>
+              <span className="idx__title">{it.title}</span>
+              <span className="idx__tags">{it.platforms.map((pl) => tagLabel[pl]).join(' ')}</span>
             </a>
-            <div className="stage__info">
-              <ul className="stage__tags">
-                {p.platforms.map((pl) => (
-                  <li key={pl}>{tagLabel[pl]}</li>
-                ))}
-              </ul>
-              <h3 className="stage__title">{p.title}</h3>
-              <p className="stage__desc">{p.desc}</p>
-              {p.facts && (
-                <dl className="stage__facts">
-                  {p.facts.map(([k, v]) => (
-                    <div key={k}>
-                      <dt>{k}</dt>
-                      <dd>{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-              <a className="btn-play" href={p.href}>
-                {labels.view}
-              </a>
-            </div>
-          </article>
+          </li>
         ))}
+      </ol>
+
+      <div className="idx__view">
+        <a className="idx__media" href={p.href} tabIndex={-1} aria-hidden="true">
+          {items.map((it, i) =>
+            it.video ? (
+              <video
+                key={it.id}
+                ref={(el) => {
+                  videos.current[i] = el;
+                }}
+                className={i === active ? 'on' : ''}
+                data-src={it.video}
+                poster={it.poster ?? it.image}
+                muted
+                loop
+                playsInline
+                preload="none"
+                style={it.position ? { objectPosition: it.position } : undefined}
+              />
+            ) : (
+              <img key={it.id} className={i === active ? 'on' : ''} src={it.image} alt="" loading="lazy" style={it.position ? { objectPosition: it.position } : undefined} />
+            ),
+          )}
+        </a>
+        <p className="idx__desc">{p.desc}</p>
+        {p.facts && (
+          <dl className="card__meta">
+            {p.facts.map(([k, v]) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <a className="card__link" href={p.href}>
+          {labels.view}
+        </a>
       </div>
-    </>
+    </div>
   );
 }

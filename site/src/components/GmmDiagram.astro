@@ -1,0 +1,95 @@
+---
+// The GameModeManager diagram, drawn in the page so it follows the language and the theme of the site.
+interface Props {
+  lang: 'en' | 'it';
+}
+const { lang } = Astro.props;
+const T = {
+  en: {
+    platform: ['Platform detected', "queries Unity's XR system", 'VR (standalone) / PC'],
+    mode: ['Mode selected', 'chosen by the user in the main menu', 'Action FPS / Tour'],
+    manager: ['GameModeManager', 'Singleton, initialised at high priority'],
+    spawn: 'instantiates the right prefab',
+    parallel: 'activates in parallel',
+    env: ['Environment & Logic Groups', 'activates the relevant scene groups'],
+    input: ['Input system', ['sets up the right event system', 'for the detected platform']],
+    note: 'The platform preference is saved in PlayerPrefs and reused in later scenes.',
+    label: 'GameModeManager diagram: platform and mode detection, four player prefab variants, environment and input activation',
+  },
+  it: {
+    platform: ['Piattaforma rilevata', 'interrogazione del sistema XR di Unity', 'VR (standalone) / PC'],
+    mode: ['Modalità selezionata', "scelta dall'utente nel menu principale", 'Action FPS / Tour'],
+    manager: ['GameModeManager', 'Singleton, inizializzato ad alta priorità'],
+    spawn: 'istanzia il prefab corretto',
+    parallel: 'attiva in parallelo',
+    env: ['Environment & Logic Groups', 'attiva i gruppi di scena pertinenti'],
+    input: ['Sistema di Input', ["configura l'event system corretto", 'per la piattaforma rilevata']],
+    note: 'La preferenza di piattaforma viene salvata in PlayerPrefs e riusata nelle scene successive.',
+    label: "Schema di GameModeManager: rilevamento di piattaforma e modalità, quattro varianti di prefab del giocatore, attivazione di ambiente e input",
+  },
+}[lang];
+const prefabs = [
+  ['VR + FPS', 'Prefab VR_FPS', '(VrPlayerFps)', 'vr'],
+  ['VR + Tour', 'Prefab VR_Tour', '(VR_Player)', 'vr'],
+  ['PC + FPS', 'Prefab PC_FPS', '(PC_FPS_Player)', 'pc'],
+  ['PC + Tour', 'Prefab PC_Tour', '(PC_Player)', 'pc'],
+];
+---
+
+<svg class="diagram" viewBox="0 0 1000 588" role="img" tabindex="0" aria-label={T.label} xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="d-arrow-head" /></marker>
+  </defs>
+
+  <g class="d-box d-top"><rect x="30" y="14" width="440" height="92" rx="9" /><text x="250" y="42" class="d-title">{T.platform[0]}</text><text x="250" y="66" class="d-sub">{T.platform[1]}</text><text x="250" y="90" class="d-strong">{T.platform[2]}</text></g>
+  <g class="d-box d-top"><rect x="530" y="14" width="440" height="92" rx="9" /><text x="750" y="42" class="d-title">{T.mode[0]}</text><text x="750" y="66" class="d-sub">{T.mode[1]}</text><text x="750" y="90" class="d-strong">{T.mode[2]}</text></g>
+
+  <path class="d-line" d="M250 106 L420 150" marker-end="url(#arr)" />
+  <path class="d-line" d="M750 106 L580 150" marker-end="url(#arr)" />
+
+  <g class="d-manager"><rect x="300" y="152" width="400" height="70" rx="9" /><text x="500" y="184" class="d-mtitle">{T.manager[0]}</text><text x="500" y="208" class="d-msub">{T.manager[1]}</text></g>
+
+  <path class="d-line" d="M500 222 L500 252" marker-end="url(#arr)" />
+  <text x="520" y="244" class="d-label">{T.spawn}</text>
+  <path class="d-bus" d="M135 276 H865 M135 276 V292 M385 276 V292 M635 276 V292 M865 276 V292 M500 252 V276" />
+
+  {prefabs.map((p, i) => (
+    <g class={`d-box d-${p[3]}`}>
+      <rect x={20 + i * 245} y="294" width="225" height="92" rx="9" />
+      <text x={132.5 + i * 245} y="324" class="d-title">{p[0]}</text>
+      <text x={132.5 + i * 245} y="350" class="d-sub">{p[1]}</text>
+      <text x={132.5 + i * 245} y="372" class="d-small">{p[2]}</text>
+    </g>
+  ))}
+
+  <path class="d-bus" d="M500 386 V400" />
+  <text x="520" y="406" class="d-label">{T.parallel}</text>
+  <path class="d-bus" d="M280 424 H720 M500 400 V424 M280 424 V438 M720 424 V438" />
+
+  <g class="d-box d-grey"><rect x="30" y="440" width="440" height="84" rx="9" /><text x="250" y="466" class="d-title">{T.env[0]}</text><text x="250" y="488" class="d-sub">FPS_ENV · GENERIC_ENV · TOUR_GAMEMODE</text><text x="250" y="508" class="d-sub">FPS_GAMEMODE_VR · FPS_GAMEMODE_PC</text></g>
+  <g class="d-box d-grey"><rect x="530" y="440" width="440" height="84" rx="9" /><text x="750" y="466" class="d-title">{T.input[0]}</text><text x="750" y="488" class="d-sub">VR_EventSysETC · PC_EventSysETC</text><text x="750" y="508" class="d-small">{T.input[1][0]} {T.input[1][1]}</text></g>
+
+  <text x="500" y="552" class="d-note">{T.note}</text>
+</svg>
+
+<style>
+  .diagram { display: block; width: 100%; height: 100%; background: #0f1115; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  .diagram text { text-anchor: middle; fill: #d5d8de; }
+  .d-box rect { fill: #181a1d; stroke: #3a3f4a; stroke-width: 1.6; }
+  .d-vr rect { fill: #10201d; stroke: #3fa48f; }
+  .d-pc rect { fill: #241b0e; stroke: #c78a2c; }
+  .d-vr .d-sub, .d-vr .d-title { fill: #8fd8c6; }
+  .d-pc .d-sub, .d-pc .d-title { fill: #f0c27a; }
+  .d-manager rect { fill: #ff7a3d; stroke: #ff7a3d; }
+  .d-mtitle { font-size: 26px; font-weight: 600; fill: #14110d !important; }
+  .d-msub { font-size: 17px; fill: #3a2414 !important; }
+  .d-title { font-size: 23px; font-weight: 600; fill: #eceae4; }
+  .d-sub { font-size: 18px; fill: #9a9ea8; }
+  .d-strong { font-size: 19px; font-weight: 600; fill: #eceae4; }
+  .d-small { font-size: 15px; fill: #7e838e !important; }
+  .d-label { font-size: 17px; text-anchor: start !important; fill: #9a9ea8 !important; }
+  .d-note { font-size: 17px; font-style: italic; fill: #7e838e !important; }
+  .d-line { fill: none; stroke: #8a8f9a; stroke-width: 2; }
+  .d-bus { fill: none; stroke: #4a505c; stroke-width: 2; }
+  .d-arrow-head { fill: #8a8f9a; }
+</style>

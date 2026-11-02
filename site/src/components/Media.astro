@@ -1,7 +1,10 @@
 ---
+import GmmDiagram from './GmmDiagram.astro';
+
 interface Item {
-  type: 'video' | 'image';
-  src: string;
+  type: 'video' | 'image' | 'diagram';
+  src?: string;
+  id?: string;
   poster?: string;
   alt?: { en: string; it: string };
   position?: string;
@@ -18,7 +21,9 @@ const style = [item.position && `object-position:${item.position}`, item.fit && 
 ---
 
 {
-  item.type === 'video' ? (
+  item.type === 'diagram' ? (
+    <GmmDiagram lang={lang} />
+  ) : item.type === 'video' ? (
     <video data-src={`/${item.src}`} poster={item.poster ? `/${item.poster}` : undefined} muted loop playsinline preload="none" aria-hidden="true" style={style || undefined} />
   ) : (
     <img src={`/${item.src}`} alt={item.alt?.[lang] ?? ''} loading="lazy" style={style || undefined} />

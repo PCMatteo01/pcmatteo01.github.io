@@ -2,8 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Projects, { type ProjectItem } from './Projects.tsx';
 import Models, { type ModelTile } from './Models.tsx';
-import { models, projects } from '../data/content';
+import { links, models, projects } from '../data/content';
 import { localePath, useT, type Lang } from '../i18n/ui';
+import { highlight } from '../lib/highlight';
 
 interface Props {
   lang: Lang;
@@ -38,156 +39,121 @@ const modelTiles: ModelTile[] = models.map((m) => ({
   sketchfab: m.sketchfab,
 }));
 
-const filters = [
-  { id: 'all', label: t.filterAll },
-  { id: 'pc', label: 'PC' },
-  { id: 'xr', label: 'XR' },
-];
+// "Under the hood": a real gameplay clip with a simplified excerpt of its code behind a draggable handle
+const hoodCode = `public interface ITurretController
+{
+    bool TryConsumeAmmo();
+    void Recoil();
+}
 
-// Parallax scenes: `s` is how far a layer drifts per scrolled pixel (and per mouse move); far layers barely move.
-const sky = { n: 8, s: 0.02, aspect: 32 / 9 };
-const plains = [7, 6, 5, 4, 3, 2, 1].map((n, i) => ({ n, s: [0.04, 0.07, 0.1, 0.14, 0.19, 0.25, 0.32][i], aspect: 16 / 9 }));
-// only the four farthest layers: the closer silhouettes added clutter behind the content
-const cave = [7, 6, 5, 4].map((n, i) => ({ n, s: [0.02, 0.05, 0.08, 0.12][i], aspect: 16 / 9 }));
-const mountainScale = 0.68; // size of the mountains, forest and grass relative to the hero; the sky always fills it
-const day = (set: string, n: number) => `url(/assets/parallax/${set}/${n}.png)`;
-const night = (set: string, n: number) => `url(/assets/parallax/${set}/${n}${set === 'plains' ? '-night' : ''}.png?v=2)`;
+void ProcessFiring()
+{
+    if (!isFiring) return;
+    if (Time.time - lastFireTime < 60 / fireRate) return;
+
+    if (controller.TryConsumeAmmo())
+    {
+        lastFireTime = Time.time;
+        float spread = isAiming ? adsSpread : hipFireSpread;
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+        Quaternion rot = barrel.rotation * Quaternion.Euler(x, y, 0f);
+
+        Instantiate(bulletPrefab, barrel.position, rot);
+        controller.Recoil();
+    }
+}`;
+const hoodHtml = highlight(hoodCode);
+
+// The reel: clips from existing projects, replace with a real showreel when there is one
+const reel = [
+  { src: '/assets/lastgunner/campagna-tank.mp4', poster: '/assets/posters/lastgunner-campagna-tank.webp', title: 'The Last Gunner' },
+  { src: '/assets/lastgunner/canyon-vista.mp4', poster: '/assets/posters/lastgunner-canyon-vista.webp', title: 'The Last Gunner' },
+  { src: '/assets/lastgunner/cimitero-atmosphere.mp4', poster: '/assets/posters/lastgunner-cimitero-atmosphere.webp', title: 'The Last Gunner' },
+];
+// name, the one-line job description and "now" are already in the lead text above the list
+const aboutRows = t.card.rows.filter((_, i) => i !== 0 && i !== 2 && i !== 3);
 ---
 
 <Base lang={lang}>
-  <section id="top" class="section hero">
-    <div class="par par--hero" data-par="hero" aria-hidden="true">
-      <div class="par__layer" data-s={sky.s} data-aspect={sky.aspect} style={`--day:${day('plains', sky.n)};--night:${night('plains', sky.n)}`}></div>
-      <div class="par__layer par__layer--stars" data-s="0.01" data-tilew="440"></div>
-      {plains.map((l) => <div class="par__layer" data-s={l.s} data-aspect={l.aspect} style={`--k:${mountainScale};--day:${day('plains', l.n)};--night:${night('plains', l.n)}`}></div>)}
-    </div>
-    <div class="hero__panel win" aria-hidden="true">
-      <p class="hero__panel-bar">{t.heroSkillsTitle}</p>
-      <dl class="hero__skill-list">
-        <div>
-          <dt>{t.heroSkillEngine}</dt>
-          <dd><span>Unity</span><span class="sbar" style="--p:92"></span></dd>
-          <dd><span>Blender</span><span class="sbar" style="--p:80"></span></dd>
-          <dd><span>Unreal</span><span class="sbar" style="--p:45"></span></dd>
-        </div>
-        <div>
-          <dt>{t.heroSkillCode}</dt>
-          <dd><span>C#</span><span class="sbar" style="--p:90"></span></dd>
-          <dd><span>Python</span><span class="sbar" style="--p:68"></span></dd>
-          <dd><span>C++</span><span class="sbar" style="--p:55"></span></dd>
-        </div>
-        <div>
-          <dt>{t.heroSkillXr}</dt>
-          <dd><span>Meta Quest</span><span class="sbar" style="--p:85"></span></dd>
-          <dd><span>FMOD</span><span class="sbar" style="--p:72"></span></dd>
-        </div>
-      </dl>
-    </div>
-    <div class="hero__text">
-      <p class="hero__kicker">{t.heroKicker}</p>
-      <h1 class="hero__name"><span>Matteo</span><span>Battiston</span></h1>
-      <p class="hero__tagline">{t.heroLine1} {t.heroLine2}</p>
+  <section id="top" class="hero2">
+    <div class="hero2__copy">
+      <p class="kicker">{t.heroKicker}</p>
+      <h1 class="hero__title">{t.heroLine1} {t.heroLine2}</h1>
       <p class="hero__sub">{t.heroDesc}</p>
-      <ul class="menu" data-menu>
-        <li><a href="#projects">{t.nav.projects}</a></li>
-        <li><a href="#models">{t.nav.models}</a></li>
-        <li><a href="#about">{t.nav.about}</a></li>
-        <li><a href="#contact">{t.nav.contact}</a></li>
-      </ul>
-      <p class="hero__hint">{t.menuHint}</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#projects">{t.ctaWork}</a>
+        <a class="btn" href={`mailto:${links.email}`}>{t.ctaContact}</a>
+      </div>
+    </div>
+    <div class="uwin hood-win">
+    <div class="uwin__bar"><span class="uwin__tab">Game</span><span class="uwin__tab uwin__tab--off">Script</span><span class="uwin__btns" aria-hidden="true"><i>_</i><i>&#9633;</i><i>&#215;</i></span></div>
+    <figure class="hood" data-hood style="--pos:92%">
+      <video class="hood__media" src="/assets/lastgunner/campagna-tank.mp4" poster="/assets/posters/lastgunner-campagna-tank.webp" muted loop playsinline aria-hidden="true"></video>
+      <div class="hood__code"><pre><code set:html={hoodHtml}></code></pre></div>
+      <span class="hood__tag hood__tag--l">{t.hoodCode}</span>
+      <span class="hood__tag hood__tag--r">{t.hoodGame}</span>
+      <div class="hood__handle" aria-hidden="true"><span>{t.hoodHint}</span></div>
+      <input class="hood__range" type="range" min="0" max="100" value="92" aria-label={`${t.hoodCode} / ${t.hoodGame}`} />
+      <figcaption>{t.hoodCaption}</figcaption>
+    </figure>
     </div>
   </section>
 
-  <div class="cave" data-cave>
-    <div class="par par--cave" data-par="cave" aria-hidden="true">
-      {cave.map((l) => <div class="par__layer" data-s={l.s} data-aspect={l.aspect} style={`--day:${day('cave', l.n)};--night:${night('cave', l.n)}`}></div>)}
-      <div class="par__shade"></div>
+  <section id="projects" class="section">
+    <div class="section__head">
+      <p class="section__label">01</p>
+      <h2 class="h2">{t.projectsTitle}</h2>
     </div>
-  <section id="projects" class="section work">
-    <h2 class="h2">{t.projectsTitle}</h2>
-    <Projects client:load items={gameItems} filters={filters} labels={{ filter: t.filterLabel, view: t.viewProject }} />
+    <Projects client:load items={gameItems} labels={{ view: t.viewProject }} />
   </section>
 
-  <section id="models" class="section work work--models">
-    <h2 class="h2">{t.modelsTitle}</h2>
+  <hr class="rule" />
+
+  <section id="models" class="section">
+    <div class="section__head">
+      <p class="section__label">02</p>
+      <h2 class="h2">{t.modelsTitle}</h2>
+    </div>
     <Models client:load items={[...renders, ...modelTiles]} labels={{ view: t.viewProject, viewModel: t.viewModel, close: t.closeViewer }} />
     <p class="note">{t.gridNote}</p>
   </section>
 
-  <section id="about" class="section about">
-    <article class="profile win">
-      <h2 class="profile__bar">{t.card.title}</h2>
-      <dl class="profile__rows">
-        {t.card.rows.map(([k, v]) => (
-          <div><dt>{k}</dt><dd>{v}</dd></div>
-        ))}
+  <hr class="rule" />
+
+  <section id="about" class="section">
+    <div class="section__head">
+      <p class="section__label">03</p>
+      <h2 class="h2">{t.aboutTitle}</h2>
+    </div>
+    <div class="about">
+      <p class="about__lead">{t.aboutLead} <span>{t.aboutNow}</span></p>
+      <dl class="facts">
+        {aboutRows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
       </dl>
-    </article>
+    </div>
   </section>
-  </div>
 
   <script>
-    // Parallax: every layer drifts sideways with the scroll and, smoothed, against the mouse; far layers move least.
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const scenes = [...document.querySelectorAll<HTMLElement>('[data-par]')].map((el) => ({
-      el,
-      hero: el.dataset.par === 'hero',
-      layers: [...el.querySelectorAll<HTMLElement>('.par__layer')].map((l) => ({
-        el: l,
-        s: Number(l.dataset.s),
-        aspect: Number(l.dataset.aspect ?? 16 / 9),
-        tileW: l.dataset.tilew ? Number(l.dataset.tilew) : 0,
-      })),
-    }));
-    let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
-    function frame() {
-      raf = 0;
-      cx += (tx - cx) * 0.08;
-      cy += (ty - cy) * 0.08;
-      const sy = reduce ? 0 : window.scrollY;
-      for (const sc of scenes) {
-        const box = sc.el.getBoundingClientRect();
-        if (box.bottom < -60 || box.top > innerHeight + 60) continue;
-        const h = sc.el.clientHeight, w = sc.el.clientWidth;
-        for (const l of sc.layers) {
-          const tileW = l.tileW || l.el.offsetHeight * l.aspect;
-          const width = Math.ceil(w + tileW);
-          if (l.el.dataset.w !== String(width)) { l.el.style.width = width + 'px'; l.el.dataset.w = String(width); }
-          const x = (((sy * l.s * 1.4 + cx * l.s * 260) % tileW) + tileW) % tileW;
-          const dy = (sc.hero ? sy * (0.32 - l.s) : 0) + cy * l.s * 40;
-          l.el.style.transform = `translate3d(${-x}px, ${dy}px, 0)`;
-        }
-        if (!sc.hero) {
-          const wrap = sc.el.parentElement!.getBoundingClientRect();
-          const p = Math.min(1, Math.max(0, -wrap.top / Math.max(1, wrap.height - innerHeight)));
-          sc.el.style.setProperty('--p', p.toFixed(3));
-        }
+    // The handle starts at the right edge, then slides to the middle once, so it is clear that it can be moved.
+    const hood = document.querySelector<HTMLElement>('[data-hood]');
+    const range = hood?.querySelector<HTMLInputElement>('.hood__range');
+    if (hood && range) {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) hood.querySelector('video')?.play().catch(() => {});
+      const set = (v: number) => { range.value = String(v); hood.style.setProperty('--pos', `${v}%`); };
+      let touched = false;
+      range.addEventListener('input', () => { touched = true; set(Number(range.value)); });
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) set(50);
+      else {
+        const t0 = performance.now() + 700;
+        const step = (now: number) => {
+          if (touched) return;
+          const k = Math.min(1, Math.max(0, (now - t0) / 1400));
+          set(92 - 42 * (1 - Math.pow(1 - k, 3)));
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
       }
-      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) tick();
     }
-    function tick() { if (!raf) raf = requestAnimationFrame(frame); }
-    addEventListener('scroll', tick, { passive: true });
-    addEventListener('resize', tick);
-    if (!reduce) {
-      addEventListener('pointermove', (e) => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; tick(); }, { passive: true });
-    }
-    tick();
-  </script>
-  <script>
-    // Title-screen menu: arrow keys move between entries, like a console menu.
-    const items = [...document.querySelectorAll<HTMLAnchorElement>('[data-menu] a')];
-    items.forEach((a, i) => {
-      a.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown') items[(i + 1) % items.length].focus();
-        else if (e.key === 'ArrowUp') items[(i - 1 + items.length) % items.length].focus();
-        else return;
-        e.preventDefault();
-      });
-      a.addEventListener('mouseenter', () => a.focus({ preventScroll: true }));
-    });
-    // Focus the first entry once the title has typed itself out, so arrow keys work right away.
-    window.setTimeout(() => {
-      if (document.activeElement === document.body) items[0]?.focus({ preventScroll: true });
-    }, 1500);
   </script>
 </Base>
