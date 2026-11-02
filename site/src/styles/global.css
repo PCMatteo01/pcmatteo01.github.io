@@ -276,10 +276,6 @@ button { font: inherit; color: inherit; }
   .idx__view { position: static; order: -1; }
 }
 
-/* the renders come with flat backgrounds of every colour: calm them down until they are hovered */
-.cell__media img { filter: saturate(0.5) brightness(0.88); transition: transform 0.5s ease, filter 0.3s; }
-.cell:hover .cell__media img, .cell:focus-visible .cell__media img { filter: none; }
-
 /* ================= Editor chrome: square, bevelled panels in the manner of a 2000s desktop application ================= */
 :root {
   --u-font: Tahoma, 'Segoe UI', Verdana, sans-serif;
