@@ -29,24 +29,67 @@ const hrefOf = (s: string) => localePath(lang, `/projects/${s}/`);
 const tagLabel: Record<string, string> = { pc: 'PC', xr: 'XR', '3d': '3D' };
 const lead = data.intro.find((p: any) => p.lead) ?? data.intro[0];
 const rest = data.intro.filter((p: any) => p !== lead);
+// Pixelated key art behind the top of the page, with a weather effect over it (only some projects have one yet)
+const scenes: Record<string, { art: string; fx: 'snow' | 'fog' | 'embers' | 'stars'; b: number }> = {
+  freezingcold: { art: '/assets/scenes/freezingcold.png', fx: 'snow', b: 0.6 },
+  normandia: { art: '/assets/scenes/normandia.png', fx: 'fog', b: 0.9 },
+  lastgunner: { art: '/assets/scenes/lastgunner.png', fx: 'embers', b: 1 },
+  blackhole: { art: '/assets/scenes/blackhole.png', fx: 'stars', b: 0.5 },
+};
+const scene = scenes[slug];
+// Long pages chain more pictures behind the content: each one fades in over the one above while that one is still solid,
+// so the page colour never shows between two pictures. The list repeats; whatever falls below the page is clipped.
+const bandArt: Record<string, string[]> = {
+  lastgunner: ['canyon-combat', 'cathedral-graveyard', 'farmyard-dusk', 'teaser', 'campagna-tank', 'horde-view'],
+  normandia: ['boat-sunset', 'tank-sunset', 'plane-wreck', 'soldiers'],
+  freezingcold: ['cabin-fire', 'locked-gate'],
+  blackhole: ['angle-3', 'angle-4'],
+};
+const FIRST_H = 960, BAND_H = 1500, FADE = 300;
+const SHOW_BANDS = false; // switched off for now: the top scene is enough, set to true to bring the chain back
+const list = SHOW_BANDS ? bandArt[slug] ?? [] : [];
+const bands = list.length ? Array.from({ length: 10 }, (_, i) => ({ art: `/assets/scenes/${slug}-${list[i % list.length]}.png`, y: FIRST_H - FADE + i * (BAND_H - FADE) })) : [];
 const groupModels = (g: any) => g.models.map((s: string) => models.find((m) => m.id === s)).filter(Boolean);
 ---
 
 <Base lang={lang} path={`/projects/${slug}/`} project={slug}>
-  <div class={slug === 'lastgunner' ? 'bannered' : undefined}>
-  {slug === 'lastgunner' && <aside class="banner banner--left" aria-hidden="true"><img src="/assets/lastgunner/horde-banner-red.webp" alt="" draggable="false" /></aside>}
   <article class="proj">
+    {
+      (scene || bands.length > 0) && (
+        <div class="proj__bg" aria-hidden="true">
+          {
+            scene && (
+              <div class={`scene${bands.length > 0 ? ' scene--chained' : ''}`} data-fx={scene.fx}>
+                <div class="scene__art" style={`background-image:url(${scene.art});--b:${scene.b}`} />
+                <canvas class="scene__fx" />
+              </div>
+            )
+          }
+          {
+            bands.map((b) => (
+              <div class="scene scene--band" style={`top:${b.y}px`}>
+                <div class="scene__art" style={`background-image:url(${b.art});--b:${slug === 'blackhole' ? 0.45 : 0.6}`} />
+              </div>
+            ))
+          }
+        </div>
+      )
+    }
     <section class="section proj__head">
-      <a class="back" href={`${home}#${isRender ? 'models' : 'projects'}`}>{isRender ? t.backModels : t.backProjects}</a>
-      <ul class="proj__tags">{meta.platforms.map((p) => <li>{tagLabel[p]}</li>)}</ul>
-      <h1 class="proj__title">{meta.title}</h1>
-      {data.stamp && <p class="proj__stamp" set:html={L(data.stamp)} />}
+      <div class="proj__top">
+        <div class="proj__heading">
+          <a class="back" href={`${home}#${isRender ? 'models' : 'projects'}`}>{isRender ? t.backModels : t.backProjects}</a>
+          <ul class="proj__tags">{meta.platforms.map((p) => <li>{tagLabel[p]}</li>)}</ul>
+          <h1 class="proj__title">{meta.title}</h1>
+          {data.stamp && <p class="proj__stamp" set:html={L(data.stamp)} />}
+        </div>
 
-      <div class="proj__hero win">
-        <div class="proj__heroMedia"><Media item={data.hero} lang={lang} /></div>
-      </div>
+        <div class="proj__side">
+          <div class={`proj__hero win${data.hero.type === 'image' ? ' proj__hero--image' : ''}`}>
+            <div class="proj__heroMedia"><Media item={data.hero} lang={lang} /></div>
+          </div>
+        </div>
 
-      <div class="proj__intro">
         <div class="proj__text">
           <p class="proj__lead" set:html={L(lead)} />
           {
@@ -57,19 +100,7 @@ const groupModels = (g: any) => g.models.map((s: string) => models.find((m) => m
             )
           }
         </div>
-        <dl class="proj__facts win">
-          {data.facts.map((f: any) => <div><dt set:html={L(f.k)} /><dd set:html={L(f.v)} /></div>)}
-        </dl>
       </div>
-
-      {
-        data.role && (
-          <div class="proj__role win">
-            <h2 class="win__bar" set:html={L(data.role.title)} />
-            <ul>{data.role.items.map((i: any) => <li set:html={L(i)} />)}</ul>
-          </div>
-        )
-      }
     </section>
 
     {
@@ -160,12 +191,12 @@ const groupModels = (g: any) => g.models.map((s: string) => models.find((m) => m
 
     <dialog class="lightbox"><button type="button" class="viewer__close" data-close>{t.closeViewer}</button><img alt="" /></dialog>
   </article>
-  {slug === 'lastgunner' && <aside class="banner banner--right" aria-hidden="true"><img src="/assets/lastgunner/horde-banner-red.webp" alt="" draggable="false" /></aside>}
-  </div>
 
   <script>
     import { lazyVideos } from '../lib/lazyVideo';
+    import { sceneFx } from '../lib/sceneFx';
     lazyVideos();
+    sceneFx();
 
     // Carousels: arrows and dots over a scroll-snap track
     document.querySelectorAll<HTMLElement>('[data-gal]').forEach((gal) => {

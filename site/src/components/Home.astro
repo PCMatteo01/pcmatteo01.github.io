@@ -43,10 +43,24 @@ const filters = [
   { id: 'pc', label: 'PC' },
   { id: 'xr', label: 'XR' },
 ];
+
+// Parallax scenes: `s` is how far a layer drifts per scrolled pixel (and per mouse move); far layers barely move.
+const sky = { n: 8, s: 0.02, aspect: 32 / 9 };
+const plains = [7, 6, 5, 4, 3, 2, 1].map((n, i) => ({ n, s: [0.04, 0.07, 0.1, 0.14, 0.19, 0.25, 0.32][i], aspect: 16 / 9 }));
+// only the four farthest layers: the closer silhouettes added clutter behind the content
+const cave = [7, 6, 5, 4].map((n, i) => ({ n, s: [0.02, 0.05, 0.08, 0.12][i], aspect: 16 / 9 }));
+const mountainScale = 0.68; // size of the mountains, forest and grass relative to the hero; the sky always fills it
+const day = (set: string, n: number) => `url(/assets/parallax/${set}/${n}.png)`;
+const night = (set: string, n: number) => `url(/assets/parallax/${set}/${n}${set === 'plains' ? '-night' : ''}.png?v=2)`;
 ---
 
 <Base lang={lang}>
   <section id="top" class="section hero">
+    <div class="par par--hero" data-par="hero" aria-hidden="true">
+      <div class="par__layer" data-s={sky.s} data-aspect={sky.aspect} style={`--day:${day('plains', sky.n)};--night:${night('plains', sky.n)}`}></div>
+      <div class="par__layer par__layer--stars" data-s="0.01" data-tilew="440"></div>
+      {plains.map((l) => <div class="par__layer" data-s={l.s} data-aspect={l.aspect} style={`--k:${mountainScale};--day:${day('plains', l.n)};--night:${night('plains', l.n)}`}></div>)}
+    </div>
     <div class="hero__panel win" aria-hidden="true">
       <p class="hero__panel-bar">{t.heroSkillsTitle}</p>
       <dl class="hero__skill-list">
@@ -84,6 +98,11 @@ const filters = [
     </div>
   </section>
 
+  <div class="cave" data-cave>
+    <div class="par par--cave" data-par="cave" aria-hidden="true">
+      {cave.map((l) => <div class="par__layer" data-s={l.s} data-aspect={l.aspect} style={`--day:${day('cave', l.n)};--night:${night('cave', l.n)}`}></div>)}
+      <div class="par__shade"></div>
+    </div>
   <section id="projects" class="section work">
     <h2 class="h2">{t.projectsTitle}</h2>
     <Projects client:load items={gameItems} filters={filters} labels={{ filter: t.filterLabel, view: t.viewProject }} />
@@ -105,7 +124,55 @@ const filters = [
       </dl>
     </article>
   </section>
+  </div>
 
+  <script>
+    // Parallax: every layer drifts sideways with the scroll and, smoothed, against the mouse; far layers move least.
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scenes = [...document.querySelectorAll<HTMLElement>('[data-par]')].map((el) => ({
+      el,
+      hero: el.dataset.par === 'hero',
+      layers: [...el.querySelectorAll<HTMLElement>('.par__layer')].map((l) => ({
+        el: l,
+        s: Number(l.dataset.s),
+        aspect: Number(l.dataset.aspect ?? 16 / 9),
+        tileW: l.dataset.tilew ? Number(l.dataset.tilew) : 0,
+      })),
+    }));
+    let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+    function frame() {
+      raf = 0;
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      const sy = reduce ? 0 : window.scrollY;
+      for (const sc of scenes) {
+        const box = sc.el.getBoundingClientRect();
+        if (box.bottom < -60 || box.top > innerHeight + 60) continue;
+        const h = sc.el.clientHeight, w = sc.el.clientWidth;
+        for (const l of sc.layers) {
+          const tileW = l.tileW || l.el.offsetHeight * l.aspect;
+          const width = Math.ceil(w + tileW);
+          if (l.el.dataset.w !== String(width)) { l.el.style.width = width + 'px'; l.el.dataset.w = String(width); }
+          const x = (((sy * l.s * 1.4 + cx * l.s * 260) % tileW) + tileW) % tileW;
+          const dy = (sc.hero ? sy * (0.32 - l.s) : 0) + cy * l.s * 40;
+          l.el.style.transform = `translate3d(${-x}px, ${dy}px, 0)`;
+        }
+        if (!sc.hero) {
+          const wrap = sc.el.parentElement!.getBoundingClientRect();
+          const p = Math.min(1, Math.max(0, -wrap.top / Math.max(1, wrap.height - innerHeight)));
+          sc.el.style.setProperty('--p', p.toFixed(3));
+        }
+      }
+      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) tick();
+    }
+    function tick() { if (!raf) raf = requestAnimationFrame(frame); }
+    addEventListener('scroll', tick, { passive: true });
+    addEventListener('resize', tick);
+    if (!reduce) {
+      addEventListener('pointermove', (e) => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; tick(); }, { passive: true });
+    }
+    tick();
+  </script>
   <script>
     // Title-screen menu: arrow keys move between entries, like a console menu.
     const items = [...document.querySelectorAll<HTMLAnchorElement>('[data-menu] a')];

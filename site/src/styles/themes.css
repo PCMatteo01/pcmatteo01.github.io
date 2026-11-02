@@ -19,12 +19,11 @@ body[data-project] .detail__title { font-size: calc(clamp(12px, 1.5vw, 17px) * v
 
 /* ---------- Normandia: field dossier ---------- */
 body[data-project='normandia'] {
-  --bg: #171509; --bg-deep: #100e07; --panel: #221f10; --fg: #ece5cf; --fg-dim: #a89b7c;
-  --edge: #4a4423; --hi: #5a5330; --lo: #0a0903;
-  --accent: #b9402f; --accent-hover: #cf5240; --accent-ink: #f5eedb; --tag: #9aab72;
+  /* a dark beach-sand page colour instead of near-black, so the dark panels stand out against it */
+  --bg: #6c5a38; --bg-deep: #463b24; --panel: #241f12; --fg: #f3ecd6; --fg-dim: #d8cba6;
+  --edge: #6b5c36; --hi: #7a6a3e; --lo: #14100a;
+  --accent: #b9402f; --accent-hover: #cf5240; --accent-ink: #f5eedb; --tag: #c8d99a;
   --font-title: 'Black Ops One', var(--font-pixel); --title-k: 1.6; --title-color: #ece5cf; --title-shadow: 3px 3px 0 rgba(185, 64, 47, 0.7);
-  background-image: repeating-linear-gradient(135deg, rgba(196, 168, 102, 0.06) 0 1px, transparent 1px 26px);
-  background-size: auto; background-position: 0 0;
   font-family: 'Special Elite', var(--font-body);
 }
 body[data-project='normandia'] .proj__lead, body[data-project='normandia'] .detail__lead { font-family: 'Special Elite', var(--font-body); font-weight: 400; }
@@ -43,31 +42,12 @@ body[data-project='lastgunner'] {
   background-size: auto; background-position: 0 0;
 }
 
-/* Zombie banners on both sides: they squeeze the centre column on wide screens */
-.banner { display: none; }
-@media (min-width: 1100px) {
-  .bannered { display: grid; grid-template-columns: var(--banner-w) minmax(0, 1fr) var(--banner-w); --banner-w: clamp(140px, 16vw, 300px); align-items: start; }
-  .banner { display: block; position: sticky; top: var(--bar); height: calc(100vh - var(--bar)); overflow: hidden; background: #050704; }
-  .banner--left { border-right: 3px solid var(--edge); }
-  .banner--right { border-left: 3px solid var(--edge); }
-  .banner img { width: 100%; height: 100%; object-fit: cover; }
-  .banner--left img { transform: scaleX(-1); }
-  .bannered .section { padding-inline: clamp(18px, 3vw, 44px); }
-  .bannered .proj__intro, .bannered .detail:not(.compare), .bannered .detail--rev { grid-template-columns: 1fr; }
-  .bannered .detail--rev > :first-child { order: 0; }
-  .bannered .proj__role ul { grid-template-columns: 1fr; }
-  .bannered .minimodels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .bannered .pager__link--next { text-align: left; }
-}
-
 /* ---------- Freezing Cold: glacier cave ---------- */
 body[data-project='freezingcold'] {
   --bg: #081c28; --bg-deep: #04121a; --panel: #0e2a3a; --fg: #eaf7fb; --fg-dim: #86b3c6;
   --edge: #1d4d63; --hi: #3d86a3; --lo: #02090e;
   --accent: #4fd6f0; --accent-hover: #8ae6f8; --accent-ink: #04121a; --tag: #bdf3ff;
   --font-title: 'Nosifer', var(--font-pixel); --title-k: 0.85; --title-color: #bdf3ff; --title-shadow: 0 0 18px rgba(79, 214, 240, 0.55);
-  background-image: repeating-linear-gradient(135deg, rgba(180, 235, 250, 0.05) 0 1px, transparent 1px 26px);
-  background-size: auto; background-position: 0 0;
 }
 
 /* ---------- Black Hole Render: deep space ---------- */
@@ -84,3 +64,12 @@ body[data-project='blackhole'] {
 body[data-project='freezingcold'] .proj__heroMedia video,
 body[data-project='freezingcold'] .gal__item video,
 body[data-project='freezingcold'] .strip__item video { object-fit: cover; }
+
+/* Project pages keep their own colours and use the same wooden frame as the cave on the home page */
+body[data-project] .win:not(.btn) {
+  border-width: 16px;
+  border-image: url('/assets/tiles/frame-wood-dark.png') 8 / 16px round;
+  background: var(--panel) padding-box;
+  box-shadow: none;
+  image-rendering: pixelated;
+}
