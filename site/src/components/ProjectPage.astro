@@ -30,8 +30,8 @@ const tagLabel: Record<string, string> = { pc: 'PC', xr: 'XR', '3d': '3D' };
 const lead = data.intro.find((p: any) => p.lead) ?? data.intro[0];
 const rest = data.intro.filter((p: any) => p !== lead);
 // Pixelated key art behind the top of the page, with a weather effect over it (only some projects have one yet)
-const scenes: Record<string, { art: string; fx: 'snow' | 'fog' | 'embers' | 'stars'; b: number }> = {
-  freezingcold: { art: '/assets/scenes/freezingcold.png', fx: 'snow', b: 0.6 },
+const scenes: Record<string, { art: string; fx: 'snow' | 'fog' | 'embers' | 'stars'; b: number; y?: number }> = {
+  freezingcold: { art: '/assets/scenes/freezingcold.png', fx: 'snow', b: 1, y: 230 },
   normandia: { art: '/assets/scenes/normandia.png', fx: 'fog', b: 0.9 },
   lastgunner: { art: '/assets/scenes/lastgunner.png', fx: 'embers', b: 1 },
   blackhole: { art: '/assets/scenes/blackhole.png', fx: 'stars', b: 0.5 },
@@ -60,7 +60,7 @@ const groupModels = (g: any) => g.models.map((s: string) => models.find((m) => m
           {
             scene && (
               <div class={`scene${bands.length > 0 ? ' scene--chained' : ''}`} data-fx={scene.fx}>
-                <div class="scene__art" style={`background-image:url(${scene.art});--b:${scene.b}`} />
+                <div class="scene__art" style={`background-image:url(${scene.art});--b:${scene.b};--y:${scene.y ?? 0}px`} />
                 <canvas class="scene__fx" />
               </div>
             )

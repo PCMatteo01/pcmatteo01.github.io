@@ -99,11 +99,13 @@
   /* the whole scene dissolves into the page colour at the bottom, so there is no edge where the picture ends */
   -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%); mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
 }
-.scene__art { position: absolute; inset: 0; background-size: cover; background-position: center 55%; image-rendering: pixelated; filter: brightness(var(--b, 0.6)) saturate(1.1); }
+/* --y pushes the picture down; its top edge dissolves into the page colour */
+.scene__art { position: absolute; inset: var(--y, 0px) 0 calc(var(--y, 0px) * -1) 0; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--y, 0px) + 40px)); mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--y, 0px) + 40px)); background-size: cover; background-position: center 55%; image-rendering: pixelated; filter: brightness(var(--b, 0.6)) saturate(1.1); }
 .scene__fx { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
 .scene::after {
   content: ''; position: absolute; inset: 0;
   background:
+    linear-gradient(to right, color-mix(in srgb, var(--bg-deep) 62%, transparent), color-mix(in srgb, var(--bg-deep) 22%, transparent) 45%, transparent 70%),
     linear-gradient(to bottom, color-mix(in srgb, var(--bg-deep) 55%, transparent), transparent 40%),
     repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px);
 }
@@ -144,3 +146,12 @@
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 300px); mask-image: linear-gradient(to bottom, transparent 0, #000 300px);
 }
 .scene--band::after { background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px); }
+
+/* The text in the header sits on the picture: a thin dark halo keeps it readable */
+.proj__text, .proj__heading .back, .proj__heading .proj__tags { text-shadow: 0 1px 3px var(--bg-deep), 0 0 8px color-mix(in srgb, var(--bg-deep) 80%, transparent); }
+
+/* Header paragraphs sit on the picture: full-strength text colour and a stronger dark halo instead of the muted one */
+.proj__text .copy p { color: var(--fg); }
+.proj__text, .proj__heading .back, .proj__heading .proj__tags {
+  text-shadow: 0 1px 2px var(--bg-deep), 0 0 6px var(--bg-deep), 0 0 14px color-mix(in srgb, var(--bg-deep) 85%, transparent);
+}

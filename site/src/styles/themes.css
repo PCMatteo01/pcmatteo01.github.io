@@ -20,7 +20,7 @@ body[data-project] .detail__title { font-size: calc(clamp(12px, 1.5vw, 17px) * v
 /* ---------- Normandia: field dossier ---------- */
 body[data-project='normandia'] {
   /* a dark beach-sand page colour instead of near-black, so the dark panels stand out against it */
-  --bg: #6c5a38; --bg-deep: #463b24; --panel: #241f12; --fg: #f3ecd6; --fg-dim: #d8cba6;
+  --bg: #43392a; --bg-deep: #2d261b; --panel: #241f12; --fg: #f3ecd6; --fg-dim: #d8cba6;
   --edge: #6b5c36; --hi: #7a6a3e; --lo: #14100a;
   --accent: #b9402f; --accent-hover: #cf5240; --accent-ink: #f5eedb; --tag: #c8d99a;
   --font-title: 'Black Ops One', var(--font-pixel); --title-k: 1.6; --title-color: #ece5cf; --title-shadow: 3px 3px 0 rgba(185, 64, 47, 0.7);
@@ -73,3 +73,36 @@ body[data-project] .win:not(.btn) {
   box-shadow: none;
   image-rendering: pixelated;
 }
+
+/* Project pages: only pictures and videos get a frame; the text sits free on the page colour, with bigger headings and more air */
+body[data-project] .detail.win:not(.btn) {
+  border: 0; border-image: none; background: none; padding: 0;
+  gap: clamp(24px, 4vw, 56px); align-items: center;
+}
+body[data-project] .detail__text { padding: 0; gap: 14px; }
+body[data-project] .gal,
+body[data-project] .ba {
+  border: 16px solid transparent;
+  border-image: url('/assets/tiles/frame-wood-dark.png') 8 / 16px round;
+  background: var(--panel) padding-box;
+  image-rendering: pixelated;
+}
+body[data-project] .detail__title { font-size: calc(clamp(15px, 2vw, 24px) * var(--title-k, 1)); line-height: 1.4; }
+body[data-project] .detail__lead { font-size: 1.2rem; }
+body[data-project] .proj__group { gap: clamp(44px, 6vw, 88px); }
+body[data-project] .proj__group > .h2 { font-size: calc(clamp(20px, 3vw, 34px) * var(--title-k, 1)); }
+/* The red accent of Normandia only reads on its dark panels, so on the sand it goes cream */
+body[data-project='normandia'] .detail__title { color: var(--fg); text-shadow: 2px 2px 0 rgba(185, 64, 47, 0.75); }
+body[data-project='normandia'] .bullets li::before { background: var(--tag); }
+body[data-project='normandia'] .proj__group > .h2 { color: var(--fg); text-shadow: 3px 3px 0 rgba(185, 64, 47, 0.75); }
+
+/* Normandia's pictures have black bars baked in (like Freezing Cold's clips): cover in a 16:9 box shows exactly the picture area */
+body[data-project='normandia'] .gal__item img,
+body[data-project='normandia'] .gal__item video,
+body[data-project='normandia'] .strip__item img,
+body[data-project='normandia'] .strip__item video { object-fit: cover; }
+
+/* Lighter scan lines on pictures: they were dulling every colour */
+body[data-project] .proj__heroMedia::after,
+body[data-project] .gal__item::after,
+body[data-project] .strip__item::after { background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 3px); }
