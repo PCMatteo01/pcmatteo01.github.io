@@ -1,0 +1,5 @@
+# local tool state and editor settings
+.wrangler/
+.claude/
+.vscode/
+site/.vscode/
