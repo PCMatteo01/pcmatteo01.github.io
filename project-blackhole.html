@@ -1,111 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<title>Black Hole Render - Matteo Battiston</title>
-<meta name="description" content="Standalone Blender render exploring gravitational lensing with shaders and geometry nodes.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Black Hole Render - Matteo Battiston">
-<meta property="og:description" content="Standalone Blender render exploring gravitational lensing with shaders and geometry nodes.">
-<meta property="og:image" content="https://pcmatteo01.github.io/assets/blackhole/hero.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<script>(function(){try{var q=new URLSearchParams(location.search).get('lang');var l=(q==='it'||q==='en')?q:localStorage.getItem('lang');if(l!=='it'&&l!=='en'){l=((navigator.language||'').toLowerCase().indexOf('it')===0)?'it':'en'}if(l==='it'){document.documentElement.classList.add('i18n-pending');setTimeout(function(){document.documentElement.classList.remove('i18n-pending')},2500)}}catch(e){}})();</script>
-<link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matteo Battiston: moved to battiston.dev</title>
+<meta http-equiv="refresh" content="0; url=https://battiston.dev/projects/blackhole/">
+<link rel="canonical" href="https://battiston.dev/projects/blackhole/">
 </head>
-<body class="project-page">
-
-<div class="layout">
-
-  <!-- ============ SIDEBAR (same as index.html) ============ -->
-  <aside class="sidebar crosshair">
-    <div>
-      <div class="sidebar__id">LAYER 00 - IDENTITY</div>
-      <h1 class="sidebar__name">Matteo<br>Battiston</h1>
-      <div class="sidebar__contact">
-        <a href="https://www.linkedin.com/in/battiston-matteo/" target="_blank" rel="noopener">in/ battiston-matteo</a>
-        <a href="https://sketchfab.com/battistonmatteo" target="_blank" rel="noopener">sketchfab/ battistonmatteo</a>
-        <a href="https://github.com/PCMatteo01" target="_blank" rel="noopener">github/ PCMatteo01</a>
-        <a href="mailto:battistonmatteo.work@gmail.com">battistonmatteo.work@gmail.com</a>
-      </div>
-    </div>
-
-    <nav class="sidebar__nav">
-      <a href="index.html#home">Home</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#projects">Projects</a>
-      <a href="index.html#models" class="is-active">3D Models</a>
-    </nav>
-
-    <div class="sidebar__footer">Unity Developer<br>PC · VR · 3D<br><a href="privacy.html">Privacy</a></div>
-  </aside>
-
-  <!-- ============ MAIN ============ -->
-  <main class="main">
-
-    <section class="section project-topbar">
-      <a href="index.html#models" class="project-topbar__back">← Back to 3D models</a>
-      <a href="mailto:battistonmatteo.work@gmail.com" class="project-topbar__contact">Matteo Battiston · Contact</a>
-    </section>
-
-    <section class="section" style="margin-bottom: 48px;">
-      <div class="project-intro">
-        <div class="project-intro__text">
-        <div class="eyebrow">LAYER 05 - PROJECT DETAIL</div>
-        <h2 class="section__title">Black Hole Render</h2>
-        <div class="project-card__tags" style="margin-bottom: 24px;">
-          <span>3D</span>
-        </div>
-        <dl class="project-facts">
-          <div><dt>Type</dt><dd>Personal study</dd></div>
-          <div><dt>Tool</dt><dd>Blender</dd></div>
-          <div><dt>Techniques</dt><dd>Shaders, geometry nodes</dd></div>
-        </dl>
-        </div>
-        <div class="project-intro__media">
-      <div class="project-card__media crosshair" style="aspect-ratio: 16/9;">
-          <video src="assets/blackhole/hero.mp4" data-autoplay muted loop playsinline preload="none" poster="assets/posters/blackhole-hero.webp"></video>
-        </div>
-        </div>
-      </div>
-      <div class="project-intro__body">
-        <p style="max-width: 900px;">
-          A standalone render exploring gravitational lensing, in the style of Interstellar's Gargantua.
-          Built entirely in Blender using shaders and geometry nodes, following
-          <a href="https://www.youtube.com/watch?v=XWv1Ajc3tfU" target="_blank" rel="noopener">this tutorial</a>.
-          It isn't tied to any project or game, just a personal study of the effect.
-        </p>
-      </div>
-    </section>
-
-    <section class="section" style="margin-bottom: 48px;">
-      <h3 style="font-family: var(--font-mono); font-size: 20px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--cyan-tag); margin: 0 0 20px;">Gallery</h3>
-      <div class="scroll-gallery">
-        <div class="scroll-gallery__item project-card__media crosshair" style="aspect-ratio: 4/3;">
-          <img src="assets/blackhole/angle-3.jpg" alt="Extreme close-up of the event horizon against a blue-tinted backdrop">
-        </div>
-        <div class="scroll-gallery__item project-card__media crosshair" style="aspect-ratio: 4/3;">
-          <img src="assets/blackhole/angle-4.jpg" alt="Wide angle of the black hole set against a pink nebula backdrop">
-        </div>
-        <div class="scroll-gallery__item project-card__media crosshair" style="aspect-ratio: 4/3;">
-          <img src="assets/blackhole/geometry-nodes.webp" alt="Geometry nodes setup driving the lensing sphere mesh in Blender" style="object-fit: contain;">
-        </div>
-        <div class="scroll-gallery__item project-card__media crosshair" style="aspect-ratio: 4/3;">
-          <img src="assets/blackhole/shader-nodes.webp" alt="Shader node graph driving the accretion disk material in Blender" style="object-fit: contain;">
-        </div>
-      </div>
-    </section>
-
-    <nav class="project-pager" aria-label="Other projects">
-      <a href="project-lastgunner.html" class="project-pager__link"><span>← Previous project</span>The Last Gunner: No Way Out</a>
-      <a href="project-freezingcold.html" class="project-pager__link is-next"><span>Next project →</span>Freezing Cold</a>
-    </nav>
-  </main>
-</div>
-
-<script src="js/i18n.js"></script>
-<script src="js/main.js"></script>
+<body>
+<p>This site has moved to <a href="https://battiston.dev/projects/blackhole/">battiston.dev</a>.</p>
+<p>Questo sito si è spostato su <a href="https://battiston.dev/projects/blackhole/">battiston.dev</a>.</p>
 </body>
 </html>
