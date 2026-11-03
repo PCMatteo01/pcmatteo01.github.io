@@ -34,6 +34,7 @@ const lead = data.intro.find((p: any) => p.lead) ?? data.intro[0];
 const rest = data.intro.filter((p: any) => p !== lead);
 // the role is told in its own box below, so it is not repeated in the strip
 const facts = (data.facts ?? []).filter((f: any) => !(data.role && f.k.en === 'Role'));
+const SHOW_ART_SPECS = false;
 const hasArtPage = slug === 'lastgunner';
 const isArt = part === 'art';
 const isArtGroup = (g: any) => g.compares.length > 0 || g.models.length > 0;
@@ -196,7 +197,8 @@ const groupModels = (g: any) => g.models.map((s: string) => models.find((m) => m
       ))
     }
 
-    {isArt && (
+    {/* shortcut: specs and pipeline are placeholders, hidden until the real numbers are written; set to true to show them */}
+    {isArt && SHOW_ART_SPECS && (
       <section class="proj__group">
         <h2 class="h2">{t.artSpecs}</h2>
         <dl class="specs">
